@@ -1,4 +1,4 @@
-# Psychrometrics.jl
+# Psychrometrics.jl (under construction, first version soon)
 
 <!-- [![DOI](https://zenodo.org/badge/543161141.svg)](https://doi.org/10.5281/zenodo.xxxxxxx)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
