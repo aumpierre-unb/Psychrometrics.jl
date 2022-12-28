@@ -1,296 +1,206 @@
-# PonchonSavarit.jl
+# Psychrometrics.jl
 
-[![DOI](https://zenodo.org/badge/543161141.svg)](https://doi.org/10.5281/zenodo.xxxxxxx)
+<!-- [![DOI](https://zenodo.org/badge/543161141.svg)](https://doi.org/10.5281/zenodo.xxxxxxx)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![version](https://juliahub.com/docs/PonchonSavarit/version.svg)](https://juliahub.com/ui/Packages/PonchonSavarit/WauTj)
+[![version](https://juliahub.com/docs/Psychrometrics/version.svg)](https://juliahub.com/ui/Packages/Psychrometrics/WauTj) -->
 
-## Installing and Loading PonchonSavarit
+## Installing and Loading Psychrometrics
 
-PonchonSavarit can be installed and loaded either
+Psychrometrics can be installed and loaded either
 from the JuliaHub repository (last released version) or from the
-[maintainer's repository](https://github.com/aumpierre-unb/PonchonSavarit.jl).
+[maintainer's repository](https://github.com/aumpierre-unb/Psychrometrics.jl).
 
 ### Last Released Version
 
-The last version of PonchonSavarit can be installed from JuliaHub repository:
+The last version of Psychrometrics can be installed from JuliaHub repository:
 
 ```julia
 using Pkg
-Pkg.add("PonchonSavarit")
-using PonchonSavarit
+Pkg.add("Psychrometrics")
+using Psychrometrics
 ```
 
-If PonchonSavarit is already installed, it can be updated:
+If Psychrometrics is already installed, it can be updated:
 
 ```julia
 using Pkg
-Pkg.update("PonchonSavarit")
-using PonchonSavarit
+Pkg.update("Psychrometrics")
+using Psychrometrics
 ```
 
 ### Pre-Release (Under Construction) Version
 
-The pre-release (under construction) version of PonchonSavarit
-can be installed from the [maintainer's repository](https://github.com/aumpierre-unb/PonchonSavarit.jl).
+The pre-release (under construction) version of Psychrometrics
+can be installed from the [maintainer's repository](https://github.com/aumpierre-unb/Psychrometrics.jl).
 
 ```julia
 using Pkg
-Pkg.add(path="https://github.com/aumpierre-unb/PonchonSavarit.jl")
-using PonchonSavarit
+Pkg.add(path="https://github.com/aumpierre-unb/Psychrometrics.jl")
+using Psychrometrics
 ```
 
-<!--
-## Citation of PonchonSavarit
+<!-- ## Citation of Psychrometrics
 
 You can cite all versions (both released and pre-released), by using
 [10.5281/zenodo.xxxxxxxxxx](https://doi.org/10.5281/zenodo.xxxxxxxxxx).
 
 This DOI represents all versions, and will always resolve to the latest one.
 
-For citation of the last released version of PonchonSavarit, please check CITATION file at the [maintainer's repository](https://github.com/aumpierre-unb/PonchonSavarit.jl).
--->
+For citation of the last released version of Psychrometrics, please check CITATION file at the [maintainer's repository](https://github.com/aumpierre-unb/Psychrometrics.jl). -->
 
-## The PonchonSavarit Module for Julia
+## The Psychrometrics Module for Julia
 
-PonchonSavarit provides the following functions:
+Psychrometrics provides the following functions:
 
-- stages
-- refmin
-- qR2S
+- psychro
+- humidity
+- satpress
+- enthalpy
+- volume
+- adiabSat
 
-### stages
+### psychro
 
-stages omputes the number of theoretical stages
-of a distillation column using the Ponchon-Savarit method given
-a x-h-y-H matrix of the liquid and the vapor fractions
-at equilibrium and their enthalpies,
-the vector of the fractions of the products and the feed,
-the feed quality, and the reflux ratio at the top of the column.
-If feed is a saturated liquid, feed quality q = 1,
-feed quality is reset to q = 1 - 1e-10.
+psychro computes
+
+- the dry bulb temperature,
+- the wet bulb temperature,
+- the dew point temperature,
+- the adiabatic saturation temperature,
+- the humidity,
+- the saturation humidity,
+- the saturation humidity at wet bulb temperature,
+- the adiabatic saturation humidity,
+- the specific enthalpy,
+- the specific volume,
+- the relative humidity,
+- the water vapor pressure,
+- the saturation pressure, the saturation
+- pressure at wet bulb temperature and
+- the density
+
+given any two of the following input arguments:
+
+- the dry bulb temperature,
+- the wet bulb temperature,
+- the dew point temperature,
+- the humidity,
+- the specific enthalpy,
+- the specific volume or
+- the relative humidity,
+
+except the combination of humidity and dew point temperature, which are not independent. If a different number of inputs is given, execution will be aborted. If *fig* = *true* is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
+
 By default, stages plots a schematic diagram of the solution, fig = true.
+
 If fig = false is given, no plot is shown.
 
-If feed is a saturated liquid, feed quality q = 1,
-feed quality is reset to q = 1 - 1e-10.
-
-By default, stages plots a schematic diagram of the solution, fig = true.
-
-If fig = false is given, no plot is shown.
-
 **Syntax:**
 
 ```dotnetcli
-N=stages(y,X,q,R[,updown[,fig]])
+# e.g.
+# given Tdry and W
+[;Tdry=x,W=y]=...
+psychro(x,:,:,y,:,:,:[,fig=false])
 ```
 
 **Examples:**
 
-Compute the number of theoretical stages
-of a distillation column for oxygen and nitrogen
-from the bottom to the top of the column given
-a matrix that relates the liquid and the vapor fractions
-and their enthalpies at equilibrium,
-the composition of the distillate is 88 %,
-the composition of the feed is 46 %,
-the composition of the column's bottom product is 11 %,
-the feed quality is 54 %, and
-the reflux ratio at the top of the column is
-70 % higher that the minimum reflux ratio:
+Compute the dry bulb temperature, the wet bulb temperature, the adiabatic saturation temperature, the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the dew point temperature is 22 °C and the relative humidity is 29 %.
+
+This call computes the answer and omits the psychrometric chart:
 
 ```julia
-data=[0.    0.420 0.    1.840; # enthalpy in kcal/mmol
-      0.075 0.418 0.193 1.755;
-      0.17  0.415 0.359 1.685;
-      0.275 0.410 0.50  1.625;
-      0.39  0.398 0.63  1.570;
-      0.525 0.378 0.75  1.515;
-      0.685 0.349 0.86  1.465;
-      0.88  0.300 0.955 1.425;
-      0.1   0.263 1.    1.405];
-x=[0.88 0.46 0.11];
-q=0.54;
-r=refmin(data,x,q);
-R=1.70*r;
-N=stages(data,x,q,R,false,false)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=...
+psychro(Tdew=22+273.15,W=.29,fig=true)
 ```
 
-Compute the number of theoretical stages
-of a distillation column for acetone and methanol
-from the bottom to the top of the column given
-a matrix that relates the liquid and the vapor fractions
-and their enthalpies at equilibrium,
-the composition of the distillate is 88 %,
-the composition of the feed is 46 %,
-the composition of the column's bottom product is 11 %,
-the feed is a saturated liquid, and
-the reflux ratio at the top of the column is
-70 % higher that the minimum reflux ratio:
+Compute the dry bulb temperature, the wet bulb temperature,
+the dew point temperature, adiabatic saturation temperature, the dew point temperature the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the specific enthalpy is 79.5 kJ/kg of dry air and the relative humidity is 29 % and plot a graphical representation of the answer ina a schematic psychrometric chart.
 
 ```julia
-data=[2.5e-4 3.235 1.675e-3 20.720; # enthalpy in kcal/mol
-      0.05   2.666 0.267    20.520;
-      0.1    2.527 0.418    20.340;
-      0.15   2.459 0.517    20.160;
-      0.2    2.422 0.579    20.000;
-      0.3    2.384 0.665    19.640;
-      0.4    2.358 0.729    19.310;
-      0.5    2.338 0.779    18.970;
-      0.6    2.320 0.825    18.650;
-      0.7    2.302 0.87     18.310;
-      0.8    2.284 0.915    17.980;
-      0.9    2.266 0.958    17.680;
-      1.     2.250 1.       17.390];
-x=[0.88 0.46 0.11];
-q=1;
-r=refmin(data,x,q);
-R=1.70*r;
-N=stages(data,x,q,R,false,false)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=...
+psychro(h=79.5e3,W=.29,fig=true)
 ```
 
-### refmin
+8.5 cubic meters of humid air at dry bulb temperature of 293 K and wet bulb temperature of 288 K is subjected to two cycles of heating to 323 K followed by adiabatic saturation. Compute the energy and water vapor demands. Assume the amount of dry air is constant.
 
-refmin computes the minimum value of the reflux ratio
-of a distillation column using the Ponchón-Savarit method given
-a x-h-y-H matrix of the liquid and the vapor fractions
-at equilibrium and their enthalpies,
-the vector of the fractions of the products and the feed, and
-the feed quality.
+```julia
+# The initial condition is
+Tdry1=293;
+Twet1=288;
+[~,~,~,~,W1,~,~,~,h1,v1]=psychro(Tdry=Tdry1,Twet=Twet1,fig=true)
 
-If feed is a saturated liquid, feed quality q = 1,
-feed quality is reset to q = 1 - 1e-10.
+# The thermodynamic state after the first heating is
+Tdry2=323;
+W2=W1;
+[~,~,~,~,~,~,~,~,h2,v2]=psychro(Tdry2,:,:,W2,:,:,:,true)
+
+# The thermodynamic state the after first adiabatic saturation is
+h3=h2;
+[Tdry3,W3]=adiabSat(h3)
+[~,~,~,~,~,~,~,~,~,v3]=psychro(Tdry=Tdry3,W=W3)
+
+# The thermodynamic state after the second heating is
+Tdry4=323;
+W4=W3;
+[~,~,~,~,~,~,~,~,h4,v4]=psychro(Tdry=Tdry4,W=W4,fig=true)
+
+# The thermodynamic state the after second adiabatic saturation is
+h5=h4;
+[Tdry5,W5]=adiabSat(h5)
+[~,~,~,~,~,~,~,~,~,v5]=psychro(Tdry=Tdry5,W=W5)
+
+# The energy and water vapor demands are
+(h5-h1)*(8.5/v1) # demand of energy
+(W5-W1)*(8.5/v1) # demand of water vapor
+```
+
+### humidity
+
+humidity computes
+the humidity of humid air in given the water vapor pressure and the total pressure. By default, total pressure is assumed to be the atmospheric pressure at sea level.
 
 **Syntax:**
 
 ```dotnetcli
-r=refmin(y,X,q)
+W=humidity(pw[,p=101325])
 ```
 
 **Examples:**
 
-Compute the minimum value of the reflux ratio
-of a distillation column for oxygen and nitrogen given
-a matrix that relates the liquid and the vapor fractions
-and their enthalpies at equilibrium,
-the composition of the distillate is 88 %,
-the composition of the feed is 46 %,
-the feed quality is 54 %:
+Compute the humidity of humid air at atmospheric pressure given water vapor pressure is 1 kPa.
 
 ```julia
-data=[0.    0.420 0.    1.840; # enthalpy in kcal/mmol
-      0.075 0.418 0.193 1.755;
-      0.17  0.415 0.359 1.685;
-      0.275 0.410 0.50  1.625;
-      0.39  0.398 0.63  1.570;
-      0.525 0.378 0.75  1.515;
-      0.685 0.349 0.86  1.465;
-      0.88  0.300 0.955 1.425;
-      0.1   0.263 1.    1.405];
-x=[0.88 0.46];
-q=0.54;
-r=refmin(data,x,q)
+pw=1e3; # water vapor pressure in Pa
+W=humidity(pw) # saturation pressure in kg/kg of dry air
 ```
 
-Compute the minimum value of the reflux ratio
-of a distillation column for acetone and methanol given
-a matrix that relates the liquid and the vapor fractions
-and their enthalpies at equilibrium,
-the composition of the distillate is 88 %,
-the composition of the feed is 46 %,
-the feed is a saturated liquid:
+### satPress
 
-```julia
-data=[2.5e-4 3.235 1.675e-3 20.720; # enthalpy in kcal/mol
-      0.05   2.666 0.267    20.520;
-      0.1    2.527 0.418    20.340;
-      0.15   2.459 0.517    20.160;
-      0.2    2.422 0.579    20.000;
-      0.3    2.384 0.665    19.640;
-      0.4    2.358 0.729    19.310;
-      0.5    2.338 0.779    18.970;
-      0.6    2.320 0.825    18.650;
-      0.7    2.302 0.87     18.310;
-      0.8    2.284 0.915    17.980;
-      0.9    2.266 0.958    17.680;
-      1.     2.250 1.       17.390];
-x=[0.88 0.46 0.08];
-q=1;
-r=refmin(data,x,q)
-```
-
-### qR2S
-
-qR2S computes the reflux ratio at the bottom
-of a distillation column
-using the Ponchon-Savarit method given
-a x-h-y-H matrix of the liquid and the vapor fractions
-at equilibrium and their enthalpies,
-the vector of the fractions of the products and the feed,
-the feed quality, and
-the reflux ratio at the top of the column.
-
-If feed is a saturated liquid, feed quality q = 1,
-feed quality is reset to q = 1 - 1e-10.
+satPress computes the saturation pressure of humid air given the dry bulb temperature.
 
 **Syntax:**
 
 ```dotnetcli
-S=qR2S(X,q,R)
+psat=satPress(Tdry)
 ```
 
 **Examples:**
 
-Compute the reflux ratio at the bottom
-of a distillation column for oxygen and nitrogen given
-the composition of the distillate is 88 %,
-the composition of the feed is 46 %,
-the composition of the column's bottom product is 11 %,
-the feed quality is 54 %, and
-the reflux ratio at the top of the column is 2.
+Compute the saturation pressure given the dry bulb temperature is 25 °C.
 
 ```julia
-data=[0.    0.420 0.    1.840; # enthalpy in kcal/mmol
-      0.075 0.418 0.193 1.755;
-      0.17  0.415 0.359 1.685;
-      0.275 0.410 0.50  1.625;
-      0.39  0.398 0.63  1.570;
-      0.525 0.378 0.75  1.515;
-      0.685 0.349 0.86  1.465;
-      0.88  0.300 0.955 1.425;
-      0.1   0.263 1.    1.405];
-x=[0.88 0.46 0.11];
-q=0.54;
-R=2;
-S=qR2S(x,q,R)
+Tdry=25+273.15; # dry bulb temperature in K
+psat=satPress(Tdry) # saturation pressure in Pa
 ```
 
-Compute the reflux ratio at the bottom
-of a distillation column for acetone and methanol given
-the composition of the distillate is 88 %,
-the composition of the feed is 46 %,
-the composition of the column's bottom product is 11 %,
-the feed is saturated liquid, and
-the reflux ratio at the top of the column is 2.
 
-```julia
-data=[2.5e-4 3.235 1.675e-3 20.720; # enthalpy in kcal/mol
-      0.05   2.666 0.267    20.520;
-      0.1    2.527 0.418    20.340;
-      0.15   2.459 0.517    20.160;
-      0.2    2.422 0.579    20.000;
-      0.3    2.384 0.665    19.640;
-      0.4    2.358 0.729    19.310;
-      0.5    2.338 0.779    18.970;
-      0.6    2.320 0.825    18.650;
-      0.7    2.302 0.87     18.310;
-      0.8    2.284 0.915    17.980;
-      0.9    2.266 0.958    17.680;
-      1.     2.250 1.       17.390];
-x=[0.88 0.46 0.11];
-q=1;
-R=2;
-S=qR2S(data,x,q,R)
-```
+
+
+
+
+
 
 ### See Also
 
