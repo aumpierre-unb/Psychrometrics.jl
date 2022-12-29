@@ -24,21 +24,21 @@ psat=satPress(Tdry) # saturation pressure in Pa
 ```
 """
 function satPress(Tdry::Number)
-    if -100<=Tdry-273.15 && Tdry-273.15<0
-        k=c[1]/Tdry+
-        c[2]+
-        c[3]*Tdry+
-        c[4]*Tdry^2+
-        c[5]*Tdry^3+
-        c[6]*Tdry^4+
-        c[7]*log(Tdry)
-    elseif 0<=Tdry-273.15 && Tdry-273.15<=200
-        k=c[8]/Tdry+
-        c[9]+
-        c[10]*Tdry+
-        c[11]*Tdry^2+
-        c[12]*Tdry^3+
-        c[13]*log(Tdry)
+    if -100 <= Tdry - 273.15 && Tdry - 273.15 < 0
+        k = c[1] / Tdry +
+            c[2] +
+            c[3] * Tdry +
+            c[4] * Tdry^2 +
+            c[5] * Tdry^3 +
+            c[6] * Tdry^4 +
+            c[7] * log(Tdry)
+    elseif 0 <= Tdry - 273.15 && Tdry - 273.15 <= 200
+        k = c[8] / Tdry +
+            c[9] +
+            c[10] * Tdry +
+            c[11] * Tdry^2 +
+            c[12] * Tdry^3 +
+            c[13] * log(Tdry)
     else
         error("Temperature must be in the range from 173.15 K to 473.15 K")
     end

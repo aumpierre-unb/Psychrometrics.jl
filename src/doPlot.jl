@@ -27,25 +27,33 @@ function doPlot()
         framestyle=:box,
         grid=:true,
         minorgrid=:true,
-        size=(500, 400))
-    for i = 1:Int32(size(uv, 2)/2)
+        size=(700, 600))
+    for i = 1:Int32(size(uv, 2) / 2)
         display(plot!(uv[:, 2*(i-1)+1], uv[:, 2*(i-1)+2],
-            seriestype=:line, linestyle=:dash, color=:green))
+            seriestype=:line,
+            linestyle=:dash,
+            color=:green))
     end
-    for i = 1:Int32(size(uT, 2)/2)
+    for i = 1:Int32(size(uT, 2) / 2)
         display(plot!(uT[:, 2*(i-1)+1], uT[:, 2*(i-1)+2],
-            seriestype=:line, linestyle=:dash, color=:blue))
+            seriestype=:line,
+            linestyle=:dash,
+            color=:blue))
     end
-    for i = 1:Int32(size(ue, 2)/2)
+    for i = 1:Int32(size(ue, 2) / 2)
         display(plot!(ue[:, 2*(i-1)+1], ue[:, 2*(i-1)+2],
-            seriestype=:line, linestyle=:dash, color=:red))
+            seriestype=:line,
+            linestyle=:dash,
+            color=:red))
     end
-    for i = 1:Int32(size(uh, 2)/2)
+    for i = 1:Int32(size(uh, 2) / 2)
         display(plot!(uh[:, 2*(i-1)+1], uh[:, 2*(i-1)+2],
-            seriestype=:line, color=:black))
+            seriestype=:line,
+            color=:black))
     end
-    for i = 1:Int32(size(uH, 2)/2)
+    for i = 1:Int32(size(uH, 2) / 2)
         display(plot!(uH[:, 2*(i-1)+1], uH[:, 2*(i-1)+2],
-            seriestype=:line, color=:gray))
+            seriestype=:line,
+            color=:gray))
     end
 end

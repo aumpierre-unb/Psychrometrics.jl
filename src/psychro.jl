@@ -6,15 +6,10 @@ include("newtonraphson.jl")
 include("humidity.jl")
 include("humidity2.jl")
 include("adiabSat.jl")
-# include("foo1.jl")
-# include("foo2.jl")
-# include("foo3.jl")
-# include("foo4.jl")
-# include("foo5.jl")
-# include("foo6.jl")
-# include("foo7.jl")
-# include("foo8.jl")
-# include("foo9.jl")
+include("buildEnthalpy.jl")
+include("buildHumidity.jl")
+include("buildVolume.jl")
+include("buildWetBulbTemp.jl")
 
 using Plots
 
@@ -527,35 +522,55 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
         h = enthalpy(Tdry, W)
     end
     Tadiab, Wadiab = adiabSat(h)
-    #=
     if fig
-        [tv,wv]=buildVolume(v)
-        [tb,wb]=buildWetBulbTemp(Twet)
-        [te,we]=buildEnthalpy(h)
-        [th,wh]=buildHumidity(phi)
-        run('doPlot.m')
-        hold on
-        plot(tv,wv,'-.g','color','#1D8B20','linewidth',2)
-        plot(tb,wb,'b','linewidth',2)
-        plot(te,we,'-.r','linewidth',2)
-        plot(th,wh,'k','linewidth',2)
-        plot(Tdry,W,'or','markersize',8,'markerfacecolor','r')
-        plot(Twet,Wsatwet,'ob','markersize',8)
-        plot(Tadiab,Wadiab,'or','markersize',8)
-        plot(Tdew,W,'ok','markersize',8)
-        if Wsat>.03
-            wsat=.03
-            hold onplot([Tdry Tdry],[0, wsat],'-.k','linewidth',.5)
-        else
-            wsat=Wsat
-            hold onplot(Tdry,wsat,'ok','markersize',8)
-            hold onplot([Tdry Tdry 60+273.15],[0, wsat wsat],'-.k','linewidth',.5)
-        end
-        plot([Tdew Tdew 60+273.15],[0, W W],'--k','linewidth',.5)
-        plot([Tadiab Tadiab 60+273.15],[0, Wadiab Wadiab],'--r','linewidth',.5)
-        plot([Twet Twet 60+273.15],[0, Wsatwet Wsatwet],'-.b','linewidth',.5)
-        hold off
+        tv, wv = buildVolume(v)
+        tb, wb = buildWetBulbTemp(Twet)
+        te, we = buildEnthalpy(h)
+        th, wh = buildHumidity(phi)
+        doPlot()
+        display(plot!(tv, wv,
+            seriestype=:line,
+            linestyle=:dash,
+            linewidth=:2,
+            color=:green))
+        display(plot!(tb, wb,
+            seriestype=:line,
+            linestyle=:dash,
+            linewidth=:2,
+            color=:blue))
+        display(plot!(te, we,
+            seriestype=:line,
+            linestyle=:dash,
+            linewidth=:2,
+            color=:red))
+        display(plot!(th, wh,
+            seriestype=:line,
+            linewidth=:2,
+            color=:black))
+        display(plot!([Tdry], [W],
+            seriestype=:scatter,
+            color=:red))
+        display(plot!([Twet], [Wsatwet],
+            seriestype=:scatter,
+            color=:red))
+        display(plot!([Tadiab], [Wadiab],
+            seriestype=:scatter,
+            color=:red))
+        display(plot!([Tdew], [W],
+            seriestype=:scatter,
+            color=:red))
+        display(plot!([Tdew, Tdew, 60 + 273.15], [0, W, W],
+            seriestype=:line,
+            linestyle=:dash,
+            color=:black))
+        display(plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
+            seriestype=:line,
+            linestyle=:dash,
+            color=:red))
+        display(plot!([Twet, Twet, 60 + 273.15], [0, Wsatwet, Wsatwet],
+            seriestype=:line,
+            linestyle=:dash,
+            color=:blue))
     end
-    =#
     return [Tdry; Twet; Tdew; Tadiab; W; Wsat; Wsatwet; Wadiab; h; v; phi; pw; psat; psatwet; rho]
 end

@@ -1,3 +1,8 @@
+include("satPress.jl")
+include("enthalpy.jl")
+include("newtonraphson.jl")
+include("humidity.jl")
+
 @doc raw"""
 `buildEnthalpy(h)`
 
@@ -11,26 +16,27 @@ are ploted with red dash-doted thin lines
 the psychrometrics toolbox for Julia.
 """
 function buildEnthalpy(h::Number)
-    foo(T1)=h-enthalpy(T1,humidity(satPress(T1),:))
-    tol=h/1e3
-    T1=newtonraphson(foo,50+273.15,tol)
-    if humidity(satPress(T1),:)>.03
-        foo(T1)=h-enthalpy(T1,.03)
-        tol=abs(foo(50+273.15)/1e3)
-        T1=newtonraphson(foo,50+273.15,tol)
+    foo1(T) = h - enthalpy(T, humidity(satPress(T)))
+    foo2(T) = h - enthalpy(T, W)
+    foo3(W) = h - enthalpy(T[end], W)
+    tol = h / 1e3
+    T1 = newtonraphson(foo1, 50 + 273.15, tol)
+    if humidity(satPress(T1)) > 0.03
+        W = 0.03
+        T1 = newtonraphson(foo2, 50 + 273.15, tol)
     end
-    foo(T2)=h-enthalpy(T2,0)
-    T2=newtonraphson(foo,T1,tol)
-    if T2>60+273.15 T2=60+273.15 end
-    N=5
-    T=[]
-    W=[]
-    for n=1:N
-        T=[T;T1+(T2-T1)/(N-1)*(n-1)]
-        foo(W)=h-enthalpy(T(n),W)
-        tol=abs(foo(1e-2)/1e3)
-        W=[W;newtonraphson(foo,1e-2,tol)]
+    W = 0
+    T2 = newtonraphson(foo2, T1, tol)
+    if T2 > 60 + 273.15
+        T2 = 60 + 273.15
     end
-    return T,W
+    N = 5
+    T = []
+    W = []
+    for n = 1:N
+        T = [T; T1 + (T2 - T1) / (N - 1) * (n - 1)]
+        W = [W; newtonraphson(foo3, 1e-2, tol)]
+    end
+    return [T, W]
 end
 
