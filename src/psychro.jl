@@ -16,7 +16,7 @@ using Plots
 
 @doc raw"""
 `Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(;Tdry=x,W=y[,fig=false])`
+psychro(Tdry=x,W=y[,fig=false])`
 
 `psychro` computes
 the dry bulb temperature Tdry (in K),

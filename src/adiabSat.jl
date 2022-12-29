@@ -25,16 +25,16 @@ h=82.4e3; # specific enthalpy in J/kG
 Tadiab,Wadiab=adiabSat(h,true) # inputs and outputs in SI units
 ```
 """
-function adiabSat(h::Number,fig::Bool=false)
-    foo(Tadiab)=h-enthalpy(Tadiab,humidity(satPress(Tadiab)))
-    Tadiab=newtonraphson(foo,273.15,1e-5)
-    padiab=satPress(Tadiab)
-    Wadiab=humidity(padiab)
+function adiabSat(h::Number, fig::Bool=false)
+    foo(Tadiab) = h - enthalpy(Tadiab, humidity(satPress(Tadiab)))
+    Tadiab = newtonraphson(foo, 273.15, 1e-5)
+    padiab = satPress(Tadiab)
+    Wadiab = humidity(padiab)
     # if fig
     #     doPlot
     #     plotHumidity(1,'k',2)
     #     plotEnthalpy(h,'-.r',2)
     #     plot(Tadiab,Wadiab,'or','markersize',8)
     # end
-    return Tadiab,Wadiab
+    return Tadiab, Wadiab
 end
