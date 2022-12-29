@@ -27,6 +27,6 @@ W=7e-3; # humidity in kg/kg of dry air
 v=volume(Tdry,W) # specific volume in cu. m/kg of dry air
 ```
 """
-function volume(Tdry,W,p=101325)
+function volume(Tdry::Number,W::Number,p::Number=101325)
     return 0.287042*Tdry*(1+1.6078*W)/(p/1000)
 end

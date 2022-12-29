@@ -24,7 +24,7 @@ pw=1e3; # water vapor pressure in Pa
 Tdew=dewTemp(pw) # dew temperature at K
 ```
 """
-function dewTemp(pw)
+function dewTemp(pw::Number)
     alpha=log(pw/1000)
     return c[14]+
         c[15]*alpha+

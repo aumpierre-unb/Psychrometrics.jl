@@ -10,7 +10,7 @@ are ploted with red dash-doted thin lines
 `buildEnthalpy` is an internal function of
 the psychrometrics toolbox for Julia.
 """
-function buildEnthalpy(h)
+function buildEnthalpy(h::Number)
     foo(T1)=h-enthalpy(T1,humidity(satPress(T1),:))
     tol=h/1e3
     T1=newtonraphson(foo,50+273.15,tol)

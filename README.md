@@ -111,7 +111,7 @@ Compute the dry bulb temperature, the wet bulb temperature, the adiabatic satura
 This call computes the answer and omits the psychrometric chart:
 
 ```julia
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=...
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
 psychro(Tdew=22+273.15,W=.29,fig=true)
 ```
 
@@ -169,7 +169,7 @@ W=humidity(pw[,p=101325])
 
 **Examples:**
 
-Compute the humidity of humid air at atmospheric pressure given water vapor pressure is 1 kPa.
+Compute the humidity of humid air at atmospheric pressure given water vapor pressure is 1 kPa at 1 atm total pressure.
 
 ```julia
 pw=1e3; # water vapor pressure in Pa
@@ -195,16 +195,73 @@ Tdry=25+273.15; # dry bulb temperature in K
 psat=satPress(Tdry) # saturation pressure in Pa
 ```
 
+### enthalpy
 
+enthalpy computes the specific enthalpy of humid air given the dry bulb temperature and the humidity in.
 
+**Syntax:**
 
+```dotnetcli
+h=enthalpy(Tdry,W)
+```
 
+**Examples:**
 
+Compute the specific enthalpy given the dry bulb temperature is 25 °C and the humidity is 7 g/kg of dry air.
 
+```julia
+Tdry=25+273.15; # dry bulb temperature in K
+W=7e-3; # humidity in kg/kg of dry air
+h=enthalpy(Tdry,W) # specific enthalpy in J/kg of dry air
+```
+
+### volume
+
+volume computes computes the specific volume of humid air given  the dry bulb temperature, the humidity in and the total pressure. By default, total pressure is assumed to be the atmospheric pressure at sea level.
+
+**Syntax:**
+
+```dotnetcli
+v=volume(Tdry,W[,p=101325])
+```
+
+**Examples:**
+
+Compute the specific volume given the dry bulb temperature is 25 °C and the humidity is 7 g/kg of dry air at 1 atm total pressure.
+
+```julia
+Tdry=25+273.15; # dry bulb temperature in K
+W=7e-3; # humidity in kg/kg of dry air
+v=volume(Tdry,W) # specific volume in cu. m/kg of dry air
+```
+
+### adiabSat
+
+adiabSat computes the the adiabatic saturation temperature and the adiabatic saturation humidity given the specific enthalpy. If *fig* = *true* is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
+
+**Syntax:**
+
+```dotnetcli
+Tadiab,Wadiab=adiabSat(h[,fig=false])
+```
+
+**Examples:**
+
+Compute the the adiabatic saturation temperature and the adiabatic saturation humidity given the specific enthalpy is 82.4 kJ/kG of dry air and plot a graphical representation of the answer in a schematic psychrometric chart.
+
+```julia
+h=82.4e3; # specific enthalpy in J/kG
+Tadiab,Wadiab=adiabSat(h,true) # inputs and outputs in SI units
+```
+
+### Reference
+
+The theory and the adjusted equations used in this package were taken from the first chapter of the *2017 ASHRAE Handbook Fundamentals Systems - International Metric System*, published by the American Society of Heating, Refrigerating and Air-Conditioning Engineers.
 
 ### See Also
 
 [McCabeThiele.jl](https://github.com/aumpierre-unb/McCabeThiele.jl),
+[PonchonSavarit.jl](https://github.com/aumpierre-unb/PonchonSavarit.jl),
 [InternalFluidFlow.jl](https://github.com/aumpierre-unb/InternalFluidFlow.jl).
 
 Copyright &copy; 2022 Alexandre Umpierre

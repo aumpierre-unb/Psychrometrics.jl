@@ -11,7 +11,7 @@ are ploted with with green dash-doted thin lines.
 `buildVolume` is an internal function of
 the psychrometrics toolbox for Julia.
 """
-function buildVolume(v)
+function buildVolume(v::Number)
     foo(T1)=v-volume(T1,humidity(satPress(T1),:),:)
     tol=v/1e3
     T1=newtonraphson(foo,50+273.15,tol)

@@ -10,7 +10,7 @@
 `buildHumidity` is an internal function of
 the psychrometrics toolbox for Julia.
 """
-function buildHumidity(phi)
+function buildHumidity(phi::Number)
     T1=273.15
     foo(T2)=.03-humidity(satPress(T2)*phi,:)
     tol=abs(foo(50+273.15)/1e3)

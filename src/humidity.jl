@@ -26,6 +26,6 @@ pw=1e3; # water vapor pressure in Pa
 W=humidity(pw) # saturation pressure in kg/kg of dry air
 ```
 """
-function humidity(pw,p=101325)
+function humidity(pw::Number,p::Number=101325)
     return 0.621945*pw/(p-pw)
 end
