@@ -6,6 +6,15 @@ include("newtonraphson.jl")
 include("humidity.jl")
 include("humidity2.jl")
 include("adiabSat.jl")
+# include("foo1.jl")
+# include("foo2.jl")
+# include("foo3.jl")
+# include("foo4.jl")
+# include("foo5.jl")
+# include("foo6.jl")
+# include("foo7.jl")
+# include("foo8.jl")
+# include("foo9.jl")
 
 using Plots
 
@@ -143,6 +152,15 @@ h5=h4
 ```
 """
 function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=-1, h::Number=-1, v::Number=-1, phi::Number=-1, fig::Bool=false)
+    foo1(pw) = W - humidity(pw)
+    foo2(Twet) = W - humidity2(humidity(satPress(Twet)), Tdry, Twet)
+    foo3(W) = h - enthalpy(Tdry, W)
+    foo4(W) = v - volume(Tdry, W)
+    foo5(pw) = Tdew - dewTemp(pw)
+    foo6(Tdry) = W - humidity2(Wsatwet, Tdry, Twet)
+    foo7(Tdry) = phi - pw / satPress(Tdry)
+    foo8(Tdry) = W - humidity(phi * satPress(Tdry))
+    foo9(psat) = psat - satPress(Tdry)
     a = [Tdry, Twet, Tdew, W, h, v, phi] .== -1
     if sum(a) != 5
         error("Function psychro demands two and only two inputs.")
@@ -155,191 +173,167 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
         W = humidity2(Wsatwet, Tdry, Twet)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
-        foo1(pw) = (W - humidity(pw))
-        tol = abs(foo(psat) / 1e3)
-        pw = newtonraphson(foo, psat, tol)
+        tol = W / 1e3
+        pw = newtonraphson(foo1, psat, tol)
         Tdew = dewTemp(pw)
         phi = pw / psat
         rho = (1 + Wsatwet) / v
-    elseif a == [0 1 0 1 1 1 1]
-        foo(pw) = (dewTemp(pw) - Tdew)
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+    elseif a == [0, 1, 0, 1, 1, 1, 1]
+        tol = Tdew / 1e3
+        pw = newtonraphson(foo5, 1e3, tol)
         W = humidity(pw)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         phi = pw / psat
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [0 1 1 0 1 1 1]
-        foo1(pw) = (W - humidity(pw))
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+    elseif a == [0, 1, 1, 0, 1, 1, 1]
+        tol = W / 1e3
+        pw = newtonraphson(foo1, 1e3, tol)
         Tdew = dewTemp(pw)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         phi = pw / psat
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [0 1 1 1 0 1 1]
-        foo(W) = (h - enthalpy(Tdry, W))
-        tol = abs(foo(1e-2) / 1e3)
-        W = newtonraphson(foo, 1e-2, tol)
+    elseif a == [0, 1, 1, 1, 0, 1, 1]
+        tol = h / 1e3
+        W = newtonraphson(foo3, 1e-2, tol)
         v = volume(Tdry, W)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
-        foo(pw) = (humidity(pw) - W)
-        tol = abs(foo(psat) / 1e3)
-        pw = newtonraphson(foo, psat, tol)
+        tol = W / 1e3
+        pw = newtonraphson(foo1, psat, tol)
         W = humidity(pw)
         phi = pw / psat
         Tdew = dewTemp(pw)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [0 1 1 1 1 0 1]
-        foo(W) = (v - volume(Tdry, W))
-        tol = abs(foo(1e-2) / 1e3)
-        W = newtonraphson(foo, 1e-2, tol)
+    elseif a == [0, 1, 1, 1, 1, 0, 1]
+        tol = v / 1e3
+        W = newtonraphson(foo4, 1e-2, tol)
         h = enthalpy(Tdry, W)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
-        foo(pw) = (humidity(pw) - W)
-        tol = abs(foo(psat) / 1e3)
-        pw = newtonraphson(foo, psat, tol)
+        tol = W / 1e3
+        pw = newtonraphson(foo1, psat, tol)
         W = humidity(pw)
         phi = pw / psat
         Tdew = dewTemp(pw)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [0 1 1 1 1 1 0]
+    elseif a == [0, 1, 1, 1, 1, 1, 0]
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         pw = phi * psat
         phi = pw / psat
         Tdew = dewTemp(pw)
         W = humidity(pw)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry) / 1e3)
-        Twet = newtonraphson(foo, Tdry, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdry, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 0 0 1 1 1 1]
+    elseif a == [1, 0, 0, 1, 1, 1, 1]
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
-        foo(pw) = (dewTemp(pw) - Tdew)
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+        tol = Tdew / 1e3
+        pw = newtonraphson(foo5, 1e3, tol)
         W = humidity(pw)
-        foo(Tdry) = (W - humidity2(Wsatwet, Tdry, Twet))
-        tol = abs(foo(Twet) / 1e3)
-        Tdry = newtonraphson(foo, Twet, tol)
+        tol = abs(foo(Twet)W / 1e3)
+        Tdry = newtonraphson(foo6, Twet, tol)
         psat = satPress(Tdry)
         phi = pw / psat
         Wsat = humidity(psat)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 0 1 0 1 1 1]
+    elseif a == [1, 0, 1, 0, 1, 1, 1]
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
-        foo1(pw) = (W - humidity(pw))
-        tol = abs(foo1(psatwet) / 1e3)
+        tol = W / 1e3
         pw = newtonraphson(foo1, psatwet, tol)
         Tdew = dewTemp(pw)
-        foo(Tdry) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Twet) / 1e3)
-        Tdry = newtonraphson(foo, Twet, tol)
+        tol = W / 1e3
+        Tdry = newtonraphson(foo2, Twet, tol)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         phi = pw / psat
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 0 1 1 0 1 1]
+    elseif a == [1, 0, 1, 1, 0, 1, 1]
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         Tdry = Twet
-        foo(W) = (h - enthalpy(Tdry, W))
-        tol = abs(foo(Wsatwet) / 1e3)
-        W = newtonraphson(foo, Wsatwet, tol)
+        tol = h / 1e3
+        W = newtonraphson(foo3, Wsatwet, tol)
         while W < humidity2(Wsatwet, Tdry, Twet)
             Tdry = Tdry + 5e-3
-            foo(W) = (h - enthalpy(Tdry, W))
-            tol = abs(foo(Wsatwet) / 1e3)
-            W = newtonraphson(foo, Wsatwet, tol)
+            tol = h / 1e3
+            W = newtonraphson(foo3, Wsatwet, tol)
         end
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         v = volume(Tdry, W)
         rho = (1 + Wsatwet) / v
-        foo1(pw) = (W - humidity(pw))
-        tol = abs(foo(psat) / 1e3)
-        pw = newtonraphson(foo, psat, tol)
+        tol = W / 1e3
+        pw = newtonraphson(foo1, psat, tol)
         Tdew = dewTemp(pw)
         phi = pw / psat
-    elseif a == [1 0 1 1 1 0 1]
+    elseif a == [1, 0, 1, 1, 1, 0, 1]
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         Tdry = Twet
-        foo(W) = (v - volume(Tdry, W))
-        tol = abs(foo(Wsatwet) / 1e3)
-        W = newtonraphson(foo, Wsatwet, tol)
+        tol = v / 1e3
+        W = newtonraphson(foo4, Wsatwet, tol)
         while W > humidity2(Wsatwet, Tdry, Twet)
             Tdry = Tdry + 5e-3
-            foo(W) = (v - volume(Tdry, W))
-            tol = abs(foo(Wsatwet) / 1e3)
-            W = newtonraphson(foo, Wsatwet, tol)
+            tol = v / 1e3
+            W = newtonraphson(foo4, Wsatwet, tol)
         end
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         h = enthalpy(Tdry, W)
         rho = (1 + Wsatwet) / v
-        foo1(pw) = (W - humidity(pw))
-        tol = abs(foo(psat) / 1e3)
-        pw = newtonraphson(foo, psat, tol)
+        tol = W / 1e3
+        pw = newtonraphson(foo1, psat, tol)
         Tdew = dewTemp(pw)
         phi = pw / psat
-    elseif a == [1 0 1 1 1 1 0]
+    elseif a == [1, 0, 1, 1, 1, 1, 0]
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         Tdry = Twet
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         W = humidity2(Wsatwet, Tdry, Twet)
-        foo1(pw) = (W - humidity(pw))
-        tol = abs(foo(psat) / 1e3)
-        pw = newtonraphson(foo, psat, tol)
+        tol = W / 1e3
+        pw = newtonraphson(foo1, psat, tol)
         while pw / psat > phi
             Tdry = Tdry + 5e-3
             psat = satPress(Tdry)
             Wsat = humidity(psat)
             W = humidity2(Wsatwet, Tdry, Twet)
-            foo1(pw) = (W - humidity(pw))
-            tol = abs(foo(psat) / 1e3)
-            pw = newtonraphson(foo, psat, tol)
+            tol = W / 1e3
+            pw = newtonraphson(foo1, psat, tol)
         end
         Tdew = dewTemp(pw)
         Wsat = humidity(psat)
@@ -347,128 +341,108 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
         v = volume(Tdry, W)
         rho = (1 + Wsatwet) / v
         phi = pw / psat
-    elseif a == [1 1 0 0 1 1 1]
-        foo(pw) = (dewTemp(pw) - Tdew)
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+    elseif a == [1, 1, 0, 0, 1, 1, 1]
+        tol = Tdew / 1e3
+        pw = newtonraphson(foo5, 1e3, tol)
         w = humidity(pw)
-        foo(pw) = (humidity(pw) - W)
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+        tol = W / 1e3
+        pw = newtonraphson(foo1, 1e3, tol)
         tdew = dewTemp(pw)
         error(string("Dew point temperature and humidity are not independent variables. For ", W, " kg/kg humidity, one has ", tdew, " K dew point temperature, and for ", Tdew, " K dew point temperature, one has ", w, " kg/kg humidity."))
-    elseif a == [1 1 0 1 0 1 1]
-        foo(pw) = (dewTemp(pw) - Tdew)
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+    elseif a == [1, 1, 0, 1, 0, 1, 1]
+        tol = Tdew / 1e3
+        pw = newtonraphson(foo5, 1e3, tol)
         W = humidity(pw)
-        foo(Tdry) = (h - enthalpy(Tdry, W))
-        tol = abs(foo(Tdew) / 1e3)
-        Tdry = newtonraphson(foo, Tdew, tol)
+        tol = h / 1e3
+        Tdry = newtonraphson(foo3, Tdew, tol)
         psat = satPress(Tdry)
         phi = pw / psat
         v = volume(Tdry, W)
         Wsat = humidity(psat)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 1 0 1 1 0 1]
-        foo(pw) = (dewTemp(pw) - Tdew)
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+    elseif a == [1, 1, 0, 1, 1, 0, 1]
+        tol = Tdew / 1e3
+        pw = newtonraphson(foo5, 1e3, tol)
         W = humidity(pw)
-        foo(Tdry) = (v - volume(Tdry, W))
-        tol = abs(foo(Tdew) / 1e3)
-        Tdry = newtonraphson(foo, Tdew, tol)
+        tol = v / 1e3
+        Tdry = newtonraphson(foo4, Tdew, tol)
         psat = satPress(Tdry)
         phi = pw / psat
         h = enthalpy(Tdry, W)
         Wsat = humidity(psat)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry) / 1e3)
-        Twet = newtonraphson(foo, Tdry, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdry, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 1 0 1 1 1 0]
-        foo(pw) = (dewTemp(pw) - Tdew)
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
-        foo(Tdry) = (phi - pw / satPress(Tdry))
-        tol = abs(foo(Tdew) / 1e3)
-        Tdry = newtonraphson(foo, Tdew, tol)
+    elseif a == [1, 1, 0, 1, 1, 1, 0]
+        tol = Tdew / 1e3
+        pw = newtonraphson(foo5, 1e3, tol)
+        tol = abs(phi / 1e3)
+        Tdry = newtonraphson(foo7, Tdew, tol)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         W = humidity(pw)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 1 1 0 0 1 1]
-        foo(pw) = (humidity(pw) - W)
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+    elseif a == [1, 1, 1, 0, 0, 1, 1]
+        tol = W / 1e3
+        pw = newtonraphson(foo1, 1e3, tol)
         Tdew = dewTemp(pw)
-        foo(Tdry) = (h - enthalpy(Tdry, W))
-        tol = abs(foo(Tdew) / 1e3)
-        Tdry = newtonraphson(foo, Tdew, tol)
+        tol = h / 1e3
+        Tdry = newtonraphson(foo3, Tdew, tol)
         v = volume(Tdry, W)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         phi = pw / psat
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 1 1 0 1 0 1]
-        foo(pw) = (humidity(pw) - W)
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+    elseif a == [1, 1, 1, 0, 1, 0, 1]
+        tol = W / 1e3
+        pw = newtonraphson(foo1, 1e3, tol)
         Tdew = dewTemp(pw)
-        foo(Tdry) = (v - volume(Tdry, W))
-        tol = abs(foo(Tdew) / 1e3)
-        Tdry = newtonraphson(foo, Tdew, tol)
+        tol = v / 1e3
+        Tdry = newtonraphson(foo4, Tdew, tol)
         h = enthalpy(Tdry, W)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         phi = pw / psat
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry) / 1e3)
-        Twet = newtonraphson(foo, Tdry, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdry, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 1 1 0 1 1 0]
-        foo(Tdry) = (W - humidity(phi * satPress(Tdry)))
-        tol = abs(foo(50 + 273.15) / 1e3)
-        Tdry = newtonraphson(foo, 50 + 273.15, tol)
+    elseif a == [1, 1, 1, 0, 1, 1, 0]
+        tol = W / 1e3
+        Tdry = newtonraphson(foo8, 50 + 273.15, tol)
         psat = satPress(Tdry)
         pw = phi * psat
         Wsat = humidity(psat)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         Tdew = dewTemp(pw)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 1 1 1 0 0 1]
+    elseif a == [1, 1, 1, 1, 0, 0, 1]
         W = 1e-2
         dW = W
-        foo(Tdry) = (v - volume(Tdry, W))
-        tol = abs(foo(50 + 273.15) / 1e3)
-        Tdry = newtonraphson(foo, 50 + 273.15, tol)
+        tol = v / 1e3
+        Tdry = newtonraphson(foo4, 50 + 273.15, tol)
         while abs(h - enthalpy(Tdry, W)) > h / 1e3
             if h > enthalpy(Tdry, W)
                 W = W + dW
@@ -476,31 +450,26 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
                 W = W - dW
                 dW = dW / 2
             end
-            foo(Tdry) = (v - volume(Tdry, W))
-            Tdry = newtonraphson(foo, 50 + 273.15, tol)
+            Tdry = newtonraphson(foo4, 50 + 273.15, tol)
         end
-        foo1(pw) = (W - humidity(pw))
-        tol = abs(foo(1e3) / 1e3)
-        pw = newtonraphson(foo, 1e3, tol)
+        tol = W / 1e3
+        pw = newtonraphson(foo1, 1e3, tol)
         Tdew = dewTemp(pw)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         phi = pw / psat
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry) / 1e3)
-        Twet = newtonraphson(foo, Tdry, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdry, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 1 1 1 0 1 0]
+    elseif a == [1, 1, 1, 1, 0, 1, 0]
         function foobar(pw, h, phi)
             W = humidity(pw)
-            foo(Tdry) = (h - enthalpy(Tdry, W))
-            tol = abs(foo(50 + 273.15) / 1e3)
-            Tdry = newtonraphson(foo, 50 + 273.15, tol)
-            foo(psat) = (psat - satPress(Tdry))
-            tol = abs(foo(pw) / 1e3)
-            psat = newtonraphson(foo, pw, tol)
+            tol = h / 1e3
+            Tdry = newtonraphson(foo3, 50 + 273.15, tol)
+            tol = psat / 1e3
+            psat = newtonraphson(foo9, pw, tol)
             y = pw / psat - phi
             return y, Tdry, psat
         end
@@ -519,22 +488,19 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
         W = humidity(pw)
         Tdew = dewTemp(pw)
         Wsat = humidity(psat)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         v = volume(Tdry, W)
         rho = (1 + Wsatwet) / v
-    elseif a == [1 1 1 1 1 0 0]
+    elseif a == [1, 1, 1, 1, 1, 0, 0]
         function foobaz(pw, v, phi)
             W = humidity(pw)
-            foo(Tdry) = (v - volume(Tdry, W))
-            tol = abs(foo(50 + 273.15) / 1e3)
-            Tdry = newtonraphson(foo, 50 + 273.15, tol)
-            foo(psat) = (psat - satPress(Tdry))
-            tol = abs(foo(pw) / 1e3)
-            psat = newtonraphson(foo, pw, tol)
+            tol = v / 1e3
+            Tdry = newtonraphson(foo4, 50 + 273.15, tol)
+            tol = psat / 1e3
+            psat = newtonraphson(foo9, pw, tol)
             y = pw / psat - phi
             return y, Tdry, psat
         end
@@ -553,9 +519,8 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
         W = humidity(pw)
         Tdew = dewTemp(pw)
         Wsat = humidity(psat)
-        foo(Twet) = (W - humidity2(humidity(satPress(Twet)), Tdry, Twet))
-        tol = abs(foo(Tdry - 1) / 1e3)
-        Twet = newtonraphson(foo, Tdew, tol)
+        tol = W / 1e3
+        Twet = newtonraphson(foo2, Tdew, tol)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
@@ -580,15 +545,15 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
         plot(Tdew,W,'ok','markersize',8)
         if Wsat>.03
             wsat=.03
-            hold onplot([Tdry Tdry],[0 wsat],'-.k','linewidth',.5)
+            hold onplot([Tdry Tdry],[0, wsat],'-.k','linewidth',.5)
         else
             wsat=Wsat
             hold onplot(Tdry,wsat,'ok','markersize',8)
-            hold onplot([Tdry Tdry 60+273.15],[0 wsat wsat],'-.k','linewidth',.5)
+            hold onplot([Tdry Tdry 60+273.15],[0, wsat wsat],'-.k','linewidth',.5)
         end
-        plot([Tdew Tdew 60+273.15],[0 W W],'--k','linewidth',.5)
-        plot([Tadiab Tadiab 60+273.15],[0 Wadiab Wadiab],'--r','linewidth',.5)
-        plot([Twet Twet 60+273.15],[0 Wsatwet Wsatwet],'-.b','linewidth',.5)
+        plot([Tdew Tdew 60+273.15],[0, W W],'--k','linewidth',.5)
+        plot([Tadiab Tadiab 60+273.15],[0, Wadiab Wadiab],'--r','linewidth',.5)
+        plot([Twet Twet 60+273.15],[0, Wsatwet Wsatwet],'-.b','linewidth',.5)
         hold off
     end
     =#
