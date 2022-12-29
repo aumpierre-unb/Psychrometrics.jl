@@ -32,19 +32,19 @@ function doPlot()
     for i = 1:Int32(size(uv, 2) / 2)
         display(plot!(uv[:, 2*(i-1)+1], uv[:, 2*(i-1)+2],
             seriestype=:line,
-            linestyle=:dash,
+            linestyle=:dashdot,
             color=:green))
     end
     for i = 1:Int32(size(uT, 2) / 2)
         display(plot!(uT[:, 2*(i-1)+1], uT[:, 2*(i-1)+2],
             seriestype=:line,
-            linestyle=:dash,
+            linestyle=:dashdot,
             color=:blue))
     end
     for i = 1:Int32(size(ue, 2) / 2)
         display(plot!(ue[:, 2*(i-1)+1], ue[:, 2*(i-1)+2],
             seriestype=:line,
-            linestyle=:dash,
+            linestyle=:dashdot,
             color=:red))
     end
     for i = 1:Int32(size(uh, 2) / 2)

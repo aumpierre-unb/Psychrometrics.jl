@@ -555,16 +555,24 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
             color=:black))
         display(plot!([Tdry], [W],
             seriestype=:scatter,
-            color=:red))
+            markersize=:5,
+            markerstrokecolor=:green,
+            color=:green))
         display(plot!([Twet], [Wsatwet],
             seriestype=:scatter,
-            color=:red))
+            markersize=:5,
+            markerstrokecolor=:blue,
+            color=:blue))
         display(plot!([Tadiab], [Wadiab],
             seriestype=:scatter,
+            markersize=:5,
+            markerstrokecolor=:red,
             color=:red))
         display(plot!([Tdew], [W],
             seriestype=:scatter,
-            color=:red))
+            markersize=:5,
+            markerstrokecolor=:black,
+            color=:black))
         display(plot!([Tdew, Tdew, 60 + 273.15], [0, W, W],
             seriestype=:line,
             linestyle=:dash,
