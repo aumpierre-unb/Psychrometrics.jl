@@ -24,7 +24,8 @@ function doPlot()
         ylabel="Humidity (kg vapor / kg dry air)",
         xlims=(0 + 273.15, 60 + 273.15), ylims=(0, 0.03),
         legend=false,
-        framestyle=:box,
+        #framestyle=:box,
+        ymirror=:true,
         grid=:true,
         minorgrid=:true,
         size=(700, 600))
