@@ -18,7 +18,7 @@ function buildHumidity(phi::Number)
     foo(T) = 0.03 - humidity(satPress(T) * phi)
     T1 = 273.15
     tol = 0.03 / 1e3
-    T2 = newtonraphson(foo, 100 + 273.15, tol)
+    T2 = newtonraphson(foo, 50 + 273.15, tol)
     if T2 > 60 + 273.15
         T2 = 60 + 273.15
     end
