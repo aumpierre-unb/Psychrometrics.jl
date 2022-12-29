@@ -89,7 +89,7 @@ given any two of the following input arguments:
 - the specific volume or
 - the relative humidity,
 
-except the combination of humidity and dew point temperature, which are not independent. If a different number of inputs is given, execution will be aborted. If *fig* = *true* is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
+except the combination of humidity and dew point temperature, which are not independent. If a different number of inputs is given, execution will be aborted. If fig = true is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
 
 By default, stages plots a schematic diagram of the solution, fig = true.
 
@@ -100,7 +100,7 @@ If fig = false is given, no plot is shown.
 ```dotnetcli
 # e.g.
 # given Tdry and W
-[;Tdry=x,W=y]=...
+[;Tdry=x,W=y]=
 psychro(x,:,:,y,:,:,:[,fig=false])
 ```
 
@@ -116,10 +116,10 @@ psychro(Tdew=22+273.15,W=.29,fig=true)
 ```
 
 Compute the dry bulb temperature, the wet bulb temperature,
-the dew point temperature, adiabatic saturation temperature, the dew point temperature the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the specific enthalpy is 79.5 kJ/kg of dry air and the relative humidity is 29 % and plot a graphical representation of the answer ina a schematic psychrometric chart.
+the dew point temperature, adiabatic saturation temperature, the dew point temperature the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the specific enthalpy is 79.5 kJ/kg of dry air and the relative humidity is 29 % and plot a graphical representation of the answer in a schematic psychrometric chart.
 
 ```julia
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=...
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
 psychro(h=79.5e3,W=.29,fig=true)
 ```
 
@@ -129,27 +129,32 @@ psychro(h=79.5e3,W=.29,fig=true)
 # The initial condition is
 Tdry1=293;
 Twet1=288;
-[~,~,~,~,W1,~,~,~,h1,v1]=psychro(Tdry=Tdry1,Twet=Twet1,fig=true)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry1,Twet=Twet1,fig=true)
 
 # The thermodynamic state after the first heating is
 Tdry2=323;
 W2=W1;
-[~,~,~,~,~,~,~,~,h2,v2]=psychro(Tdry2,:,:,W2,:,:,:,true)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry2,W=W2,fig=true)
 
 # The thermodynamic state the after first adiabatic saturation is
 h3=h2;
 [Tdry3,W3]=adiabSat(h3)
-[~,~,~,~,~,~,~,~,~,v3]=psychro(Tdry=Tdry3,W=W3)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry3,W=W3)
 
 # The thermodynamic state after the second heating is
 Tdry4=323;
 W4=W3;
-[~,~,~,~,~,~,~,~,h4,v4]=psychro(Tdry=Tdry4,W=W4,fig=true)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry4,W=W4,fig=true)
 
 # The thermodynamic state the after second adiabatic saturation is
 h5=h4;
 [Tdry5,W5]=adiabSat(h5)
-[~,~,~,~,~,~,~,~,~,v5]=psychro(Tdry=Tdry5,W=W5)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry5,W=W5)
 
 # The energy and water vapor demands are
 (h5-h1)*(8.5/v1) # demand of energy
@@ -237,7 +242,7 @@ v=volume(Tdry,W) # specific volume in cu. m/kg of dry air
 
 ### adiabSat
 
-adiabSat computes the the adiabatic saturation temperature and the adiabatic saturation humidity given the specific enthalpy. If *fig* = *true* is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
+adiabSat computes the the adiabatic saturation temperature and the adiabatic saturation humidity given the specific enthalpy. If fig = true is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
 
 **Syntax:**
 

@@ -6,6 +6,7 @@ include("newtonraphson.jl")
 include("humidity.jl")
 include("humidity2.jl")
 include("adiabSat.jl")
+include("doPlot.jl")
 include("buildEnthalpy.jl")
 include("buildHumidity.jl")
 include("buildVolume.jl")
@@ -71,17 +72,15 @@ the relative humidity is 29 %.
 ```
 # This call computes the answer and
 # omits the psychrometric chart:
-Tdew=22+273.15 # dew point temperarture in K
-phi=.29 # relative humidity
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=...
-psychro(:,Tdew,phi)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdew=22+273.15,phi=.29)
 ```
 
 ```
 # This call computes the answer and
 # plots a schematic psychrometric chart:
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=...
-psychro(:,22+273.15,.29,true) # inputs and outputs in SI units
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdew=22+273.15,phi=.29,fig=true)
 ```
 
 Compute the dry bulb temperature,
@@ -105,8 +104,8 @@ plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
 ```
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=...
-psychro(:,79.5e3,.29,true) # inputs and outputs in SI units
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(h=79.5e3,phi=.29,fig=true)
 ```
 
 8.5 cubic meters of humid air at
@@ -119,27 +118,32 @@ Assume the amount of dry air is constant.
 
 ```
 # The initial condition is
-Tdry1=293
-Twet1=288
-[~,~,~,~,W1,~,~,~,h1,v1]=psychro(Tdry1,Twet1,true)
+Tdry1=293;
+Twet1=288;
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry1,Twet=Twet1,fig=true)
 
 # The thermodynamic state the after first adiabatic saturation is
-Tdry2=323
-W2=W1
-[~,~,~,~,~,~,~,~,h2,v2]=psychro(Tdry2,W2,true)
+Tdry2=323;
+W2=W1;
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry2,W=W2,fig=true)
 # The thermodynamic state the after first adiabatic saturation is
-h3=h2
+h3=h2;
 [Tdry3,W3]=adiabSat(h3)
-[~,~,~,~,~,~,~,~,~,v3]=psychro(Tdry3,W3)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry3,W=W3)
 
 # The thermodynamic state after the second heating is
-Tdry4=323
-W4=W3
-[~,~,~,~,~,~,~,~,h4,v4]=psychro(Tdry4,W4,true)
+Tdry4=323;
+W4=W3;
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry4,W=W4,fig=true)
 # The thermodynamic state the after second adiabatic saturation is
-h5=h4
+h5=h4;
 [Tdry5,W5]=adiabSat(h5)
-[~,~,~,~,~,~,~,~,~,v5]=psychro(Tdry5,W5)
+[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+psychro(Tdry=Tdry5,W=W5)
 
 # The energy and water vapor demands are
 (h5-h1)*(8.5/v1) # demand of energy
