@@ -1,8 +1,8 @@
-using PonchonSavarit
+using Psychrometrics
 using Test
 using Plots
 
-@testset "PonchonSavarit.jl" begin
+@testset "Psychrometrics.jl" begin
     # data(x) = x .^ 1.11 .* (1 - x) .^ 1.09 + x
     # x = [0.1 0.5 0.9]
     # q = 0.54
