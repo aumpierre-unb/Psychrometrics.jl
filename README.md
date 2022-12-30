@@ -117,7 +117,7 @@ Compute the dry bulb temperature, the wet bulb temperature,
 the dew point temperature, adiabatic saturation temperature, the dew point temperature the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the specific enthalpy is 79.5 kJ/kg of dry air and the relative humidity is 29 % and plot a graphical representation of the answer in a schematic psychrometric chart.
 
 ```julia
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
 psychro(h=79.5e3,W=.29,fig=true)
 ```
 
@@ -127,31 +127,31 @@ psychro(h=79.5e3,W=.29,fig=true)
 # The initial condition is
 Tdry1=293;
 Twet1=288;
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
 psychro(Tdry=Tdry1,Twet=Twet1,fig=true)
 
 # The thermodynamic state after the first heating is
 Tdry2=323;
 W2=W1;
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
 psychro(Tdry=Tdry2,W=W2,fig=true)
 
 # The thermodynamic state the after first adiabatic saturation is
 h3=h2;
-[Tdry3,W3]=adiabSat(h3)
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+Tdry3,W3=adiabSat(h3)
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
 psychro(Tdry=Tdry3,W=W3)
 
 # The thermodynamic state after the second heating is
 Tdry4=323;
 W4=W3;
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
 psychro(Tdry=Tdry4,W=W4,fig=true)
 
 # The thermodynamic state the after second adiabatic saturation is
 h5=h4;
-[Tdry5,W5]=adiabSat(h5)
-[Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho]=
+Tdry5,W5=adiabSat(h5)
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
 psychro(Tdry=Tdry5,W=W5)
 
 # The energy and water vapor demands are
