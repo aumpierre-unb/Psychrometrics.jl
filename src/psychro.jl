@@ -15,8 +15,7 @@ include("buildWetBulbTemp.jl")
 using Plots
 
 @doc raw"""
-`Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro([; Tdry][, Twet][, Tdew][, W][, h][, v][, phi][, fig=false])`
+`Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro([; Tdry][, Twet][, Tdew][, W][, h][, v][, phi][, fig=false])`
 
 `psychro` computes
 the dry bulb temperature Tdry (in K),
@@ -70,15 +69,13 @@ the relative humidity is 29 %.
 ```
 # This call computes the answer and
 # omits the psychrometric chart:
-Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(Tdew=22+273.15,phi=.29)
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro(Tdew=22+273.15,phi=.29)
 ```
 
 ```
 # This call computes the answer and
 # plots a schematic psychrometric chart:
-Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(Tdew=22+273.15,phi=.29,fig=true)
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro(Tdew=22+273.15,phi=.29,fig=true)
 ```
 
 Compute the dry bulb temperature,
@@ -102,8 +99,7 @@ plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
 ```
-Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(h=79.5e3,phi=.29,fig=true)
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro(h=79.5e3,phi=.29,fig=true)
 ```
 
 8.5 cubic meters of humid air at
