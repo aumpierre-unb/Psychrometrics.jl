@@ -12,6 +12,7 @@ using Test
 
 export psychro, humidity, satPress, enthalpy, volume, adiabSat, dewTemp
 
+include("psychro.jl")
 include("satPress.jl")
 include("dewTemp.jl")
 include("enthalpy.jl")
