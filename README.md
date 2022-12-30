@@ -98,10 +98,8 @@ If fig = false is given, no plot is shown.
 **Syntax:**
 
 ```dotnetcli
-# e.g.
-# given Tdry = x and W = y
 Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(Tdry=x,W=y[,fig=false])
+psychro([; Tdry][, Twet][, Tdew][, W][, h][, v][, phi][, fig=false])
 ```
 
 **Examples:**
