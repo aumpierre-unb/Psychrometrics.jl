@@ -30,31 +30,31 @@ function doPlot()
         minorgrid=:true,
         size=(700, 600))
     for i = 1:Int32(size(uv, 2) / 2)
-        (plot!(uv[:, 2*(i-1)+1], uv[:, 2*(i-1)+2],
+        plot!(uv[:, 2*(i-1)+1], uv[:, 2*(i-1)+2],
             seriestype=:line,
             linestyle=:dashdot,
-            color=:green))
+            color=:green)
     end
     for i = 1:Int32(size(uT, 2) / 2)
-        (plot!(uT[:, 2*(i-1)+1], uT[:, 2*(i-1)+2],
+        plot!(uT[:, 2*(i-1)+1], uT[:, 2*(i-1)+2],
             seriestype=:line,
             linestyle=:dashdot,
-            color=:blue))
+            color=:blue)
     end
     for i = 1:Int32(size(ue, 2) / 2)
-        (plot!(ue[:, 2*(i-1)+1], ue[:, 2*(i-1)+2],
+        plot!(ue[:, 2*(i-1)+1], ue[:, 2*(i-1)+2],
             seriestype=:line,
             linestyle=:dashdot,
-            color=:red))
+            color=:red)
     end
     for i = 1:Int32(size(uh, 2) / 2)
-        (plot!(uh[:, 2*(i-1)+1], uh[:, 2*(i-1)+2],
+        plot!(uh[:, 2*(i-1)+1], uh[:, 2*(i-1)+2],
             seriestype=:line,
-            color=:black))
+            color=:black)
     end
     for i = 1:Int32(size(uH, 2) / 2)
-        (plot!(uH[:, 2*(i-1)+1], uH[:, 2*(i-1)+2],
+        plot!(uH[:, 2*(i-1)+1], uH[:, 2*(i-1)+2],
             seriestype=:line,
-            color=:gray))
+            color=:gray)
     end
 end

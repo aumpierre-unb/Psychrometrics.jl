@@ -535,62 +535,62 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
         te, we = buildEnthalpy(h)
         th, wh = buildHumidity(phi)
         doPlot()
-        (plot!(tv, wv,
+        plot!(tv, wv,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
-            color=:green))
-        (plot!(tb, wb,
+            color=:green)
+        plot!(tb, wb,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
-            color=:blue))
-        (plot!(te, we,
+            color=:blue)
+        plot!(te, we,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
-            color=:red))
-        (plot!(th, wh,
+            color=:red)
+        plot!(th, wh,
             seriestype=:line,
             linewidth=:2,
-            color=:black))
-        (plot!([Tdry], [W],
+            color=:black)
+        plot!([Tdry], [W],
             seriestype=:scatter,
             markersize=:5,
             markerstrokecolor=:green,
-            color=:green))
-        (plot!([Twet], [Wsatwet],
+            color=:green)
+        plot!([Twet], [Wsatwet],
             seriestype=:scatter,
             markersize=:5,
             markerstrokecolor=:blue,
-            color=:blue))
-        (plot!([Tadiab], [Wadiab],
+            color=:blue)
+        plot!([Tadiab], [Wadiab],
             seriestype=:scatter,
             markersize=:5,
             markerstrokecolor=:red,
-            color=:red))
-        (plot!([Tdry], [Wsat],
+            color=:red)
+        plot!([Tdry], [Wsat],
             seriestype=:scatter,
             markersize=:5,
             markerstrokecolor=:black,
-            color=:black))
-        (plot!([Tdew], [W],
+            color=:black)
+        plot!([Tdew], [W],
             seriestype=:scatter,
             markersize=:5,
             markerstrokecolor=:black,
-            color=:black))
-        (plot!([Tdew, Tdew, 60 + 273.15], [0, W, W],
+            color=:black)
+        plot!([Tdew, Tdew, 60 + 273.15], [0, W, W],
             seriestype=:line,
             linestyle=:dash,
-            color=:black))
-        (plot!([Tdry, Tdry, 60 + 273.15], [0, Wsat, Wsat],
+            color=:black)
+        plot!([Tdry, Tdry, 60 + 273.15], [0, Wsat, Wsat],
             seriestype=:line,
             linestyle=:dash,
-            color=:black))
-        (plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
+            color=:black)
+        plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
             seriestype=:line,
             linestyle=:dash,
-            color=:red))
+            color=:red)
         display(plot!([Twet, Twet, 60 + 273.15], [0, Wsatwet, Wsatwet],
             seriestype=:line,
             linestyle=:dash,
