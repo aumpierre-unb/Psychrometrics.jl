@@ -39,14 +39,14 @@ Pkg.add(path="https://github.com/aumpierre-unb/Psychrometrics.jl")
 using Psychrometrics
 ```
 
-<!-- ## Citation of Psychrometrics
+## Citation of Psychrometrics
 
 You can cite all versions (both released and pre-released), by using
-[10.5281/zenodo.xxxxxxxxxx](https://doi.org/10.5281/zenodo.xxxxxxxxxx).
+[10.5281/zenodo.7493474](https://doi.org/10.5281/zenodo.7493474).
 
 This DOI represents all versions, and will always resolve to the latest one.
 
-For citation of the last released version of Psychrometrics, please check CITATION file at the [maintainer's repository](https://github.com/aumpierre-unb/Psychrometrics.jl). -->
+For citation of the last released version of Psychrometrics, please check CITATION file at the [maintainer's repository](https://github.com/aumpierre-unb/Psychrometrics.jl).
 
 ## The Psychrometrics Module for Julia
 
