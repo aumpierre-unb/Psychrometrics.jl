@@ -2,8 +2,8 @@
 `Tadiab,Wadiab=adiabSat(h[,fig=false])`
 
 `adiabSat` computes
-the adiabatic saturation temperature (in K) and
-the adiabatic saturation humidity (in Kg/kg of dry air) given
+the adiabatic saturation temperature Tadiab (in K) and
+the adiabatic saturation humidity Wadiab (in Kg/kg of dry air) given
 the specific enthalpy h (in J/kg of dry air).
 
 If fig = true is given, a schematic psychrometric chart

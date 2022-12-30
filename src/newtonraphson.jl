@@ -2,8 +2,8 @@
 `x=newtonraphson(f,x,tol)`
 
 `newtonraphson` computes the root of
-a function f from a guess value
-within a given tolerance tol
+a function f(x) from a guess value x
+within a given tolerance tol for f(x)
 using the method of Newton-Raphson.
 
 `newtonraphson` is an internal function of
