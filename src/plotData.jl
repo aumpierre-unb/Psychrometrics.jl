@@ -11,7 +11,7 @@ The raw data in this file was generated
 by internal function buildChart.
 
 Edition of this file is
-highly not recommended.
+highly not advised.
 
 `plotData` is an internal function of
 the psychrometrics toolbox for Julia.

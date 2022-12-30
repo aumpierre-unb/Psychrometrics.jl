@@ -1,8 +1,8 @@
 # Psychrometrics.jl
 
-<!-- [![DOI](https://zenodo.org/badge/543161141.svg)](https://doi.org/10.5281/zenodo.xxxxxxx)
+[![DOI](https://zenodo.org/badge/543161141.svg)](https://doi.org/10.5281/zenodo.7493474)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![version](https://juliahub.com/docs/Psychrometrics/version.svg)](https://juliahub.com/ui/Packages/Psychrometrics/WauTj) -->
+<!-- [![version](https://juliahub.com/docs/Psychrometrics/version.svg)](https://juliahub.com/ui/Packages/Psychrometrics/WauTj) -->
 
 ## Installing and Loading Psychrometrics
 
@@ -50,7 +50,7 @@ For citation of the last released version of Psychrometrics, please check CITATI
 
 ## The Psychrometrics Module for Julia
 
-Psychrometrics provides the following functions:
+Psychrometrics provides a set of functions to compute the various variables related to water vapor humid air, providing the following functions:
 
 - psychro
 - humidity
