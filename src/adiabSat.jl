@@ -21,7 +21,7 @@ plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
 ```
-h=82.4e3; # specific enthalpy in J/kG
+h=82.4e3; # specific enthalpy in J/kg
 Tadiab,Wadiab=adiabSat(h,true) # inputs and outputs in SI units
 ```
 """
