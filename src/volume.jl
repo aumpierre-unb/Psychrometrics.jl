@@ -10,7 +10,7 @@ the total pressure p (in Pa).
 
 By default, total pressure is assumed
 to be the atmospheric pressure
-at sea level (p = 101325 Pa).
+at sea level, p = 101325 Pa (in Pa).
 
 `volume` is a main function of
 the psychrometrics toolbox for Julia.
