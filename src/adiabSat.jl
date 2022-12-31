@@ -16,7 +16,7 @@ the psychrometrics toolbox for Julia.
 Examples
 ==========
 Compute the adiabatic saturation temperature given
-the specific enthalpy is 82.4 kJ/kG of dry air and
+the specific enthalpy is 82.4 kJ/kg of dry air and
 plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
