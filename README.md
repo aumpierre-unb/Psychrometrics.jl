@@ -98,7 +98,8 @@ If fig = false is given, no plot is shown.
 **Syntax:**
 
 ```dotnetcli
-Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro([;Tdry][,Twet][,Tdew][,W][,h][,v][,phi][,fig=false])
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
+psychro([;Tdry][,Twet][,Tdew][,W][,h][,v][,phi][,fig=false])
 ```
 
 **Examples:**
@@ -108,14 +109,16 @@ Compute the dry bulb temperature, the wet bulb temperature, the adiabatic satura
 This call computes the answer and omits the psychrometric chart:
 
 ```julia
-Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro(Tdew=22+273.15,W=.29,fig=true)
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
+psychro(Tdew=22+273.15,W=.29,fig=true)
 ```
 
 Compute the dry bulb temperature, the wet bulb temperature,
 the dew point temperature, adiabatic saturation temperature, the dew point temperature the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the specific enthalpy is 79.5 kJ/kg of dry air and the relative humidity is 29 % and plot a graphical representation of the answer in a schematic psychrometric chart.
 
 ```julia
-Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro(h=79.5e3,W=.29,fig=true)
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
+psychro(h=79.5e3,W=.29,fig=true)
 ```
 
 8.5 cubic meters of humid air at dry bulb temperature of 293 K and wet bulb temperature of 288 K is subjected to two cycles of heating to 323 K followed by adiabatic saturation. Compute the energy and water vapor demands. Assume the amount of dry air is constant.
@@ -124,27 +127,32 @@ Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro(
 # The initial condition is
 Tdry1=293;
 Twet1=288;
-Tdry1,Twet1,Tdew1,Tadiab1,W1,Wsat1,Wsatwet1,Wadiab1,h1,v1,phi1,pw1,psat1,psatwet1,rho1=psychro(Tdry=Tdry1,Twet=Twet1,fig=true)
+Tdry1,Twet1,Tdew1,Tadiab1,W1,Wsat1,Wsatwet1,Wadiab1,h1,v1,phi1,pw1,psat1,psatwet1,rho1=
+psychro(Tdry=Tdry1,Twet=Twet1,fig=true)
 
 # The thermodynamic state after the first heating is
 Tdry2=323;
 W2=W1;
-Tdry2,Twet2,Tdew2,Tadiab2,W2,Wsat2,Wsatwet2,Wadiab2,h2,v2,phi2,pw2,psat2,psatwet2,rho2=psychro(Tdry=Tdry2,W=W2,fig=true)
+Tdry2,Twet2,Tdew2,Tadiab2,W2,Wsat2,Wsatwet2,Wadiab2,h2,v2,phi2,pw2,psat2,psatwet2,rho2=
+psychro(Tdry=Tdry2,W=W2,fig=true)
 
 # The thermodynamic state the after first adiabatic saturation is
 h3=h2;
 Tdry3,W3=adiabSat(h3)
-Tdry3,Twet3,Tdew3,Tadiab3,W3,Wsat3,Wsatwet3,Wadiab3,h3,v3,phi3,pw3,psat3,psatwet3,rho3=psychro(Tdry=Tdry3,W=W3,fig=true)
+Tdry3,Twet3,Tdew3,Tadiab3,W3,Wsat3,Wsatwet3,Wadiab3,h3,v3,phi3,pw3,psat3,psatwet3,rho3=
+psychro(Tdry=Tdry3,W=W3,fig=true)
 
 # The thermodynamic state after the second heating is
 Tdry4=323;
 W4=W3;
-Tdry4,Twet4,Tdew4,Tadiab4,W4,Wsat4,Wsatwet4,Wadiab4,h4,v4,phi4,pw4,psat4,psatwet4,rho4=psychro(Tdry=Tdry4,W=W4,fig=true)
+Tdry4,Twet4,Tdew4,Tadiab4,W4,Wsat4,Wsatwet4,Wadiab4,h4,v4,phi4,pw4,psat4,psatwet4,rho4=
+psychro(Tdry=Tdry4,W=W4,fig=true)
 
 # The thermodynamic state the after second adiabatic saturation is
 h5=h4;
 Tdry5,W5=adiabSat(h5)
-Tdry5,Twet5,Tdew5,Tadiab5,W5,Wsat5,Wsatwet5,Wadiab5,h5,v5,phi5,pw5,psat5,psatwet5,rho5=psychro(Tdry=Tdry5,W=W5,fig=true)
+Tdry5,Twet5,Tdew5,Tadiab5,W5,Wsat5,Wsatwet5,Wadiab5,h5,v5,phi5,pw5,psat5,psatwet5,rho5=
+psychro(Tdry=Tdry5,W=W5,fig=true)
 
 # The energy demand is
 (h5-h1)*(8.5/v1)
