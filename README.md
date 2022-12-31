@@ -146,9 +146,11 @@ h5=h4;
 Tdry5,W5=adiabSat(h5)
 Tdry5,Twet5,Tdew5,Tadiab5,W5,Wsat5,Wsatwet5,Wadiab5,h5,v5,phi5,pw5,psat5,psatwet5,rho5=psychro(Tdry=Tdry5,W=W5)
 
-# The energy and water vapor demands are
-(h5-h1)*(8.5/v1) # demand of energy
-(W5-W1)*(8.5/v1) # demand of water vapor
+# The energy demand is
+(h5-h1)*(8.5/v1)
+
+# The water vapor demand is
+(W5-W1)*(8.5/v1)
 ```
 
 ### humidity
