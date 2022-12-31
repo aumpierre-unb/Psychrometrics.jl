@@ -100,7 +100,7 @@ answer in a schematic psychrometric chart.
 
 ```
 Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro(h=79.5e3,phi=.29,fig=true)
-```
+s```
 
 8.5 cubic meters of humid air at
 dry bulb temperature of 293 K and
