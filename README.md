@@ -108,8 +108,7 @@ Compute the dry bulb temperature, the wet bulb temperature, the adiabatic satura
 This call computes the answer and omits the psychrometric chart:
 
 ```julia
-Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(Tdew=22+273.15,W=.29,fig=true)
+Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=psychro(Tdew=22+273.15,W=.29,fig=true)
 ```
 
 Compute the dry bulb temperature, the wet bulb temperature,
