@@ -3,6 +3,7 @@ include("plotData.jl")
 using Plots
 
 @doc raw"""
+
 `doPlot()`
 
 `doPlot` plots

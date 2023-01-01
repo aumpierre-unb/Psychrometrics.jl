@@ -1,4 +1,5 @@
 @doc raw"""
+
 `x=newtonraphson(f,x,tol)`
 
 `newtonraphson` computes the root of

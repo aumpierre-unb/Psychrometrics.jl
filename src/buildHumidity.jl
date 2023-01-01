@@ -3,6 +3,7 @@ include("newtonraphson.jl")
 include("humidity.jl")
 
 @doc raw"""
+
 `buildHumidity(phi)`
 
 `buildHumidity` generates a two column matrix of

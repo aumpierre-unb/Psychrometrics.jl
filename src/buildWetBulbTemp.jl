@@ -4,6 +4,7 @@ include("humidity.jl")
 include("humidity2.jl")
 
 @doc raw"""
+
 `buildWetBulbTemp(Twet)`
 
 `buildWetBulbTemp` generates two column matrix of
