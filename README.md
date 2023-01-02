@@ -110,7 +110,7 @@ This call computes the answer and omits the psychrometric chart:
 
 ```julia
 Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(Tdew=22+273.15,W=.29,fig=true)
+psychro(Tdew=22+273.15,phi=.29,fig=true)
 ```
 
 Compute the dry bulb temperature, the wet bulb temperature,
@@ -118,7 +118,7 @@ the dew point temperature, adiabatic saturation temperature, the dew point tempe
 
 ```julia
 Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(h=79.5e3,W=.29,fig=true)
+psychro(h=79.5e3,phi=.29,fig=true)
 ```
 
 8.5 cubic meters of humid air at dry bulb temperature of 293 K and wet bulb temperature of 288 K is subjected to two cycles of heating to 323 K followed by adiabatic saturation. Compute the energy and water vapor demands. Assume the amount of dry air is constant.
