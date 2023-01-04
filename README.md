@@ -260,6 +260,10 @@ Tadiab,Wadiab=adiabSat(h,true) # inputs and outputs in SI units
 
 The theory and the adjusted equations used in this package were taken from the first chapter of the *2017 ASHRAE Handbook Fundamentals Systems - International Metric System*, published by the American Society of Heating, Refrigerating and Air-Conditioning Engineers.
 
+### Acknowledgements
+
+The author of Psychrometrics package acknowledges Professor Brent Stephens, Ph.D. from the Illinois Institute of Technology for kindly suggesting the source reference for equations used for this package.
+
 ### See Also
 
 [McCabeThiele.jl](https://github.com/aumpierre-unb/McCabeThiele.jl),
