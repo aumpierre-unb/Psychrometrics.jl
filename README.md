@@ -106,8 +106,6 @@ psychro([;Tdry][,Twet][,Tdew][,W][,h][,v][,phi][,fig=false])
 
 Compute the dry bulb temperature, the wet bulb temperature, the adiabatic saturation temperature, the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the dew point temperature is 22 °C and the relative humidity is 29 %.
 
-This call computes the answer and omits the psychrometric chart:
-
 ```julia
 Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
 psychro(Tdew=22+273.15,phi=.29,fig=true)
