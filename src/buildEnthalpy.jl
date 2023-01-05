@@ -10,11 +10,12 @@ include("humidity.jl")
 `buildEnthalpy` generates a two column matrix of
 humidity and dry bulb temperature
 with given constant specific enthalpy h (in J/kg).
-# By default, constant specific enthalpy curves
-are ploted with red dash-doted thin lines
+
+By default, constant specific enthalpy curves
+are ploted with red dash-doted thin lines.
 
 `buildEnthalpy` is an internal function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 """
 function buildEnthalpy(h::Number)
     foo1(T) = h - enthalpy(T, humidity(satPress(T)))

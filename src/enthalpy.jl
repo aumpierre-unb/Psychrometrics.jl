@@ -9,7 +9,7 @@ the dry bulb temperature Tdry (in K) and
 the humidity W (in kg/kg of dry air).
 
 `enthalpy` is a main function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 
 Examples
 ==========

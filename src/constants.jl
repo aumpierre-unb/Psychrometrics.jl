@@ -3,10 +3,10 @@
 `constants` privides
 the parameters
 for adjusted functions
-satPress and dewTemp.
+`satPress` and `dewTemp`.
 
 `constants` is part of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 """
 c=[-5.6745359e3
     6.3925247
@@ -25,4 +25,4 @@ c=[-5.6745359e3
    14.526
     0.7389
     0.09486
-    0.4569]
+    0.4569];

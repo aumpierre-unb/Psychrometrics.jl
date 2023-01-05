@@ -13,7 +13,7 @@ to be the atmospheric pressure
 at sea level, p = 101325.
 
 `humidity` is a main function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 
 Examples
 ==========

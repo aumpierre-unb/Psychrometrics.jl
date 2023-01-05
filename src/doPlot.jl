@@ -18,7 +18,7 @@ Edition of this file is
 highly not advised.
 
 `doPlot` is an internal function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 """
 function doPlot()
     plot(xlabel="Dry Bulb Temperature (K)",

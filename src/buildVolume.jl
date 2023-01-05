@@ -15,7 +15,7 @@ By default, constant specific volume curves
 are ploted with with green dash-doted thin lines.
 
 `buildVolume` is an internal function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 """
 function buildVolume(v::Number)
     foo1(T) = v - volume(T, humidity(satPress(T)))

@@ -10,7 +10,7 @@ of humid air given
 the dry bulb temperature Tdry (in K).
 
 `satPress` is a main function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 
 Examples
 ==========

@@ -1,6 +1,7 @@
 ### TODO
 
-### Psychrometrics 0.1.1-alpha (2023-01-02)
+### Psychrometrics 0.1.1-alpha (2023-01-05)
+* Bug fixed on function adiabSat
 * Minor changes on documentation
 
 ### Psychrometrics 0.1.0 (2022-12-29)

@@ -8,7 +8,7 @@ within a given tolerance tol for f(x)
 using the method of Newton-Raphson.
 
 `newtonraphson` is an internal function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 
 """
 function newtonraphson(f::Function, x::Number, tol::Number)

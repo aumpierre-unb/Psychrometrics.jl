@@ -43,7 +43,7 @@ is plotted as a graphical representation
 of the solution.
 
 `psychro` is a main function of
-the `Psychrometrics` toolbox for Julia.
+the `Psychrometrics` package for Julia.
 
 See also: `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat`.
 
@@ -561,47 +561,49 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
             seriestype=:line,
             linewidth=:2,
             color=:black)
-        plot!([Tdry], [W],
-            seriestype=:scatter,
-            markersize=:5,
-            markerstrokecolor=:green,
-            color=:green)
-        plot!([Twet], [Wsatwet],
-            seriestype=:scatter,
-            markersize=:5,
-            markerstrokecolor=:blue,
-            color=:blue)
+        if phi != 1
+            plot!([Tdry], [W],
+                seriestype=:scatter,
+                markersize=:5,
+                markerstrokecolor=:green,
+                color=:green)
+            plot!([Twet], [Wsatwet],
+                seriestype=:scatter,
+                markersize=:5,
+                markerstrokecolor=:blue,
+                color=:blue)
+            plot!([Tdry], [Wsat],
+                seriestype=:scatter,
+                markersize=:5,
+                markerstrokecolor=:black,
+                color=:black)
+            plot!([Tdew], [W],
+                seriestype=:scatter,
+                markersize=:5,
+                markerstrokecolor=:black,
+                color=:black)
+            plot!([Tdew, Tdew, 60 + 273.15], [0, W, W],
+                seriestype=:line,
+                linestyle=:dash,
+                color=:black)
+            plot!([Tdry, Tdry, 60 + 273.15], [0, Wsat, Wsat],
+                seriestype=:line,
+                linestyle=:dash,
+                color=:black)
+            plot!([Twet, Twet, 60 + 273.15], [0, Wsatwet, Wsatwet],
+                seriestype=:line,
+                linestyle=:dash,
+                color=:blue)
+        end
         plot!([Tadiab], [Wadiab],
             seriestype=:scatter,
             markersize=:5,
             markerstrokecolor=:red,
             color=:red)
-        plot!([Tdry], [Wsat],
-            seriestype=:scatter,
-            markersize=:5,
-            markerstrokecolor=:black,
-            color=:black)
-        plot!([Tdew], [W],
-            seriestype=:scatter,
-            markersize=:5,
-            markerstrokecolor=:black,
-            color=:black)
-        plot!([Tdew, Tdew, 60 + 273.15], [0, W, W],
+        display(plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
             seriestype=:line,
             linestyle=:dash,
-            color=:black)
-        plot!([Tdry, Tdry, 60 + 273.15], [0, Wsat, Wsat],
-            seriestype=:line,
-            linestyle=:dash,
-            color=:black)
-        plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
-            seriestype=:line,
-            linestyle=:dash,
-            color=:red)
-        display(plot!([Twet, Twet, 60 + 273.15], [0, Wsatwet, Wsatwet],
-            seriestype=:line,
-            linestyle=:dash,
-            color=:blue))
+            color=:red))
     end
     return [Tdry; Twet; Tdew; Tadiab; W; Wsat; Wsatwet; Wadiab; h; v; phi; pw; psat; psatwet; rho]
 end

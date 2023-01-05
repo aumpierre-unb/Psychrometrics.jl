@@ -12,7 +12,7 @@ is plotted as a graphical representation
 of the solution.
 
 `adiabSat` is a main function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 
 Examples
 ==========
@@ -31,11 +31,40 @@ function adiabSat(h::Number, fig::Bool=false)
     Tadiab = newtonraphson(foo, 273.15, 1e-5)
     padiab = satPress(Tadiab)
     Wadiab = humidity(padiab)
-    # if fig
-    #     doPlot
-    #     plotHumidity(1,'k',2)
-    #     plotEnthalpy(h,'-.r',2)
-    #     plot(Tadiab,Wadiab,'or','markersize',8)
-    # end
-    return Tadiab, Wadiab
+    if fig
+        tv, wv = buildVolume(v)
+        tb, wb = buildWetBulbTemp(Twet)
+        te, we = buildEnthalpy(h)
+        th, wh = buildHumidity(phi)
+        doPlot()
+        plot!(tv, wv,
+            seriestype=:line,
+            linestyle=:dash,
+            linewidth=:2,
+            color=:green)
+        plot!(tb, wb,
+            seriestype=:line,
+            linestyle=:dash,
+            linewidth=:2,
+            color=:blue)
+        plot!(te, we,
+            seriestype=:line,
+            linestyle=:dash,
+            linewidth=:2,
+            color=:red)
+        plot!(th, wh,
+            seriestype=:line,
+            linewidth=:2,
+            color=:black)
+        plot!([Tadiab], [Wadiab],
+            seriestype=:scatter,
+            markersize=:5,
+            markerstrokecolor=:red,
+            color=:red)
+        display(plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
+            seriestype=:line,
+            linestyle=:dash,
+            color=:red))
+    end
+    return [Tadiab; Wadiab]
 end

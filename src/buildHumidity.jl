@@ -7,13 +7,14 @@ include("humidity.jl")
 `buildHumidity(phi)`
 
 `buildHumidity` generates a two column matrix of
-#  humidity and dry bulb temperature
-#  with given constant relative humidity phi.
-# By default, constant relative humidity curves
-#  are ploted with black solid thin lines
+humidity and dry bulb temperature
+with given constant relative humidity phi.
+
+By default, constant relative humidity curves
+are ploted with black solid thin lines.
 
 `buildHumidity` is an internal function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 """
 function buildHumidity(phi::Number)
     foo(T) = 0.03 - humidity(satPress(T) * phi)

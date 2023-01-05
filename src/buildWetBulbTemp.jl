@@ -15,7 +15,7 @@ By default, constant specific volume curves
 are ploted with with blue solid thin lines.
 
 `buildWetBulbTemp` is an internal function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 """
 function buildWetBulbTemp(Twet)
     foo1(T) = W - humidity2(humidity(satPress(Twet)), T, Twet)

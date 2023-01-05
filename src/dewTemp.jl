@@ -8,11 +8,9 @@ include("constants.jl")
 the dew point temperature Tdew (in K)
 of humid air given
 the water vapor pressure pw (in Pa).
-# dewTemp is an internal function of
-the psychrometrics toolbox for GNU Octave.
 
 `dewTemp` is a main function of
-the psychrometrics toolbox for Julia.
+the `Psychrometrics` package for Julia.
 
 Examples
 ==========
