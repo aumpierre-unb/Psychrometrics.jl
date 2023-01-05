@@ -136,9 +136,7 @@ psychro(Tdry=Tdry2,W=W2,fig=true)
 sleep(3)
 # The thermodynamic state the after first adiabatic saturation is
 h3=h2;
-Tdry3,W3=adiabSat(h3)
-Tdry3,Twet3,Tdew3,Tadiab3,W3,Wsat3,Wsatwet3,Wadiab3,h3,v3,phi3,pw3,psat3,psatwet3,rho3=
-psychro(Tdry=Tdry3,W=W3,fig=true)
+Tdry3,W3=adiabSat(h3,true)
 sleep(3)
 # The thermodynamic state after the second heating is
 Tdry4=323;
@@ -148,9 +146,7 @@ psychro(Tdry=Tdry4,W=W4,fig=true)
 sleep(3)
 # The thermodynamic state the after second adiabatic saturation is
 h5=h4;
-Tdry5,W5=adiabSat(h5)
-Tdry5,Twet5,Tdew5,Tadiab5,W5,Wsat5,Wsatwet5,Wadiab5,h5,v5,phi5,pw5,psat5,psatwet5,rho5=
-psychro(Tdry=Tdry5,W=W5,fig=true)
+Tdry5,W5=adiabSat(h5,true)
 sleep(3)
 # The energy demand is
 (h5-h1)*(8.5/v1)
