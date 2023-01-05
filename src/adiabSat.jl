@@ -31,11 +31,12 @@ function adiabSat(h::Number, fig::Bool=false)
     Tadiab = newtonraphson(foo, 273.15, 1e-5)
     padiab = satPress(Tadiab)
     Wadiab = humidity(padiab)
+    v=volume(Tadiab,Wadiab)
     if fig
         tv, wv = buildVolume(v)
-        tb, wb = buildWetBulbTemp(Twet)
+        tb, wb = buildWetBulbTemp(Tadiab)
         te, we = buildEnthalpy(h)
-        th, wh = buildHumidity(phi)
+        th, wh = buildHumidity(1)
         doPlot()
         plot!(tv, wv,
             seriestype=:line,
