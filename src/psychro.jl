@@ -601,5 +601,5 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
             linestyle=:dash,
             color=:red))
     end
-    return [Tdry; Twet; Tdew; Tadiab; W; Wsat; Wsatwet; Wadiab; h; v; phi; pw; psat; psatwet; rho]
+    return Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, phi, pw, psat, psatwet, rho
 end

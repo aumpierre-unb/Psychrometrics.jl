@@ -33,5 +33,5 @@ function buildHumidity(phi::Number)
         pw = psat * phi
         W = [W; humidity(pw)]
     end
-    return [T, W]
+    return T, W
 end

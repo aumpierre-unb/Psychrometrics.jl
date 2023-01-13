@@ -38,6 +38,6 @@ function buildWetBulbTemp(Twet)
         T = [T; T1 + (T2 - T1) / (N - 1) * (n - 1)]
         W = [W; newtonraphson(foo2, 1e-2, tol)]
     end
-    return [T, W]
+    return T, W
 end
 
