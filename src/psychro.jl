@@ -45,7 +45,7 @@ of the solution.
 `psychro` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat`.
+See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat`.
 
 Examples
 ==========

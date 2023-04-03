@@ -8,14 +8,14 @@ Maintainer's repository: `https://github.com/aumpierre-unb/Psychrometrics.jl`
 
 Citation (any version): `DOI 10.5281/zenodo.7493474`
 
-See also: `psychro`, `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat`.
+See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat`.
 """
 module Psychrometrics
 
 using Plots
 using Test
 
-export psychro, humidity, satPress, enthalpy, volume, adiabSat, dewTemp
+export psychro, dewTemp, humidity, satPress, enthalpy, volume, adiabSat
 
 include("adiabSat.jl")
 include("buildChart.jl")
