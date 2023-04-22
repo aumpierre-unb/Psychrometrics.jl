@@ -69,5 +69,5 @@ function adiabSat(h::Number, fig::Bool=false)
             linestyle=:dash,
             color=:red))
     end
-    return Tadiab, Wadiab
+    Tadiab, Wadiab
 end

@@ -52,14 +52,15 @@ For citation of the last released version of Psychrometrics, please check CITATI
 
 Psychrometrics provides a set of functions to compute the various variables related to water vapor humid air, providing the following functions:
 
-- psychro
-- humidity
-- satPress
-- enthalpy
-- volume
-- adiabSat
+- **psychro**
+- **humidity**
+- **satPress**
+- **enthalpy**
+- **volume**
+- **adiabSat**
+- **dewTemp**
 
-### psychro
+### **psychro**
 
 psychro computes
 
@@ -79,7 +80,7 @@ psychro computes
 - pressure at wet bulb temperature and
 - the density
 
-given any two of the following input arguments:
+given any two of the following parameters:
 
 - the dry bulb temperature,
 - the wet bulb temperature,
@@ -89,7 +90,7 @@ given any two of the following input arguments:
 - the specific volume or
 - the relative humidity,
 
-except the combination of humidity and dew point temperature, which are not independent. If a different number of inputs is given, execution will be aborted. If fig = true is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
+except the combination of humidity and dew point temperature, which are not independent. If a different number of parameters is given, execution will be aborted. If fig = true is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
 
 By default, stages plots a schematic diagram of the solution, fig = true.
 
@@ -97,9 +98,11 @@ If fig = false is given, no plot is shown.
 
 **Syntax:**
 
-```dotnetcli
+```julia
 Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro([;Tdry][,Twet][,Tdew][,W][,h][,v][,phi][,fig=false])
+psychro(; Tdry::Number=NaN, Twet::Number=NaN,Tdew::Number=NaN,
+  W::Number=NaN, h::Number=NaN, v::Number=NaN, phi::Number=NaN,
+  fig::Bool=false)
 ```
 
 **Examples:**
@@ -154,15 +157,15 @@ sleep(3)
 (W5-W1)*(8.5/v1)
 ```
 
-### humidity
+### **humidity**
 
 humidity computes
 the humidity of humid air in given the water vapor pressure and the total pressure. By default, total pressure is assumed to be the atmospheric pressure at sea level.
 
 **Syntax:**
 
-```dotnetcli
-W=humidity(pw[,p=101325])
+```julia
+W=humidity(pw::Number, p::Number=101325)
 ```
 
 **Examples:**
@@ -174,14 +177,14 @@ pw=1e3; # water vapor pressure in Pa
 W=humidity(pw) # saturation pressure in kg/kg of dry air
 ```
 
-### satPress
+### **satPress**
 
 satPress computes the saturation pressure of humid air given the dry bulb temperature.
 
 **Syntax:**
 
-```dotnetcli
-psat=satPress(Tdry)
+```julia
+psat=satPress(Tdry::Number)
 ```
 
 **Examples:**
@@ -193,14 +196,14 @@ Tdry=25+273.15; # dry bulb temperature in K
 psat=satPress(Tdry) # saturation pressure in Pa
 ```
 
-### enthalpy
+### **enthalpy**
 
 enthalpy computes the specific enthalpy of humid air given the dry bulb temperature and the humidity in.
 
 **Syntax:**
 
-```dotnetcli
-h=enthalpy(Tdry,W)
+```julia
+h=enthalpy(Tdry::Number, W::Number)
 ```
 
 **Examples:**
@@ -213,14 +216,14 @@ W=7e-3; # humidity in kg/kg of dry air
 h=enthalpy(Tdry,W) # specific enthalpy in J/kg of dry air
 ```
 
-### volume
+### **volume**
 
 volume computes computes the specific volume of humid air given  the dry bulb temperature, the humidity in and the total pressure. By default, total pressure is assumed to be the atmospheric pressure at sea level.
 
 **Syntax:**
 
-```dotnetcli
-v=volume(Tdry,W[,p=101325])
+```julia
+v=volume(Tdry::Number, W::Number, p::Number=101325)
 ```
 
 **Examples:**
@@ -233,14 +236,14 @@ W=7e-3; # humidity in kg/kg of dry air
 v=volume(Tdry,W) # specific volume in cu. m/kg of dry air
 ```
 
-### adiabSat
+### **adiabSat**
 
 adiabSat computes the the adiabatic saturation temperature and the adiabatic saturation humidity given the specific enthalpy. If fig = true is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
 
 **Syntax:**
 
-```dotnetcli
-Tadiab,Wadiab=adiabSat(h[,fig=false])
+```julia
+Tadiab,Wadiab=adiabSat(h::Number, fig::Bool=false)
 ```
 
 **Examples:**
@@ -249,7 +252,26 @@ Compute the the adiabatic saturation temperature and the adiabatic saturation hu
 
 ```julia
 h=82.4e3; # specific enthalpy in J/kg
-Tadiab,Wadiab=adiabSat(h,true) # inputs and outputs in SI units
+Tadiab,Wadiab=adiabSat(h,true) # parameters and returns in SI units
+```
+
+### **dewTemp**
+
+dewTemp computes the dew point temperature of humid air given the water vapor pressure.
+
+**Syntax:**
+
+```julia
+Tdew=dewTemp(pw::Number)
+```
+
+**Examples:**
+
+Compute the dew temperature of humid air given the water vapor pressure is 1 kPa.
+
+```julia
+pw=1e3; # water vapor pressure in Pa
+Tdew=dewTemp(pw) # dew temperature in K
 ```
 
 ### Reference

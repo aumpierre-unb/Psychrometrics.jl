@@ -43,5 +43,5 @@ function satPress(Tdry::Number)
     else
         error("Temperature must be in the range from 173.15 K to 473.15 K")
     end
-    return exp(k)
+    exp(k)
 end

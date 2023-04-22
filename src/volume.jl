@@ -31,5 +31,5 @@ v=volume(Tdry,W) # specific volume in cu. m/kg of dry air
 ```
 """
 function volume(Tdry::Number, W::Number, p::Number=101325)
-    return 0.287042 * Tdry * (1 + 1.6078 * W) / (p / 1000)
+    0.287042 * Tdry * (1 + 1.6078 * W) / (p / 1000)
 end

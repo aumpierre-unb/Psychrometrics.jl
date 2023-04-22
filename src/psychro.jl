@@ -153,7 +153,7 @@ sleep(3)
 (W5-W1)*(8.5/v1)
 ```
 """
-function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=-1, h::Number=-1, v::Number=-1, phi::Number=-1, fig::Bool=false)
+function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Number=NaN, h::Number=NaN, v::Number=NaN, phi::Number=NaN, fig::Bool=false)
     foo1(pw) = W - humidity(pw)
     foo2(Twet) = W - humidity2(humidity(satPress(Twet)), Tdry, Twet)
     foo3(Tdry) = W - humidity2(humidity(satPress(Twet)), Tdry, Twet)
@@ -166,9 +166,9 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
     foo10(Tdry) = phi - pw / satPress(Tdry)
     foo11(Tdry) = W - humidity(phi * satPress(Tdry))
     foo12(psat) = psat - satPress(Tdry)
-    a = [Tdry, Twet, Tdew, W, h, v, phi] .== -1
+    a = isnan.([Tdry, Twet, Tdew, W, h, v, phi]) .!= 0
     if sum(a) != 5
-        error("Function psychro demands two and only two inputs.")
+        error("Function psychro requires two and only two inputs.")
     end
     if a == [0, 0, 1, 1, 1, 1, 1]
         psat = satPress(Tdry)
@@ -601,5 +601,5 @@ function psychro(; Tdry::Number=-1, Twet::Number=-1, Tdew::Number=-1, W::Number=
             linestyle=:dash,
             color=:red))
     end
-    return Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, phi, pw, psat, psatwet, rho
+    Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, phi, pw, psat, psatwet, rho
 end

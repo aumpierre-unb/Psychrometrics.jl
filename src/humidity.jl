@@ -30,5 +30,5 @@ W=humidity(pw) # saturation pressure in kg/kg of dry air
 ```
 """
 function humidity(pw::Number, p::Number=101325)
-    return 0.621945 * pw / (p - pw)
+    0.621945 * pw / (p - pw)
 end
