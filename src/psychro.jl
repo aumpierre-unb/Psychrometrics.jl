@@ -34,7 +34,7 @@ the water vapor pressure pw (in Pa),
 the water saturation pressure psat (in Pa),
 the saturation pressure at the wet bulb temperature psatwet (in Pa) and
 the density rho (in kg/cu. m) given
-any two input arguments,
+any two parameters,
 except the combination of water vapor pressure pw and
 dew point temperature Tdew, which are not independent.
 
@@ -168,7 +168,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
     foo12(psat) = psat - satPress(Tdry)
     a = isnan.([Tdry, Twet, Tdew, W, h, v, phi]) .!= 0
     if sum(a) != 5
-        error("Function psychro requires two and only two inputs.")
+        error("Function psychro requires two and only two parameters.")
     end
     if a == [0, 0, 1, 1, 1, 1, 1]
         psat = satPress(Tdry)

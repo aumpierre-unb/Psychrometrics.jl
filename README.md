@@ -100,8 +100,8 @@ If fig = false is given, no plot is shown.
 
 ```julia
 Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(; Tdry::Number=NaN, Twet::Number=NaN,Tdew::Number=NaN,
-  W::Number=NaN, h::Number=NaN, v::Number=NaN, phi::Number=NaN,
+psychro(;Tdry::Number=NaN,Twet::Number=NaN,Tdew::Number=NaN,
+  W::Number=NaN,h::Number=NaN,v::Number=NaN,phi::Number=NaN,
   fig::Bool=false)
 ```
 
@@ -165,7 +165,7 @@ the humidity of humid air in given the water vapor pressure and the total pressu
 **Syntax:**
 
 ```julia
-W=humidity(pw::Number, p::Number=101325)
+W=humidity(pw::Number,p::Number=101325)
 ```
 
 **Examples:**
@@ -203,7 +203,7 @@ enthalpy computes the specific enthalpy of humid air given the dry bulb temperat
 **Syntax:**
 
 ```julia
-h=enthalpy(Tdry::Number, W::Number)
+h=enthalpy(Tdry::Number,W::Number)
 ```
 
 **Examples:**
@@ -223,7 +223,7 @@ volume computes computes the specific volume of humid air given  the dry bulb te
 **Syntax:**
 
 ```julia
-v=volume(Tdry::Number, W::Number, p::Number=101325)
+v=volume(Tdry::Number,W::Number,p::Number=101325)
 ```
 
 **Examples:**
@@ -243,7 +243,7 @@ adiabSat computes the the adiabatic saturation temperature and the adiabatic sat
 **Syntax:**
 
 ```julia
-Tadiab,Wadiab=adiabSat(h::Number, fig::Bool=false)
+Tadiab,Wadiab=adiabSat(h::Number,fig::Bool=false)
 ```
 
 **Examples:**
