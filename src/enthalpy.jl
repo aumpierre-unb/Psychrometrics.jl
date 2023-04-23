@@ -1,6 +1,6 @@
 @doc raw"""
 
-`h=enthalpy(Tdry,W)`
+`enthalpy(Tdry::Number, W::Number)`
 
 `enthalpy` computes
 the specific enthalpy h (in J/kg of dry air)

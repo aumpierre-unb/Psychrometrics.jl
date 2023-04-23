@@ -2,7 +2,7 @@ include("constants.jl")
 
 @doc raw"""
 
-`psat=satPress(Tdry)`
+`satPress(Tdry::Number)`
 
 `satPress` computes
 the saturation pressure psat (in pa)

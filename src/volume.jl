@@ -1,6 +1,6 @@
 @doc raw"""
 
-`v=volume(Tdry,W[,p=101325])`
+`volume(Tdry::Number,W::Number,p::Number=101325)`
 
 `volume` computes
 the specific volume v (in cu. m/kg of dry air)

@@ -1,6 +1,6 @@
 @doc raw"""
 
-`Tadiab,Wadiab=adiabSat(h[,fig=false])`
+`adiabSat(h::Number, fig::Bool=false)`
 
 `adiabSat` computes
 the adiabatic saturation temperature Tadiab (in K) and

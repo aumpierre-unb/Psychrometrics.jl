@@ -1,6 +1,6 @@
 @doc raw"""
 
-`W=humidity(pw[,p=101325])`
+`humidity(pw::Number, p::Number=101325)`
 
 `humidity` computes
 the humidity W (in kg/kg of dry air) 

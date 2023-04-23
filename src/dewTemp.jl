@@ -2,7 +2,7 @@ include("constants.jl")
 
 @doc raw"""
 
-`Tdew=dewTemp(pw)`
+`dewTemp(pw::Number)`
 
 `dewTemp` computes
 the dew point temperature Tdew (in K)
