@@ -596,10 +596,11 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
             markersize=:5,
             markerstrokecolor=:red,
             color=:red)
-        display(plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
+        plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
             seriestype=:line,
             linestyle=:dash,
-            color=:red))
+            color=:red)
+        display(plot!())
     end
     Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, phi, pw, psat, psatwet, rho
 end
