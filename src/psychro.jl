@@ -469,7 +469,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
         Wsatwet = humidity(psatwet)
         rho = (1 + Wsatwet) / v
     elseif a == [1, 1, 1, 1, 0, 1, 0]
-        function foobar(pw, h, phi)
+        function foo(pw, h, phi)
             W = humidity(pw)
             tol = h / 1e3
             Tdry = newtonraphson(foo5, 50 + 273.15, tol)
@@ -480,7 +480,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
         end
         pw = 0
         dp = 1e3
-        y, Tdry, psat = foobar(pw, h, phi)
+        y, Tdry, psat = foo(pw, h, phi)
         while abs(y) > 1e-3
             if y < 0
                 pw = pw + dp
@@ -488,7 +488,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
                 pw = pw - dp
                 dp = dp / 2
             end
-            y, Tdry, psat = foobar(pw, h, phi)
+            y, Tdry, psat = foo(pw, h, phi)
         end
         W = humidity(pw)
         Tdew = dewTemp(pw)
@@ -500,7 +500,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
         v = volume(Tdry, W)
         rho = (1 + Wsatwet) / v
     elseif a == [1, 1, 1, 1, 1, 0, 0]
-        function foobaz(pw, v, phi)
+        function bar(pw, v, phi)
             W = humidity(pw)
             tol = v / 1e3
             Tdry = newtonraphson(foo7, 50 + 273.15, tol)
@@ -511,7 +511,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
         end
         pw = 0
         dp = 1e3
-        y, Tdry, psat = foobaz(pw, v, phi)
+        y, Tdry, psat = bar(pw, v, phi)
         while abs(y) > 1e-3
             if y < 0
                 pw = pw + dp
@@ -519,7 +519,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
                 pw = pw - dp
                 dp = dp / 2
             end
-            y, Tdry, psat = foobaz(pw, v, phi)
+            y, Tdry, psat = bar(pw, v, phi)
         end
         W = humidity(pw)
         Tdew = dewTemp(pw)

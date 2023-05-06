@@ -16,5 +16,5 @@ function newtonraphson(f::Function, x::Number, tol::Number)
         a = (f(x + 1e-7) - f(x)) / 1e-7
         x = x - f(x) / a
     end
-    return x
+    x
 end
