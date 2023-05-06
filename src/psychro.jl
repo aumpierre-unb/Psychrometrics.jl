@@ -168,7 +168,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
     foo12(psat) = psat - satPress(Tdry)
     a = isnan.([Tdry, Twet, Tdew, W, h, v, phi]) .!= 0
     if sum(a) != 5
-        error("Function psychro requires two and only two parameters.")
+        error("psychro requires two and only two parameters.")
     end
     if a == [0, 0, 1, 1, 1, 1, 1]
         psat = satPress(Tdry)
@@ -387,7 +387,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
     elseif a == [1, 1, 0, 1, 1, 1, 0]
         tol = Tdew / 1e3
         pw = newtonraphson(foo8, 1e3, tol)
-        tol = abs(phi / 1e3)
+        tol = phi / 1e3
         Tdry = newtonraphson(foo10, Tdew, tol)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
@@ -476,7 +476,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
             tol = satPress(Tdry) / 1e3
             psat = newtonraphson(foo12, pw, tol)
             y = pw / psat - phi
-            return y, Tdry, psat
+            y, Tdry, psat
         end
         pw = 0
         dp = 1e3
@@ -507,7 +507,7 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
             tol = satPress(Tdry) / 1e3
             psat = newtonraphson(foo12, pw, tol)
             y = pw / psat - phi
-            return y, Tdry, psat
+            y, Tdry, psat
         end
         pw = 0
         dp = 1e3
