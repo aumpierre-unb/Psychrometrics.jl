@@ -153,7 +153,10 @@ sleep(3)
 (W5-W1)*(8.5/v1)
 ```
 """
-function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Number=NaN, h::Number=NaN, v::Number=NaN, phi::Number=NaN, fig::Bool=false)
+function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN,
+    W::Number=NaN,
+    h::Number=NaN, v::Number=NaN,
+    phi::Number=NaN, fig::Bool=false)
     foo1(pw) = W - humidity(pw)
     foo2(Twet) = W - humidity2(humidity(satPress(Twet)), Tdry, Twet)
     foo3(Tdry) = W - humidity2(humidity(satPress(Twet)), Tdry, Twet)
@@ -353,7 +356,11 @@ function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN, W::Numb
         tol = W / 1e3
         pw = newtonraphson(foo1, 1e3, tol)
         tdew = dewTemp(pw)
-        error(string("Dew point temperature and humidity are not independent variables. For ", W, " kg/kg humidity, one has ", tdew, " K dew point temperature, and for ", Tdew, " K dew point temperature, one has ", w, " kg/kg humidity."))
+        error(string(
+            "Dew point temperature and humidity are not independent variables. For ", W,
+            " kg/kg humidity, one has ", tdew,
+            " K dew point temperature, and for ", Tdew,
+            " K dew point temperature, one has ", w, " kg/kg humidity."))
     elseif a == [1, 1, 0, 1, 0, 1, 1]
         tol = Tdew / 1e3
         pw = newtonraphson(foo8, 1e3, tol)
