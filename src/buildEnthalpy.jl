@@ -1,7 +1,7 @@
-include("satPress.jl")
-include("enthalpy.jl")
-include("newtonraphson.jl")
-include("humidity.jl")
+# include("satPress.jl")
+# include("enthalpy.jl")
+# include("newtonraphson.jl")
+# include("humidity.jl")
 
 @doc raw"""
 

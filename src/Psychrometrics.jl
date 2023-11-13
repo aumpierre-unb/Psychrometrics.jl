@@ -17,13 +17,13 @@ using Test
 
 export psychro, dewTemp, humidity, satPress, enthalpy, volume, adiabSat
 
+include("constants.jl")
 include("adiabSat.jl")
 include("buildChart.jl")
 include("buildEnthalpy.jl")
 include("buildHumidity.jl")
 include("buildVolume.jl")
 include("buildWetBulbTemp.jl")
-include("constants.jl")
 include("dewTemp.jl")
 include("doPlot.jl")
 include("enthalpy.jl")
