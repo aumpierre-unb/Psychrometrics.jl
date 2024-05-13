@@ -72,13 +72,13 @@ function buildChart()
     ue = [ue T W];
     T, W = buildEnthalpy(90e3);
     ue = [ue T W];
-    T, W = buildEnthalpy(10e4);
+    T, W = buildEnthalpy(100e3);
     ue = [ue T W];
-    T, W = buildEnthalpy(11e4);
+    T, W = buildEnthalpy(110e3);
     ue = [ue T W];
-    T, W = buildEnthalpy(12e4);
+    T, W = buildEnthalpy(120e3);
     ue = [ue T W];
-    T, W = buildEnthalpy(13e4);
+    T, W = buildEnthalpy(130e3);
     ue = [ue T W];
     uh = [];
     T, W = buildHumidity(1.0);

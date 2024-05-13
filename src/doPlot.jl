@@ -82,16 +82,40 @@ function doPlot()
         :center, :center,
         :green,
         rotation=-74))
-    annotate!(330, 0.006, text(
+    annotate!(330, 0.0062, text(
         "25 °C",
         fontSize,
         :center, :center,
         :blue,
         rotation=-31))
-    annotate!(330, 0.015, text(
+    annotate!(330, 0.0152, text(
         "30 °C",
         fontSize,
         :center, :center,
         :blue,
         rotation=-31))
+    annotate!(319.2, 0.0151, text(
+        "25 %",
+        fontSize,
+        :center, :center,
+        :darkgray,
+        rotation=53))
+    annotate!(316.7, 0.016, text(
+        "30 %",
+        fontSize,
+        :center, :center,
+        :darkgray,
+        rotation=55))
+    annotate!(312.9, 0.0174, text(
+        "40 %",
+        fontSize,
+        :center, :center,
+        :gray,
+        rotation=57))
+    annotate!(307.7, 0.0197, text(
+        "60 %",
+        fontSize,
+        :center, :center,
+        :gray,
+        rotation=59))
 end
