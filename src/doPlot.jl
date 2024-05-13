@@ -57,4 +57,41 @@ function doPlot()
             seriestype=:line,
             color=:gray)
     end
+    fontSize = 8
+    annotate!(276.5, 0.007, text(
+        "20 kJ/kg",
+        fontSize,
+        :center, :center,
+        :red,
+        rotation=-38))
+    annotate!(281, 0.009, text(
+        "30 kJ/kg",
+        fontSize,
+        :center, :center,
+        :red,
+        rotation=-38))
+    annotate!(289.5, 0.015, text(
+        "0.84 cu.m/kg",
+        fontSize,
+        :center, :center,
+        :green,
+        rotation=-74))
+    annotate!(294.2, 0.0195, text(
+        "0.86 cu.m/kg",
+        fontSize,
+        :center, :center,
+        :green,
+        rotation=-74))
+    annotate!(330, 0.006, text(
+        "25 °C",
+        fontSize,
+        :center, :center,
+        :blue,
+        rotation=-31))
+    annotate!(330, 0.015, text(
+        "30 °C",
+        fontSize,
+        :center, :center,
+        :blue,
+        rotation=-31))
 end
