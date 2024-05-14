@@ -90,7 +90,7 @@ given any two of the following parameters:
 - the specific volume or
 - the relative humidity,
 
-except the combination of humidity and dew point temperature, which are not mutually independent. If a different number of parameters is given, execution will be aborted. If fig = true is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
+except for the combination of humidity and dew point temperature, which are not mutually independent. If a different number of parameters is given, execution will be aborted. If fig = true is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
 
 By default, stages plots a schematic diagram of the solution, fig = true.
 
