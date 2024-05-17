@@ -1,5 +1,8 @@
 ### TODO
 
+### Psychrometrics 0.1.5-alpha (2024-05-13)
+* Annotations on the curves included
+
 ### Psychrometrics 0.1.4 (2023-11-13)
 * Includes from the individual files removed to prevent warnings about duplicate definitions
 
