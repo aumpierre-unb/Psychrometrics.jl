@@ -19,8 +19,8 @@ of humid air given
 the water vapor pressure is 1 kPa.
 
 ```
-pw=1e3; # water vapor pressure in Pa
-Tdew=dewTemp(pw) # dew temperature in K
+pw = 1e3; # water vapor pressure in Pa
+Tdew = dewTemp(pw) # dew temperature in K
 ```
 """
 function dewTemp(pw::Number)

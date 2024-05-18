@@ -26,8 +26,8 @@ the humidity is 7 g/kg of dry air
 at 1 atm total pressure.
 
 ```
-W=7e-3; # humidity in kg/kg of dry air
-v=volume(Tdry,W) # specific volume in cu. m/kg of dry air
+W = 7e-3; # humidity in kg/kg of dry air
+v = volume(Tdry, W) # specific volume in cu. m/kg of dry air
 ```
 """
 function volume(Tdry::Number, W::Number, p::Number=101325)
