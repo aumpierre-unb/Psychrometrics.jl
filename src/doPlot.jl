@@ -116,4 +116,9 @@ function doPlot()
         :center, :center,
         :gray,
         rotation=59))
+    annotate!(332.5, 8e-4, text(
+        "https://github.com/aumpierre-unb/Psychrometrics.jl",
+        fontSize - 1,
+        :center, :right,
+        :black))
 end
