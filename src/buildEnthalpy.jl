@@ -1,8 +1,3 @@
-# include("satPress.jl")
-# include("enthalpy.jl")
-# include("newtonraphson.jl")
-# include("humidity.jl")
-
 @doc raw"""
 
 `buildEnthalpy(h)`

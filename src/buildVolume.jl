@@ -1,8 +1,3 @@
-# include("humidity.jl")
-# include("volume.jl")
-# include("satPress.jl")
-# include("newtonraphson.jl")
-
 @doc raw"""
 
 `buildVolume(v)`

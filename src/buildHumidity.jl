@@ -1,7 +1,3 @@
-# include("satPress.jl")
-# include("newtonraphson.jl")
-# include("humidity.jl")
-
 @doc raw"""
 
 `buildHumidity(phi)`

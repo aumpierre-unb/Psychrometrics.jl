@@ -1,18 +1,4 @@
-# include("satPress.jl")
-# include("dewTemp.jl")
-# include("enthalpy.jl")
-# include("volume.jl")
-# include("newtonraphson.jl")
-# include("humidity.jl")
-# include("humidity2.jl")
-# include("adiabSat.jl")
-# include("doPlot.jl")
-# include("buildEnthalpy.jl")
-# include("buildHumidity.jl")
-# include("buildVolume.jl")
-# include("buildWetBulbTemp.jl")
-
-using Plots
+#using Plots
 
 @doc raw"""
 
