@@ -18,8 +18,8 @@ Compute the saturation pressure given
 the dry bulb temperature is 25 °C.
 
 ```
-Tdry=25+273.15; # dry bulb temperature in K
-psat=satPress(Tdry) # saturation pressure in Pa
+Tdry = 25 + 273.15; # dry bulb temperature in K
+psat = satPress(Tdry) # saturation pressure in Pa
 ```
 """
 function satPress(Tdry::Number)

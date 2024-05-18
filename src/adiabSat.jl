@@ -24,8 +24,8 @@ plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
 ```
-h=82.4e3; # specific enthalpy in J/kg
-Tadiab,Wadiab=adiabSat(h,true) # parameters and returns in SI units
+h = 82.4e3; # specific enthalpy in J/kg
+Tadiab, Wadiab = adiabSat(h, true) # parameters and returns in SI units
 ```
 """
 function adiabSat(h::Number, fig::Bool=false)
@@ -33,7 +33,7 @@ function adiabSat(h::Number, fig::Bool=false)
     Tadiab = newtonraphson(foo, 273.15, 1e-5)
     padiab = satPress(Tadiab)
     Wadiab = humidity(padiab)
-    v=volume(Tadiab,Wadiab)
+    v = volume(Tadiab, Wadiab)
     if fig
         tv, wv = buildVolume(v)
         tb, wb = buildWetBulbTemp(Tadiab)

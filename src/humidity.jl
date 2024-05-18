@@ -25,8 +25,8 @@ water vapor pressure is 1 kPa
 at 1 atm total pressure.
 
 ```
-pw=1e3; # water vapor pressure in Pa
-W=humidity(pw) # saturation pressure in kg/kg of dry air
+pw = 1e3; # water vapor pressure in Pa
+W = humidity(pw) # saturation pressure in kg/kg of dry air
 ```
 """
 function humidity(pw::Number, p::Number=101325)
