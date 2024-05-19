@@ -25,7 +25,7 @@ function doPlot()
         legend=false,
         ymirror=:true,
         grid=:true,
-        gridalpha=0.4,
+        gridalpha=0.12,
         minorgrid=:true,
         minorgridalpha=0.12,
         size=(700, 600))
