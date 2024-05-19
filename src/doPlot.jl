@@ -25,7 +25,9 @@ function doPlot()
         legend=false,
         ymirror=:true,
         grid=:true,
+        gridalpha=0.4,
         minorgrid=:true,
+        minorgridalpha=0.12,
         size=(700, 600))
     for i = 1:Int32(size(uv, 2) / 2)
         plot!(uv[:, 2*(i-1)+1], uv[:, 2*(i-1)+2],
