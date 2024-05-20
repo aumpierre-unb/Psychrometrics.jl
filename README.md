@@ -279,7 +279,7 @@ The theory and the adjusted equations used in this package were taken from the f
 
 ### Acknowledgements
 
-The author of Psychrometrics package acknowledges Professor Brent Stephens, Ph.D. from the Illinois Institute of Technology for kindly suggesting the source reference for equations used for this package.
+The author of Psychrometrics package acknowledges Professor Brent Stephens, Ph.D. from the Illinois Institute of Technology for kindly suggesting the source reference for equations used in this package.
 
 ### See Also
 
