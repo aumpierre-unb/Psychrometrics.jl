@@ -99,9 +99,9 @@ If fig = false is given, no plot is shown.
 **Syntax:**
 
 ```julia
-psychro(;Tdry::Number=NaN,Twet::Number=NaN,Tdew::Number=NaN,
-  W::Number=NaN,h::Number=NaN,v::Number=NaN,phi::Number=NaN,
-  fig::Bool=false)
+psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN,
+    W::Number=NaN, h::Number=NaN, v::Number=NaN, phi::Number=NaN,
+    fig::Bool=false)
 ```
 
 **Examples:**
@@ -109,51 +109,51 @@ psychro(;Tdry::Number=NaN,Twet::Number=NaN,Tdew::Number=NaN,
 Compute the dry bulb temperature, the wet bulb temperature, the adiabatic saturation temperature, the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the dew point temperature is 22 °C and the relative humidity is 29 %.
 
 ```julia
-Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(Tdew=22+273.15,phi=.29,fig=true)
+Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, phi, pw, psat, psatwet, rho =
+    psychro(Tdew=22 + 273.15, phi=0.29, fig=true)
 ```
 
 Compute the dry bulb temperature, the wet bulb temperature,
 the dew point temperature, adiabatic saturation temperature, the dew point temperature the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the specific enthalpy is 79.5 kJ/kg of dry air and the relative humidity is 29 % and plot a graphical representation of the answer in a schematic psychrometric chart.
 
 ```julia
-Tdry,Twet,Tdew,Tadiab,W,Wsat,Wsatwet,Wadiab,h,v,phi,pw,psat,psatwet,rho=
-psychro(h=79.5e3,phi=.29,fig=true)
+Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, phi, pw, psat, psatwet, rho =
+    psychro(h=79.5e3, phi=0.29, fig=true)
 ```
 
 8.5 cubic meters of humid air at dry bulb temperature of 293 K and wet bulb temperature of 288 K is subjected to two cycles of heating to 323 K followed by adiabatic saturation. Compute the energy and water vapor demands. Assume the amount of dry air is constant.
 
 ```julia
 # The initial condition is
-Tdry1=293;
-Twet1=288;
-Tdry1,Twet1,Tdew1,Tadiab1,W1,Wsat1,Wsatwet1,Wadiab1,h1,v1,phi1,pw1,psat1,psatwet1,rho1=
-psychro(Tdry=Tdry1,Twet=Twet1,fig=true)
+Tdry1 = 293;
+Twet1 = 288;
+Tdry1, Twet1, Tdew1, Tadiab1, W1, Wsat1, Wsatwet1, Wadiab1, h1, v1, phi1, pw1, psat1, psatwet1, rho1 =
+    psychro(Tdry=Tdry1, Twet=Twet1, fig=true)
 sleep(3)
 # The thermodynamic state after the first heating is
-Tdry2=323;
-W2=W1;
-Tdry2,Twet2,Tdew2,Tadiab2,W2,Wsat2,Wsatwet2,Wadiab2,h2,v2,phi2,pw2,psat2,psatwet2,rho2=
-psychro(Tdry=Tdry2,W=W2,fig=true)
+Tdry2 = 323;
+W2 = W1;
+Tdry2, Twet2, Tdew2, Tadiab2, W2, Wsat2, Wsatwet2, Wadiab2, h2, v2, phi2, pw2, psat2, psatwet2, rho2 =
+    psychro(Tdry=Tdry2, W=W2, fig=true)
 sleep(3)
 # The thermodynamic state the after first adiabatic saturation is
-h3=h2;
-Tdry3,W3=adiabSat(h3,true)
+h3 = h2;
+Tdry3, W3 = adiabSat(h3, true)
 sleep(3)
 # The thermodynamic state after the second heating is
-Tdry4=323;
-W4=W3;
-Tdry4,Twet4,Tdew4,Tadiab4,W4,Wsat4,Wsatwet4,Wadiab4,h4,v4,phi4,pw4,psat4,psatwet4,rho4=
-psychro(Tdry=Tdry4,W=W4,fig=true)
+Tdry4 = 323;
+W4 = W3;
+Tdry4, Twet4, Tdew4, Tadiab4, W4, Wsat4, Wsatwet4, Wadiab4, h4, v4, phi4, pw4, psat4, psatwet4, rho4 =
+    psychro(Tdry=Tdry4, W=W4, fig=true)
 sleep(3)
 # The thermodynamic state the after second adiabatic saturation is
-h5=h4;
-Tdry5,W5=adiabSat(h5,true)
+h5 = h4;
+Tdry5, W5 = adiabSat(h5, true)
 sleep(3)
 # The energy demand is
-(h5-h1)*(8.5/v1)
+(h5 - h1) * (8.5 / v1)
 # The water vapor demand is
-(W5-W1)*(8.5/v1)
+(W5 - W1) * (8.5 / v1)
 ```
 
 ### **humidity**
@@ -164,7 +164,7 @@ the humidity of humid air in given the water vapor pressure and the total pressu
 **Syntax:**
 
 ```julia
-humidity(pw::Number,p::Number=101325)
+humidity(pw::Number, p::Number=101325)
 ```
 
 **Examples:**
@@ -172,8 +172,8 @@ humidity(pw::Number,p::Number=101325)
 Compute the humidity of humid air at atmospheric pressure given water vapor pressure is 1 kPa at 1 atm total pressure.
 
 ```julia
-pw=1e3; # water vapor pressure in Pa
-W=humidity(pw) # saturation pressure in kg/kg of dry air
+pw = 1e3; # water vapor pressure in Pa
+W = humidity(pw) # saturation pressure in kg/kg of dry air
 ```
 
 ### **satPress**
@@ -191,8 +191,8 @@ satPress(Tdry::Number)
 Compute the saturation pressure given the dry bulb temperature is 25 °C.
 
 ```julia
-Tdry=25+273.15; # dry bulb temperature in K
-psat=satPress(Tdry) # saturation pressure in Pa
+Tdry = 25 + 273.15; # dry bulb temperature in K
+psat = satPress(Tdry) # saturation pressure in Pa
 ```
 
 ### **enthalpy**
@@ -202,7 +202,7 @@ enthalpy computes the specific enthalpy of humid air given the dry bulb temperat
 **Syntax:**
 
 ```julia
-enthalpy(Tdry::Number,W::Number)
+enthalpy(Tdry::Number, W::Number)
 ```
 
 **Examples:**
@@ -210,9 +210,9 @@ enthalpy(Tdry::Number,W::Number)
 Compute the specific enthalpy given the dry bulb temperature is 25 °C and the humidity is 7 g/kg of dry air.
 
 ```julia
-Tdry=25+273.15; # dry bulb temperature in K
-W=7e-3; # humidity in kg/kg of dry air
-h=enthalpy(Tdry,W) # specific enthalpy in J/kg of dry air
+Tdry = 25 + 273.15; # dry bulb temperature in K
+W = 7e-3; # humidity in kg/kg of dry air
+h = enthalpy(Tdry, W) # specific enthalpy in J/kg of dry air
 ```
 
 ### **volume**
@@ -222,7 +222,7 @@ volume computes computes the specific volume of humid air given  the dry bulb te
 **Syntax:**
 
 ```julia
-volume(Tdry::Number,W::Number,p::Number=101325)
+volume(Tdry::Number, W::Number, p::Number=101325)
 ```
 
 **Examples:**
@@ -230,9 +230,9 @@ volume(Tdry::Number,W::Number,p::Number=101325)
 Compute the specific volume given the dry bulb temperature is 25 °C and the humidity is 7 g/kg of dry air at 1 atm total pressure.
 
 ```julia
-Tdry=25+273.15; # dry bulb temperature in K
-W=7e-3; # humidity in kg/kg of dry air
-v=volume(Tdry,W) # specific volume in cu. m/kg of dry air
+Tdry = 25 + 273.15; # dry bulb temperature in K
+W = 7e-3; # humidity in kg/kg of dry air
+v = volume(Tdry, W) # specific volume in cu. m/kg of dry air
 ```
 
 ### **adiabSat**
@@ -242,7 +242,7 @@ adiabSat computes the the adiabatic saturation temperature and the adiabatic sat
 **Syntax:**
 
 ```julia
-adiabSat(h::Number,fig::Bool=false)
+adiabSat(h::Number, fig::Bool=false)
 ```
 
 **Examples:**
@@ -250,8 +250,8 @@ adiabSat(h::Number,fig::Bool=false)
 Compute the the adiabatic saturation temperature and the adiabatic saturation humidity given the specific enthalpy is 82.4 kJ/kg of dry air and plot a graphical representation of the answer in a schematic psychrometric chart.
 
 ```julia
-h=82.4e3; # specific enthalpy in J/kg
-Tadiab,Wadiab=adiabSat(h,true) # parameters and returns in SI units
+h = 82.4e3; # specific enthalpy in J/kg
+Tadiab, Wadiab = adiabSat(h, true) # parameters and returns in SI units
 ```
 
 ### **dewTemp**
@@ -269,8 +269,8 @@ dewTemp(pw::Number)
 Compute the dew temperature of humid air given the water vapor pressure is 1 kPa.
 
 ```julia
-pw=1e3; # water vapor pressure in Pa
-Tdew=dewTemp(pw) # dew temperature in K
+pw = 1e3; # water vapor pressure in Pa
+Tdew = dewTemp(pw) # dew temperature in K
 ```
 
 ### Reference
