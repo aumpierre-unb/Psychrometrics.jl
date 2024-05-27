@@ -124,6 +124,8 @@ Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, phi, pw, psat, psatwet
 8.5 cubic meters of humid air at dry bulb temperature of 293 K and wet bulb temperature of 288 K is subjected to two cycles of heating to 323 K followed by adiabatic saturation. Compute the energy and water vapor demands. Assume the amount of dry air is constant.
 
 ```julia
+# The volume of humid air is
+V = 8.5;
 # The initial condition is
 Tdry1 = 293;
 Twet1 = 288;
@@ -151,9 +153,9 @@ h5 = h4;
 Tdry5, W5 = adiabSat(h5, true)
 sleep(3)
 # The energy demand is
-(h5 - h1) * (8.5 / v1)
+(h5 - h1) * (V / v1)
 # The water vapor demand is
-(W5 - W1) * (8.5 / v1)
+(W5 - W1) * (V / v1)
 ```
 
 ### **humidity**

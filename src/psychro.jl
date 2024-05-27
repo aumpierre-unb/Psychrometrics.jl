@@ -101,6 +101,8 @@ Compute the energy and water vapor demands.
 Assume the amount of dry air is constant.
 
 ```
+# The volume of humid air is
+V = 8.5;
 # The initial condition is
 Tdry1 = 293;
 Twet1 = 288;
@@ -133,10 +135,10 @@ Tdry5, W5 = adiabSat(h5, true)
 sleep(3)
 
 # The energy demand is
-(h5 - h1) * (8.5 / v1)
+(h5 - h1) * (V / v1)
 
 # The water vapor demand is
-(W5 - W1) * (8.5 / v1)
+(W5 - W1) * (V / v1)
 ```
 """
 function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN,

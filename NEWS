@@ -1,5 +1,8 @@
 ### TODO
 
+### Psychrometrics 0.1.6-alpha (2024-05-27)
+* minor changes on the documentation of psychro function and README.md
+
 ### Psychrometrics 0.1.5 (2024-05-20)
 * Annotations to the curves included on plots
 
