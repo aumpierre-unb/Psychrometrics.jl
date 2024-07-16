@@ -6,7 +6,7 @@ Author: Alexandre Umpierre `aumpierre@gmail.com`
 
 Maintainer's repository: `https://github.com/aumpierre-unb/Psychrometrics.jl`
 
-Citation (any version): `DOI 10.5281/zenodo.7493474`
+Citation (all versions): `DOI 10.5281/zenodo.7493474`
 
 See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat`.
 """

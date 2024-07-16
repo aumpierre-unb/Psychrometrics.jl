@@ -1,7 +1,9 @@
 ### TODO
 
 ### Psychrometrics 0.1.6-alpha (2024-07-15)
-* minor changes on the documentation of psychro function and README.md
+* Minor changes in docstrings
+* Minor changes in psychro function
+* Minor changes in README.md
 * Manifest.toml upgraded
 
 ### Psychrometrics 0.1.5 (2024-05-20)
