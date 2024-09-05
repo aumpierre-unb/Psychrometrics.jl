@@ -1,10 +1,10 @@
 @doc raw"""
 
-`buildHumidity(phi)`
+`buildHumidity(φ)`
 
 `buildHumidity` generates a two column matrix of
 humidity and dry bulb temperature
-with given constant relative humidity phi.
+with given constant relative humidity φ.
 
 By default, constant relative humidity curves
 are ploted with black solid thin lines.
@@ -13,9 +13,9 @@ are ploted with black solid thin lines.
 the `Psychrometrics` package for Julia.
 """
 function buildHumidity(
-    phi::Number
+    φ::Number
 )
-    foo(T) = 0.04 - humidity(satPress(T) * phi)
+    foo(T) = 0.04 - humidity(satPress(T) * φ)
     T1 = 273.15
     tol = 0.04 / 1e4
     T2 = newtonraphson(foo, 60 + 273.15, tol)
@@ -28,7 +28,7 @@ function buildHumidity(
     for n = 1:N
         T = [T; T1 + (T2 - T1) / (N - 1) * (n - 1)]
         psat = satPress(T[end])
-        pw = psat * phi
+        pw = psat * φ
         W = [W; humidity(pw)]
     end
     T, W

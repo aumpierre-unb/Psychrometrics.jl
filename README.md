@@ -101,7 +101,7 @@ If fig = false is given, no plot is shown.
 
 ```julia
 psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN,
-    W::Number=NaN, h::Number=NaN, v::Number=NaN, phi::Number=NaN,
+    W::Number=NaN, h::Number=NaN, v::Number=NaN, φ::Number=NaN,
     fig::Bool=false)
 ```
 
@@ -110,16 +110,16 @@ psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN,
 Compute the dry bulb temperature, the wet bulb temperature, the adiabatic saturation temperature, the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the dew point temperature is 22 °C and the relative humidity is 29 %.
 
 ```julia
-Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, phi, pw, psat, psatwet, rho =
-    psychro(Tdew=22 + 273.15, phi=0.29, fig=true)
+Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, φ, pw, psat, psatwet, ρ =
+    psychro(Tdew=22 + 273.15, φ=0.29, fig=true)
 ```
 
 Compute the dry bulb temperature, the wet bulb temperature,
 the dew point temperature, adiabatic saturation temperature, the dew point temperature the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the specific enthalpy is 79.5 kJ/kg of dry air and the relative humidity is 29 % and plot a graphical representation of the answer in a schematic psychrometric chart.
 
 ```julia
-Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, phi, pw, psat, psatwet, rho =
-    psychro(h=79.5e3, phi=0.29, fig=true)
+Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, φ, pw, psat, psatwet, ρ =
+    psychro(h=79.5e3, φ=0.29, fig=true)
 ```
 
 8.5 cubic meters of humid air at dry bulb temperature of 293 K and wet bulb temperature of 288 K is subjected to two cycles of heating to 323 K followed by adiabatic saturation. Compute the energy and water vapor demands. Assume the amount of dry air is constant.
