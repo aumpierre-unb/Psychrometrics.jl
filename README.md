@@ -118,8 +118,7 @@ Compute the dry bulb temperature, the wet bulb temperature,
 the dew point temperature, adiabatic saturation temperature, the dew point temperature the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the specific enthalpy is 79.5 kJ/kg of dry air and the relative humidity is 29 % and plot a graphical representation of the answer in a schematic psychrometric chart.
 
 ```julia
-Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, φ, pw, psat, psatwet, ρ =
-    psychro(h=79.5e3, φ=0.29, fig=true)
+Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, φ, pw, psat, psatwet, ρ = psychro(h=79.5e3, φ=0.29, fig=true)
 ```
 
 8.5 cubic meters of humid air at dry bulb temperature of 293 K and wet bulb temperature of 288 K is subjected to two cycles of heating to 323 K followed by adiabatic saturation. Compute the energy and water vapor demands. Assume the amount of dry air is constant.
@@ -130,14 +129,12 @@ V = 8.5;
 # The initial condition is
 Tdry1 = 293;
 Twet1 = 288;
-Tdry1, Twet1, Tdew1, Tadiab1, W1, Wsat1, Wsatwet1, Wadiab1, h1, v1, phi1, pw1, psat1, psatwet1, rho1 =
-    psychro(Tdry=Tdry1, Twet=Twet1, fig=true)
+Tdry1, Twet1, Tdew1, Tadiab1, W1, Wsat1, Wsatwet1, Wadiab1, h1, v1, φ1, pw1, psat1, psatwet1, rho1 = psychro(Tdry=Tdry1, Twet=Twet1, fig=true)
 sleep(3)
 # The thermodynamic state after the first heating is
 Tdry2 = 323;
 W2 = W1;
-Tdry2, Twet2, Tdew2, Tadiab2, W2, Wsat2, Wsatwet2, Wadiab2, h2, v2, phi2, pw2, psat2, psatwet2, rho2 =
-    psychro(Tdry=Tdry2, W=W2, fig=true)
+Tdry2, Twet2, Tdew2, Tadiab2, W2, Wsat2, Wsatwet2, Wadiab2, h2, v2, φ2, pw2, psat2, psatwet2, rho2 = psychro(Tdry=Tdry2, W=W2, fig=true)
 sleep(3)
 # The thermodynamic state the after first adiabatic saturation is
 h3 = h2;
@@ -146,8 +143,7 @@ sleep(3)
 # The thermodynamic state after the second heating is
 Tdry4 = 323;
 W4 = W3;
-Tdry4, Twet4, Tdew4, Tadiab4, W4, Wsat4, Wsatwet4, Wadiab4, h4, v4, phi4, pw4, psat4, psatwet4, rho4 =
-    psychro(Tdry=Tdry4, W=W4, fig=true)
+Tdry4, Twet4, Tdew4, Tadiab4, W4, Wsat4, Wsatwet4, Wadiab4, h4, v4, φ4, pw4, psat4, psatwet4, rho4 = psychro(Tdry=Tdry4, W=W4, fig=true)
 sleep(3)
 # The thermodynamic state the after second adiabatic saturation is
 h5 = h4;
