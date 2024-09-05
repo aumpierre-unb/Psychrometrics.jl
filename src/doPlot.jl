@@ -142,9 +142,11 @@ function doPlot()
         :black))
     path = Base.find_package("Psychrometrics")
     file = string(path[1:length(path)-length("src/Psychrometrics.jl")], "\\julia-logo-color.png")
-    img = load(file)
-    plot!([274.5, 283.5], [33.2e-3, 36.2e-3],
-        reverse(img, dims=1),
-        yflip=false,
-        aspect_ratio=:none)
+    # img = load(file)
+    # plot!([274.5, 283.5], [33.2e-3, 36.2e-3],
+    #     reverse(img, dims=1),
+    #     yflip=false,
+    #     aspect_ratio=:none)
+    plot!(inset=bbox(0.034, 0.11, 0.1, 0.1))
+    plot!(load(file), subplot=2, axis=false, grid=false)
 end
