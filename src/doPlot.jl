@@ -82,19 +82,19 @@ function doPlot()
         :green,
         rotation=-69))
     annotate!(329.7, 0.0062, text(
-        "25 °C",
+        "298.15 K", # "25 °C",
         fontSize,
         :center, :center,
         :blue,
         rotation=-31))
     annotate!(329.7, 0.0152, text(
-        "30 °C",
+        "303.15 K", # "298.15 K" # "30 °C",
         fontSize,
         :center, :center,
         :blue,
         rotation=-31))
     annotate!(329.7, 0.0264, text(
-        "35 °C",
+        "308.15 K", # "35 °C",
         fontSize,
         :center, :center,
         :blue,
@@ -138,7 +138,10 @@ function doPlot()
         fontSize - 2,
         :center, :left,
         :black))
-    img = load("https://github.com/aumpierre-unb/Psychrometrics.jl/raw/main/julia-logo-color.png")
+    path = pwd()
+    path = string(path[1:length(path)-5], "\\julia-logo-color.png")
+    img = load(path)
+    # img = load("https://github.com/aumpierre-unb/Psychrometrics.jl/raw/main/julia-logo-color.png")
     plot!([274.5, 283.5], [33.2e-3, 36.2e-3],
         reverse(img, dims=1),
         yflip=false,
