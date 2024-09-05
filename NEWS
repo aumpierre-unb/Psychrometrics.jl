@@ -1,6 +1,7 @@
 ### TODO
 
-### Psychrometrics 0.1.6-alpha (2024-07-15)
+### Psychrometrics 0.1.6-alpha (2024-09-05)
+* Psychrometric chart extended from 0.03 kg/kg to 0.04 kg/kg
 * Minor changes in docstrings
 * Minor changes in psychro function
 * Minor changes in README.md

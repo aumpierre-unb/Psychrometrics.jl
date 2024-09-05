@@ -141,10 +141,16 @@ sleep(3)
 (W5 - W1) * (V / v1)
 ```
 """
-function psychro(; Tdry::Number=NaN, Twet::Number=NaN, Tdew::Number=NaN,
+function psychro(;
+    Tdry::Number=NaN,
+    Twet::Number=NaN,
+    Tdew::Number=NaN,
     W::Number=NaN,
-    h::Number=NaN, v::Number=NaN,
-    phi::Number=NaN, fig::Bool=false)
+    h::Number=NaN,
+    v::Number=NaN,
+    phi::Number=NaN,
+    fig::Bool=false
+)
     foo1(pw) = W - humidity(pw)
     foo2(Twet) = W - humidity2(humidity(satPress(Twet)), Tdry, Twet)
     foo3(Tdry) = W - humidity2(humidity(satPress(Twet)), Tdry, Twet)

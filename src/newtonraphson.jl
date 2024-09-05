@@ -11,7 +11,11 @@ using the method of Newton-Raphson.
 the `Psychrometrics` package for Julia.
 
 """
-function newtonraphson(f::Function, x::Number, tol::Number)
+function newtonraphson(
+    f::Function,
+    x::Number,
+    tol::Number
+)
     while abs(f(x)) > tol
         a = (f(x + 1e-7) - f(x)) / 1e-7
         x = x - f(x) / a

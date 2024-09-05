@@ -22,7 +22,9 @@ Tdry = 25 + 273.15; # dry bulb temperature in K
 psat = satPress(Tdry) # saturation pressure in Pa
 ```
 """
-function satPress(Tdry::Number)
+function satPress(
+    Tdry::Number
+)
     if -100 <= Tdry - 273.15 && Tdry - 273.15 < 0
         k = c[1] / Tdry +
             c[2] +

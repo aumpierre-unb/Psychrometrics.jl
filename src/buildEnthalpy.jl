@@ -12,14 +12,16 @@ are ploted with red dash-doted thin lines.
 `buildEnthalpy` is an internal function of
 the `Psychrometrics` package for Julia.
 """
-function buildEnthalpy(h::Number)
+function buildEnthalpy(
+    h::Number
+)
     foo1(T) = h - enthalpy(T, humidity(satPress(T)))
     foo2(T) = h - enthalpy(T, W)
     foo3(W) = h - enthalpy(T[end], W)
     tol = h / 1e3
     T1 = newtonraphson(foo1, 50 + 273.15, tol)
-    if humidity(satPress(T1)) > 0.03
-        W = 0.03
+    if humidity(satPress(T1)) > 0.04
+        W = 0.04
         T1 = newtonraphson(foo2, 50 + 273.15, tol)
     end
     W = 0
@@ -34,6 +36,6 @@ function buildEnthalpy(h::Number)
         T = [T; T1 + (T2 - T1) / (N - 1) * (n - 1)]
         W = [W; newtonraphson(foo3, 1e-2, tol)]
     end
-    return T, W
+    T, W
 end
 

@@ -28,7 +28,10 @@ h = 82.4e3; # specific enthalpy in J/kg
 Tadiab, Wadiab = adiabSat(h, true) # parameters and returns in SI units
 ```
 """
-function adiabSat(h::Number, fig::Bool=false)
+function adiabSat(
+    h::Number,
+    fig::Bool=false
+)
     foo(Tadiab) = h - enthalpy(Tadiab, humidity(satPress(Tadiab)))
     Tadiab = newtonraphson(foo, 273.15, 1e-5)
     padiab = satPress(Tadiab)

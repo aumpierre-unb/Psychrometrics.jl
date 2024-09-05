@@ -21,7 +21,8 @@ the `Psychrometrics` package for Julia.
 function doPlot()
     plot(xlabel="Dry Bulb Temperature (K)",
         ylabel="Humidity (kg vapor / kg dry air)",
-        xlims=(0 + 273.15, 60 + 273.15), ylims=(0, 0.03),
+        xlims=(0 + 273.15, 60 + 273.15),
+        ylims=(0, 0.04),
         legend=false,
         ymirror=:true,
         grid=:true,
@@ -58,38 +59,44 @@ function doPlot()
             color=:gray)
     end
     fontSize = 8
-    annotate!(276.5, 0.007, text(
+    annotate!(285, 0.004, text(
         "20 kJ/kg",
         fontSize,
         :center, :center,
         :red,
-        rotation=-38))
-    annotate!(281, 0.009, text(
+        rotation=-28))
+    annotate!(290, 0.006, text(
         "30 kJ/kg",
         fontSize,
         :center, :center,
         :red,
-        rotation=-38))
-    annotate!(289.5, 0.015, text(
+        rotation=-28))
+    annotate!(293.8, 0.008, text(
         "0.84 cu.m/kg",
         fontSize,
         :center, :center,
         :green,
-        rotation=-74))
-    annotate!(294.2, 0.0195, text(
+        rotation=-69))
+    annotate!(299.8, 0.01, text(
         "0.86 cu.m/kg",
         fontSize,
         :center, :center,
         :green,
-        rotation=-74))
-    annotate!(330, 0.0062, text(
+        rotation=-69))
+    annotate!(329.7, 0.0062, text(
         "25 °C",
         fontSize,
         :center, :center,
         :blue,
         rotation=-31))
-    annotate!(330, 0.0152, text(
+    annotate!(329.7, 0.0152, text(
         "30 °C",
+        fontSize,
+        :center, :center,
+        :blue,
+        rotation=-31))
+    annotate!(329.7, 0.0264, text(
+        "35 °C",
         fontSize,
         :center, :center,
         :blue,
@@ -118,9 +125,24 @@ function doPlot()
         :center, :center,
         :gray,
         rotation=59))
-    annotate!(332.5, 8e-4, text(
-        "https://github.com/aumpierre-unb/Psychrometrics.jl",
-        fontSize - 1,
-        :center, :right,
+    annotate!(275, 38.7e-3, text(
+        "Psychrometric Chart", "TamilMN-Bold",
+        fontSize + 8,
+        :center, :left,
         :black))
+    annotate!(275, 37.3e-3, text(
+        "Sea level air-water vapor psychrometrics", "TamilMN-Bold",
+        fontSize - 2,
+        :center, :left,
+        :black))
+    annotate!(275, 36.6e-3, text(
+        "https://github.com/aumpierre-unb/Psychrometrics.jl", "TamilMN-Bold",
+        fontSize - 2,
+        :center, :left,
+        :black))
+    img = load("julia-logo-color.png")
+    plot!([274.5, 283.5], [33.2e-3, 36.2e-3],
+        reverse(img, dims=1),
+        yflip=false,
+        aspect_ratio=:none)
 end

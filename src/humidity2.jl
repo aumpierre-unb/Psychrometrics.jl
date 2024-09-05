@@ -12,6 +12,10 @@ the wet bulb temperature (in K).
 `humidity2` is an internal function of
 the `Psychrometrics` package for Julia.
 """
-function humidity2(Wsatwet::Number, Tdry::Number, Twet::Number)
+function humidity2(
+    Wsatwet::Number,
+    Tdry::Number,
+    Twet::Number
+)
     ((2501 - 2.326 * (Twet - 273.15)) * Wsatwet - 1.006 * (Tdry - Twet)) / (2501 + 1.86 * (Tdry - 273.15) - 4.186 * (Twet - 273.15))
 end

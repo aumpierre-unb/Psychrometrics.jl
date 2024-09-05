@@ -25,6 +25,9 @@ W = 7e-3; # humidity in kg/kg of dry air
 h = enthalpy(Tdry, W) # specific enthalpy in J/kg of dry air
 ```
 """
-function enthalpy(Tdry::Number, W::Number)
+function enthalpy(
+    Tdry::Number,
+    W::Number
+)
     (1.006 * (Tdry - 273.15) + W * (2501 + 1.86 * (Tdry - 273.15))) * 1e3
 end
