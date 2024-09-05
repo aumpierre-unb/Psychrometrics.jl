@@ -16,7 +16,7 @@ at sea level, p = 101325.
 `volume` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, adiabSat`.
+See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `adiabSat` and `doPlot`.
 
 Examples
 ==========

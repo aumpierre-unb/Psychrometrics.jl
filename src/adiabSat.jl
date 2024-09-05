@@ -14,7 +14,7 @@ of the solution.
 `adiabSat` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume`.
+See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume` and `doPlot`.
 
 Examples
 ==========

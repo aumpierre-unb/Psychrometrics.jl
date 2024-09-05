@@ -10,7 +10,7 @@ the dry bulb temperature Tdry (in K).
 `satPress` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `dewTemp`, `humidity`, `enthalpy`, `volume`, `adiabSat`.
+See also: `psychro`, `dewTemp`, `humidity`, `enthalpy`, `volume`, `adiabSat` and `doPlot`.
 
 Examples
 ==========

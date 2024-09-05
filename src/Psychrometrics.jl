@@ -16,7 +16,7 @@ using Plots
 using Images
 using Test
 
-export psychro, dewTemp, humidity, satPress, enthalpy, volume, adiabSat
+export psychro, dewTemp, humidity, satPress, enthalpy, volume, adiabSat, doPlot
 
 include("constants.jl")
 include("adiabSat.jl")

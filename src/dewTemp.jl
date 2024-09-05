@@ -10,7 +10,7 @@ the water vapor pressure pw (in Pa).
 `dewTemp` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat`.
+See also: `psychro`, `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat` and `doPlot`.
 
 Examples
 ==========

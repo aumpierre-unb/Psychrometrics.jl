@@ -15,7 +15,7 @@ at sea level, p = 101325.
 `humidity` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `dewTemp`, `satPress`, `enthalpy`, `volume`, `adiabSat`.
+See also: `psychro`, `dewTemp`, `satPress`, `enthalpy`, `volume`, `adiabSat` and `doPlot`.
 
 Examples
 ==========
