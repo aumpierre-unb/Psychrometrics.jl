@@ -1,5 +1,3 @@
-#using Plots
-
 @doc raw"""
 
 `doPlot()`

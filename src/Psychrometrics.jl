@@ -13,8 +13,8 @@ See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume`, `a
 module Psychrometrics
 
 using Plots
-using Test
 using Images
+using Test
 
 export psychro, dewTemp, humidity, satPress, enthalpy, volume, adiabSat
 

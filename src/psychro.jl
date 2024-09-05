@@ -1,5 +1,3 @@
-#using Plots
-
 @doc raw"""
 
 `psychro(;Tdry::Number=NaN,Twet::Number=NaN,Tdew::Number=NaN,W::Number=NaN,h::Number=NaN,v::Number=NaN,phi::Number=NaN,fig::Bool=false)`
