@@ -138,7 +138,7 @@ function doPlot()
         fontSize - 2,
         :center, :left,
         :black))
-    img = load("https://github.com/aumpierre-unb/Psychrometrics.jl/raw/main/julia_logo_color.png")
+    img = load("https://github.com/aumpierre-unb/Psychrometrics.jl/raw/main/julia-logo-color.png")
     plot!([274.5, 283.5], [33.2e-3, 36.2e-3],
         reverse(img, dims=1),
         yflip=false,
