@@ -150,8 +150,12 @@ function psychro(;
     fig::Bool=false
 )
     foo1(pw) = W - humidity(pw)
-    foo2(Twet) = W - humidity2(humidity(satPress(Twet)), Tdry, Twet)
-    foo3(Tdry) = W - humidity2(humidity(satPress(Twet)), Tdry, Twet)
+    foo2(Twet) = W - humidity2(
+        humidity(satPress(Twet)), Tdry, Twet
+    )
+    foo3(Tdry) = W - humidity2(
+        humidity(satPress(Twet)), Tdry, Twet
+    )
     foo4(W) = h - enthalpy(Tdry, W)
     foo5(Tdry) = h - enthalpy(Tdry, W)
     foo6(W) = v - volume(Tdry, W)
@@ -537,68 +541,92 @@ function psychro(;
         te, we = buildEnthalpy(h)
         th, wh = buildHumidity(φ)
         doPlot()
-        plot!(tv, wv,
+        plot!(
+            tv, wv,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
-            color=:green)
-        plot!(tb, wb,
+            color=:green
+        )
+        plot!(
+            tb, wb,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
-            color=:blue)
-        plot!(te, we,
+            color=:blue
+        )
+        plot!(
+            te, we,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
-            color=:red)
+            color=:red
+        )
         plot!(th, wh,
             seriestype=:line,
             linewidth=:2,
             color=:black)
         if φ != 1
-            plot!([Tdry], [W],
+            plot!(
+                [Tdry], [W],
                 seriestype=:scatter,
                 markersize=:5,
                 markerstrokecolor=:green,
-                color=:green)
-            plot!([Twet], [Wsatwet],
+                color=:green
+            )
+            plot!(
+                [Twet], [Wsatwet],
                 seriestype=:scatter,
                 markersize=:5,
                 markerstrokecolor=:blue,
-                color=:blue)
-            plot!([Tdry], [Wsat],
+                color=:blue
+            )
+            plot!(
+                [Tdry], [Wsat],
                 seriestype=:scatter,
                 markersize=:5,
                 markerstrokecolor=:black,
-                color=:black)
-            plot!([Tdew], [W],
+                color=:black
+            )
+            plot!(
+                [Tdew], [W],
                 seriestype=:scatter,
                 markersize=:5,
                 markerstrokecolor=:black,
-                color=:black)
-            plot!([Tdew, Tdew, 60 + 273.15], [0, W, W],
+                color=:black
+            )
+            plot!(
+                [Tdew, Tdew, 60 + 273.15], [0, W, W],
                 seriestype=:line,
                 linestyle=:dash,
-                color=:black)
-            plot!([Tdry, Tdry, 60 + 273.15], [0, Wsat, Wsat],
+                color=:black
+            )
+            plot!(
+                [Tdry, Tdry, 60 + 273.15], [0, Wsat, Wsat],
                 seriestype=:line,
                 linestyle=:dash,
-                color=:black)
-            plot!([Twet, Twet, 60 + 273.15], [0, Wsatwet, Wsatwet],
+                color=:black
+            )
+            plot!(
+                [Twet, Twet, 60 + 273.15], [0, Wsatwet, Wsatwet],
                 seriestype=:line,
                 linestyle=:dash,
-                color=:blue)
+                color=:blue
+            )
         end
-        plot!([Tadiab], [Wadiab],
+        plot!(
+            [Tadiab], [Wadiab],
             seriestype=:scatter,
             markersize=:5,
             markerstrokecolor=:red,
-            color=:red)
-        plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
+            color=:red
+        )
+        plot!(
+            [Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
             seriestype=:line,
             linestyle=:dash,
-            color=:red)
+            color=:red
+        )
         display(plot!())
     end
     Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, φ, pw, psat, psatwet, ρ

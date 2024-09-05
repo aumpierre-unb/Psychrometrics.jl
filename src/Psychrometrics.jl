@@ -18,7 +18,7 @@ using Test
 
 export psychro, dewTemp, humidity, satPress, enthalpy, volume, adiabSat, doPlot
 
-include("constants.jl")
+include("loadConstants.jl")
 include("adiabSat.jl")
 include("buildChart.jl")
 include("buildEnthalpy.jl")

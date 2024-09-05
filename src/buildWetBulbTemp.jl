@@ -37,4 +37,3 @@ function buildWetBulbTemp(
     end
     T, W
 end
-

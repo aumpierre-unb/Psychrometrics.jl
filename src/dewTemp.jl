@@ -26,6 +26,7 @@ Tdew = dewTemp(pw) # dew temperature in K
 function dewTemp(
     pw::Number
 )
+    c = loadConstants()
     alpha = log(pw / 1000)
     c[14] +
     c[15] * alpha +
