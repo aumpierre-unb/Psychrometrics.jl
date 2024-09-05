@@ -139,7 +139,7 @@ function doPlot()
         :center, :left,
         :black))
     path = Base.find_package("Psychrometrics")
-    file = string(path, "\\julia-logo-color.png")
+    file = string(path[1:length(str)-17], "\\julia-logo-color.png")
     img = load(file)
     # img = load("https://github.com/aumpierre-unb/Psychrometrics.jl/raw/main/julia-logo-color.png")
     plot!([274.5, 283.5], [33.2e-3, 36.2e-3],
