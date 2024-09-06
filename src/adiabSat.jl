@@ -1,6 +1,9 @@
 @doc raw"""
 
-`adiabSat(h::Number; fig::Bool=false)`
+`adiabSat( # adiabatic saturation temperature in K
+    h::Number; # specific enthalpy in J/kg of dry air
+    fig::Bool=false # show plot
+    )`
 
 `adiabSat` computes
 the adiabatic saturation temperature Tadiab (in K) and
@@ -24,8 +27,13 @@ plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
 ```
-h = 82.4e3; # specific enthalpy in J/kg
-Tadiab, Wadiab = adiabSat(h, true) # parameters and returns in SI units
+(
+    Tadiab, # adiabatic saturation temperature in K
+    Wadiab # adiabatic saturation humidity in kg/kg of dry air
+    ) = adiabSat(
+        82.4e3, # specific enthalpy in J/kg of dry air
+        fig=true # show plot
+        )
 ```
 """
 function adiabSat(

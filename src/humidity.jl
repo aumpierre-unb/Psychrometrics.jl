@@ -1,6 +1,9 @@
 @doc raw"""
 
-`humidity(pw::Number, p::Number=101325)`
+`humidity( # humidity in kg/kg of dry air
+    pw::Number, # water vapor pressure in Pa
+    p::Number=101325 # total pressure in Pa
+    )`
 
 `humidity` computes
 the humidity W (in kg/kg of dry air) 
@@ -25,8 +28,9 @@ water vapor pressure is 1 kPa
 at 1 atm total pressure.
 
 ```
-pw = 1e3; # water vapor pressure in Pa
-W = humidity(pw) # saturation pressure in kg/kg of dry air
+humidity( # humidity in kg/kg of dry air
+    1e3 # water vapor pressure in Pa
+    )
 ```
 """
 function humidity(

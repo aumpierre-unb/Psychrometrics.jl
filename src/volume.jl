@@ -1,6 +1,10 @@
 @doc raw"""
 
-`volume(Tdry::Number,W::Number,p::Number=101325)`
+`volume( # specific enthalpy in J/kg of dry air
+    Tdry::Number, # dry bulb temperature in K
+    W::Number, # humidity in kg/kg of dry air
+    p::Number=101325 # total pressure in Pa
+    )`
 
 `volume` computes
 the specific volume v (in cu. m/kg of dry air)
@@ -26,8 +30,10 @@ the humidity is 7 g/kg of dry air
 at 1 atm total pressure.
 
 ```
-W = 7e-3; # humidity in kg/kg of dry air
-v = volume(Tdry, W) # specific volume in cu. m/kg of dry air
+volume( # specific volume in cu. m/kg of dry air
+    25 + 273.15, # dry bulb temperature in K 
+    7e-3 # humidity in kg/kg of dry air
+    )
 ```
 """
 function volume(

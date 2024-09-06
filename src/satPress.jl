@@ -1,6 +1,8 @@
 @doc raw"""
 
-`satPress(Tdry::Number)`
+`satPress( # saturation pressure in Pa
+    Tdry::Number # dry bulb temperature in K
+    )`
 
 `satPress` computes
 the saturation pressure psat (in pa)
@@ -18,8 +20,9 @@ Compute the saturation pressure given
 the dry bulb temperature is 25 °C.
 
 ```
-Tdry = 25 + 273.15; # dry bulb temperature in K
-psat = satPress(Tdry) # saturation pressure in Pa
+satPress( # saturation pressure in Pa
+    25 + 273.15; # dry bulb temperature in K
+    )
 ```
 """
 function satPress(

@@ -1,6 +1,9 @@
 @doc raw"""
 
-`enthalpy(Tdry::Number, W::Number)`
+`enthalpy( # specific enthalpy in kJ/kg of dry air
+    Tdry::Number, # dry bulb temperature in K
+    W::Number # humidity in kg/kg of dry air
+    )`
 
 `enthalpy` computes
 the specific enthalpy h (in J/kg of dry air)
@@ -20,9 +23,10 @@ the dry bulb temperature is 25 °C and
 the humidity is 7 g/kg of dry air.
 
 ```
-Tdry = 25 + 273.15; # dry bulb temperature in K
-W = 7e-3; # humidity in kg/kg of dry air
-h = enthalpy(Tdry, W) # specific enthalpy in J/kg of dry air
+enthalpy( # specific enthalpy in J/kg of dry air
+    25 + 273.15, # dry bulb temperature in K
+    7e-3 # humidity in kg/kg of dry air
+    )
 ```
 """
 function enthalpy(

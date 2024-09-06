@@ -1,6 +1,8 @@
 @doc raw"""
 
-`dewTemp(pw::Number)`
+`dewTemp( # dew point temperature in K
+    pw::Number # water vapor pressure in Pa
+    )`
 
 `dewTemp` computes
 the dew point temperature Tdew (in K)
@@ -19,8 +21,9 @@ of humid air given
 the water vapor pressure is 1 kPa.
 
 ```
-pw = 1e3; # water vapor pressure in Pa
-Tdew = dewTemp(pw) # dew temperature in K
+dewTemp( # dew temperature in K
+    1e3 # water vapor pressure in Pa
+    )
 ```
 """
 function dewTemp(
