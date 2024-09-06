@@ -345,13 +345,10 @@ adiabSat( # adiabatic saturation temperature in K
 Compute the the adiabatic saturation temperature and the adiabatic saturation humidity given the specific enthalpy is 82.4 kJ/kg of dry air and plot a graphical representation of the answer in a schematic psychrometric chart.
 
 ```julia
-(
-    Tadiab, # adiabatic saturation temperature in K
-    Wadiab # adiabatic saturation humidity in kg/kg of dry air
-    ) = adiabSat(
-        82.4e3, # specific enthalpy in J/kg of dry air
-        fig=true # show plot
-        )
+adiabSat(
+    82.4e3, # specific enthalpy in J/kg of dry air
+    fig=true # show plot
+    )
 ```
 
 ### **dewTemp**

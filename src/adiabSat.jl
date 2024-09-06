@@ -29,13 +29,10 @@ plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
 ```
-julia> (
-    Tadiab, # adiabatic saturation temperature in K
-    Wadiab # adiabatic saturation humidity in kg/kg of dry air
-    ) = adiabSat(
-        82.4e3, # specific enthalpy in J/kg of dry air
-        fig=true # show plot
-        )
+julia> adiabSat(
+    82.4e3, # specific enthalpy in J/kg of dry air
+    fig=true # show plot
+    )
 (299.55987637598975, 0.021893719698029654)
 ```
 """
