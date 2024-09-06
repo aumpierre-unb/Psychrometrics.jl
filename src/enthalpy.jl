@@ -25,10 +25,11 @@ the dry bulb temperature is 25 °C and
 the humidity is 7 g/kg of dry air.
 
 ```
-enthalpy( # specific enthalpy in J/kg of dry air
+julia> enthalpy( # specific enthalpy in J/kg of dry air
     25 + 273.15, # dry bulb temperature in K
     7e-3 # humidity in kg/kg of dry air
     )
+42982.5
 ```
 """
 function enthalpy(

@@ -22,9 +22,10 @@ Compute the saturation pressure given
 the dry bulb temperature is 25 °C.
 
 ```
-satPress( # saturation pressure in Pa
+julia> satPress( # saturation pressure in Pa
     25 + 273.15; # dry bulb temperature in K
     )
+3169.2164701436277
 ```
 """
 function satPress(

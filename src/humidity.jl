@@ -33,6 +33,7 @@ at 1 atm total pressure.
 humidity( # humidity in kg/kg of dry air
     1e3 # water vapor pressure in Pa
     )
+0.006199302267630201
 ```
 """
 function humidity(

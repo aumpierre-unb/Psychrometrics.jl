@@ -17,7 +17,7 @@ Examples
 Build the psychrometric chart.
 
 ```
-doPlot()
+julia> doPlot()
 ```
 """
 function doPlot()

@@ -23,9 +23,10 @@ of humid air given
 the water vapor pressure is 1 kPa.
 
 ```
-dewTemp( # dew temperature in K
+julia> dewTemp( # dew temperature in K
     1e3 # water vapor pressure in Pa
     )
+280.14689999999996
 ```
 """
 function dewTemp(
