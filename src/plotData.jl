@@ -1,5 +1,9 @@
 @doc raw"""
 
+```
+plotData()
+```
+
 `plotData` stores the raw data
 to build a psychrometric chart.
 

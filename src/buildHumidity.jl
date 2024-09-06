@@ -1,7 +1,9 @@
 @doc raw"""
 
 ```
-buildHumidity(φ)
+buildHumidity(
+    φ::Number
+    )
 ```
 
 `buildHumidity` generates a two column matrix of
@@ -19,8 +21,8 @@ function buildHumidity(
 )
     foo(T) = 0.04 - humidity(satPress(T) * φ)
     T1 = 273.15
-    tol = 0.04 / 1e4
-    T2 = newtonraphson(foo, 60 + 273.15, tol)
+    ξ = 0.04 / 1e4
+    T2 = newtonraphson(foo, 60 + 273.15, ξ)
     if T2 > 60 + 273.15
         T2 = 60 + 273.15
     end

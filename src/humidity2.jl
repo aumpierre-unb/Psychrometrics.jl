@@ -1,7 +1,11 @@
 @doc raw"""
 
 ```
-W=humidity2(Wsatwet,Tdry,Twet)
+humidity2(
+    Wsatwet::Number,
+    Tdry::Number,
+    Twet::Number
+    )
 ```
 
 `humidity2` computes

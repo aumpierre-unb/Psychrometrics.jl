@@ -1,7 +1,9 @@
 @doc raw"""
 
 ```
-buildWetBulbTemp(Twet)
+buildWetBulbTemp(
+    Twet::Number
+    )
 ```
 
 `buildWetBulbTemp` generates two column matrix of
@@ -20,13 +22,13 @@ function buildWetBulbTemp(
     foo1(T) = W - humidity2(humidity(satPress(Twet)), T, Twet)
     foo2(W) = W - humidity2(humidity(satPress(Twet)), T[end], Twet)
     W = 0.04
-    tol = W / 1e3
+    ξ = W / 1e3
     T1 = Twet
     if humidity(satPress(T1)) > 0.04
-        T1 = newtonraphson(foo1, 50 + 273.15, tol)
+        T1 = newtonraphson(foo1, 50 + 273.15, ξ)
     end
     W = 0
-    T2 = newtonraphson(foo1, 50 + 273.15, tol)
+    T2 = newtonraphson(foo1, 50 + 273.15, ξ)
     if T2 > 60 + 273.15
         T2 = 60 + 273.15
     end
@@ -35,7 +37,7 @@ function buildWetBulbTemp(
     W = []
     for n = 1:N
         T = [T; T1 + (T2 - T1) / (N - 1) * (n - 1)]
-        W = [W; newtonraphson(foo2, 1e-2, tol)]
+        W = [W; newtonraphson(foo2, 1e-2, ξ)]
     end
     T, W
 end
