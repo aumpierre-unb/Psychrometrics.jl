@@ -185,7 +185,7 @@ function doPlot()
     path = Base.find_package("Psychrometrics")
     file = string(
         path[1:length(path)-length("src/Psychrometrics.jl")],
-        "\\julia-logo-color.png"
+        "\\julia-logo-color.svg"
     )
     # img = load(file)
     # plot!([274.5, 283.5], [33.2e-3, 36.2e-3],
