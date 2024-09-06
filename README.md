@@ -348,8 +348,7 @@ Compute the the adiabatic saturation temperature and the adiabatic saturation hu
 (
     Tadiab, # adiabatic saturation temperature in K
     Wadiab # adiabatic saturation humidity in kg/kg of dry air
-    )
-     = adiabSat(
+    ) = adiabSat(
         82.4e3, # specific enthalpy in J/kg of dry air
         fig=true # show plot
         )
