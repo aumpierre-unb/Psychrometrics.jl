@@ -208,7 +208,7 @@ W2 = W1;
 sleep(3)
 # The thermodynamic state the after first adiabatic saturation is
 h3 = h2;
-Tdry3, W3 = adiabSat(h3, true)
+Tdry3, W3 = adiabSat(h3, fig=true)
 sleep(3)
 # The thermodynamic state after the second heating is
 Tdry4 = 323;
@@ -224,7 +224,7 @@ W4 = W3;
 sleep(3)
 # The thermodynamic state the after second adiabatic saturation is
 h5 = h4;
-Tdry5, W5 = adiabSat(h5, true)
+Tdry5, W5 = adiabSat(h5, fig=true)
 sleep(3)
 # The energy demand is
 (h5 - h1) * (V / v1)
