@@ -188,8 +188,8 @@ Twet1 = 288;
 (
     Tdry1, Twet1, Tdew1, Tadiab1,
     W1, Wsat1, Wsatwet1, Wadiab1,
-    h1, v1,
     φ1,
+    h1, v1,
     pw1, psat1, psatwet1,
     ρ1
     ) = psychro(Tdry=Tdry1, Twet=Twet1, fig=true)
@@ -200,8 +200,8 @@ W2 = W1;
 (
     Tdry2, Twet2, Tdew2, Tadiab2,
     W2, Wsat2, Wsatwet2, Wadiab2,
-    h2, v2,
     φ2,
+    h2, v2,
     pw2, psat2, psatwet2,
     ρ2
     ) = psychro(Tdry=Tdry2, W=W2, fig=true)
@@ -216,8 +216,8 @@ W4 = W3;
 (
     Tdry4, Twet4, Tdew4, Tadiab4,
     W4, Wsat4, Wsatwet4, Wadiab4,
-    h4, v4,
     φ4,
+    h4, v4,
     pw4, psat4, psatwet4,
     ρ4
     ) = psychro(Tdry=Tdry4, W=W4, fig=true)
