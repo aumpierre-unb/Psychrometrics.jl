@@ -109,7 +109,7 @@ function doPlot()
         :center,
         :center,
         :blue,
-        rotation=-31
+        rotation=-29
     ))
     annotate!(329.7, 0.0152, text(
         "303.15 K",
@@ -117,7 +117,7 @@ function doPlot()
         :center,
         :center,
         :blue,
-        rotation=-31
+        rotation=-30
     ))
     annotate!(329.7, 0.0264, text(
         "308.15 K",
@@ -133,7 +133,7 @@ function doPlot()
         :center,
         :center,
         :darkgray,
-        rotation=53
+        rotation=51
     ))
     annotate!(316.7, 0.016, text(
         "30 %",
@@ -141,7 +141,7 @@ function doPlot()
         :center,
         :center,
         :darkgray,
-        rotation=55
+        rotation=54
     ))
     annotate!(312.9, 0.0174, text(
         "40 %",

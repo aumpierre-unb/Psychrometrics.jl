@@ -1,6 +1,6 @@
 @doc raw"""
 
-`adiabSat(h::Number, fig::Bool=false)`
+`adiabSat(h::Number; fig::Bool=false)`
 
 `adiabSat` computes
 the adiabatic saturation temperature Tadiab (in K) and
@@ -29,7 +29,7 @@ Tadiab, Wadiab = adiabSat(h, true) # parameters and returns in SI units
 ```
 """
 function adiabSat(
-    h::Number,
+    h::Number;
     fig::Bool=false
 )
     foo(Tadiab) = h - enthalpy(Tadiab, humidity(satPress(Tadiab)))

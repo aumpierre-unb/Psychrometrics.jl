@@ -144,9 +144,9 @@ function psychro(;
     Twet::Number=NaN,
     Tdew::Number=NaN,
     W::Number=NaN,
+    φ::Number=NaN,
     h::Number=NaN,
     v::Number=NaN,
-    φ::Number=NaN,
     fig::Bool=false
 )
     foo1(pw) = W - humidity(pw)
@@ -629,6 +629,6 @@ function psychro(;
         )
         display(plot!())
     end
-    Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, h, v, φ, pw, psat, psatwet, ρ
+    Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, φ, h, v, pw, psat, psatwet, ρ
 end
 
