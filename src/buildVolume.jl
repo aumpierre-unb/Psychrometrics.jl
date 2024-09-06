@@ -1,6 +1,8 @@
 @doc raw"""
 
-`buildVolume(v)`
+```
+buildVolume(v)
+```
 
 `buildVolume` generates a two column matrix of
 humidity and dry bulb temperature

@@ -1,6 +1,8 @@
 @doc raw"""
 
-`buildHumidity(φ)`
+```
+buildHumidity(φ)
+```
 
 `buildHumidity` generates a two column matrix of
 humidity and dry bulb temperature

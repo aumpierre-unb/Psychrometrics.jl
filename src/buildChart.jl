@@ -1,6 +1,8 @@
 @doc raw"""
 
-`buildChart()`
+```
+buildChart()
+```
 
 `buildChart` computes data for
 a schematic psychrometric chart,

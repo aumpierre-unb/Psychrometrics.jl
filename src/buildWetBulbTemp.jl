@@ -1,6 +1,8 @@
 @doc raw"""
 
-`buildWetBulbTemp(Twet)`
+```
+buildWetBulbTemp(Twet)
+```
 
 `buildWetBulbTemp` generates two column matrix of
 humidity and dry bulb temperature

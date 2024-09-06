@@ -1,6 +1,8 @@
 @doc raw"""
 
-`x=newtonraphson(f,x,tol)`
+```
+x=newtonraphson(f,x,tol)
+```
 
 `newtonraphson` computes the root of
 a function f(x) from a guess value x

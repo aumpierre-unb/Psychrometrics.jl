@@ -1,6 +1,8 @@
 @doc raw"""
 
-`buildEnthalpy(h)`
+```
+buildEnthalpy(h)
+```
 
 `buildEnthalpy` generates a two column matrix of
 humidity and dry bulb temperature

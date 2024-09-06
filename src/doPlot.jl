@@ -1,6 +1,8 @@
 @doc raw"""
 
-`doPlot()`
+```
+doPlot()
+```
 
 `doPlot` plots
 a schematic psychrometric chart.

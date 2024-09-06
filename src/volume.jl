@@ -1,10 +1,12 @@
 @doc raw"""
 
-`volume( # specific enthalpy in J/kg of dry air
+```
+volume( # specific enthalpy in J/kg of dry air
     Tdry::Number, # dry bulb temperature in K
     W::Number, # humidity in kg/kg of dry air
     p::Number=101325 # total pressure in Pa
-    )`
+    )
+```
 
 `volume` computes
 the specific volume v (in cu. m/kg of dry air)

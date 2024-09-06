@@ -1,9 +1,11 @@
 @doc raw"""
 
-`humidity( # humidity in kg/kg of dry air
+```
+humidity( # humidity in kg/kg of dry air
     pw::Number, # water vapor pressure in Pa
     p::Number=101325 # total pressure in Pa
-    )`
+    )
+```
 
 `humidity` computes
 the humidity W (in kg/kg of dry air) 

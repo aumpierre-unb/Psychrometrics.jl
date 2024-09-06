@@ -1,6 +1,8 @@
 @doc raw"""
 
-`W=humidity2(Wsatwet,Tdry,Twet)`
+```
+W=humidity2(Wsatwet,Tdry,Twet)
+```
 
 `humidity2` computes
 the humidity W (in kg/kg of dry air)

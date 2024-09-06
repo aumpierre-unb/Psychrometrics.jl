@@ -1,9 +1,11 @@
 @doc raw"""
 
-`adiabSat( # adiabatic saturation temperature in K
+```
+adiabSat( # adiabatic saturation temperature in K
     h::Number; # specific enthalpy in J/kg of dry air
     fig::Bool=false # show plot
-    )`
+    )
+```
 
 `adiabSat` computes
 the adiabatic saturation temperature Tadiab (in K) and

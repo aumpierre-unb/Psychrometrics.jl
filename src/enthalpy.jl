@@ -1,9 +1,11 @@
 @doc raw"""
 
-`enthalpy( # specific enthalpy in kJ/kg of dry air
+```
+enthalpy( # specific enthalpy in kJ/kg of dry air
     Tdry::Number, # dry bulb temperature in K
     W::Number # humidity in kg/kg of dry air
-    )`
+    )
+```
 
 `enthalpy` computes
 the specific enthalpy h (in J/kg of dry air)

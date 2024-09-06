@@ -1,6 +1,7 @@
 @doc raw"""
 
-`(
+```
+(
     Tdry, # dry bulb temperature
     Twet, # wet bulb temperature
     Tdew, # dew point temperature
@@ -25,7 +26,8 @@
         h::Number=NaN, # specific enthalpy
         v::Number=NaN, # specific volume
         fig::Bool=false # show/ommit chart
-        )`
+        )
+```
 
 `psychro` computes
 the dry bulb temperature Tdry (in K),
