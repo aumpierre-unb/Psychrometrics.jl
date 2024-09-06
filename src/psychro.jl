@@ -162,14 +162,12 @@ julia> Tdry1 = 293;
 
 julia> Twet1 = 288;
 
-julia> (
-           Tdry1, Twet1, Tdew1, Tadiab1,
-           W1, Wsat1, Wsatwet1, Wadiab1,
-           φ1,
-           h1, v1,
-           pw1, psat1, psatwet1,
-           ρ1
-           ) = psychro(Tdry=Tdry1, Twet=Twet1, fig=true)
+julia> (Tdry1, Twet1, Tdew1, Tadiab1,
+       W1, Wsat1, Wsatwet1, Wadiab1,
+       φ1,
+       h1, v1,
+       pw1, psat1, psatwet1,
+       ρ1) = psychro(Tdry=Tdry1, Twet=Twet1, fig=true)
 (293, 288, 284.73340702292325, 287.95353928811767, 0.008471990193790406, 0.014555881964716163, 0.010543295541226867, 0.010511219217115368, 0.5876493911331336, 41470.34182461476, 0.8413412236714394, 1361.6779922241783, 2317.1605599701647, 1689.0421976910375, 1.2011099267565002)
 
 julia> sleep(3)
@@ -180,14 +178,12 @@ julia> Tdry2 = 323;
 
 julia> W2 = W1;
 
-julia> (
-           Tdry2, Twet2, Tdew2, Tadiab2,
-           W2, Wsat2, Wsatwet2, Wadiab2,
-           φ2,
-           h2, v2,
-           pw2, psat2, psatwet2,
-           ρ2
-           ) = psychro(Tdry=Tdry2, W=W2, fig=true)
+julia> (Tdry2, Twet2, Tdew2, Tadiab2,
+       W2, Wsat2, Wsatwet2, Wadiab2,
+       φ2,
+       h2, v2,
+       pw2, psat2, psatwet2,
+       ρ2) = psychro(Tdry=Tdry2, W=W2, fig=true)
 (323, 297.4011154378235, 284.7479028128452, 297.12988496415, 0.008471990193790406, 0.08559799901829143, 0.01917477528758612, 0.018855776964890787, 0.11118949765710232, 72123.07887742827, 0.9274853762657848, 1362.9852468262975, 12258.21930619394, 3030.4541848567173, 1.0988580535802717)
 
 julia> sleep(3)
@@ -207,14 +203,12 @@ julia> Tdry4 = 323;
 
 julia> W4 = W3;
 
-julia> (
-           Tdry4, Twet4, Tdew4, Tadiab4,
-           W4, Wsat4, Wsatwet4, Wadiab4,
-           φ4,
-           h4, v4,
-           pw4, psat4, psatwet4,
-           ρ4
-           ) = psychro(Tdry=Tdry4, W=W4, fig=true)
+julia> (Tdry4, Twet4, Tdew4, Tadiab4,
+       W4, Wsat4, Wsatwet4, Wadiab4,
+       φ4,
+       h4, v4,
+       pw4, psat4, psatwet4,
+       ρ4) = psychro(Tdry=Tdry4, W=W4, fig=true)
 (323, 303.22460387674636, 297.1317471703389, 303.02025334356324, 0.018855776964890787, 0.08559799901829143, 0.02732441158889919, 0.026991850646677036, 0.2432276766240687, 99055.72468515352, 0.9427617101901388, 2981.538201393855, 12258.21930619394, 4264.248330242064, 1.0896967923969945)
 
 julia> sleep(3)
