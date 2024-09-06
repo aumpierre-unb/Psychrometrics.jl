@@ -83,7 +83,7 @@ psychro( # all results ordered in one tuple
     Tdew=22 + 273.15, # dew temperature in K
     φ=0.29, # relative humidity
     fig=true # show plot
-)
+    )
 ```
 
 or, assigning values to variables:
