@@ -387,6 +387,6 @@ The author of Psychrometrics package acknowledges Professor Brent Stephens, Ph.D
 [PonchonSavarit.jl](https://github.com/aumpierre-unb/PonchonSavarit.jl),
 [InternalFluidFlow.jl](https://github.com/aumpierre-unb/InternalFluidFlow.jl).
 
-Copyright &copy; 2022 2023 Alexandre Umpierre
+Copyright &copy; 2022 2023 2024 Alexandre Umpierre
 
 email: <aumpierre@gmail.com>
