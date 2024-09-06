@@ -79,7 +79,7 @@ the dew point temperature is 22 °C and
 the relative humidity is 29 %.
 
 ```
-psychro( # all results ordered in one tuple
+julia> psychro( # all results ordered in one tuple
     Tdew=22 + 273.15, # dew temperature in K
     φ=0.29, # relative humidity
     fig=true # show plot
