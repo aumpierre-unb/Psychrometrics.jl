@@ -23,8 +23,8 @@ the dry bulb temperature is 25 °C.
 
 ```
 julia> satPress( # saturation pressure in Pa
-    25 + 273.15; # dry bulb temperature in K
-    )
+       25 + 273.15; # dry bulb temperature in K
+       )
 3169.2164701436277
 ```
 """

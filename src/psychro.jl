@@ -80,10 +80,10 @@ the relative humidity is 29 %.
 
 ```
 julia> psychro( # all results ordered in one tuple
-    Tdew=22 + 273.15, # dew temperature in K
-    φ=0.29, # relative humidity
-    fig=true # show plot
-    )
+       Tdew=22 + 273.15, # dew temperature in K
+       φ=0.29, # relative humidity
+       fig=true # show plot
+       )
 (317.15279820081713, 300.8025826546708, 295.15, 300.630749639427, 0.016655314288630218, 0.061457273968514865, 0.023613488375643806, 0.023368577952998033, 0.29, 87284.91363240786, 0.922516435950326, 2642.6540709980095, 9111.99526553911, 3706.305087370888, 1.1095883482240327)
 ```
 
@@ -91,26 +91,26 @@ or, assigning values to variables:
 
 ```
 julia> (
-    Tdry, # dry bulb temperature
-    Twet, # wet bulb temperature
-    Tdew, # dew point temperature
-    Tadiab, # adiabatic saturation temperature
-    W, # humidity
-    Wsat, # saturation humidity
-    Wsatwet, # saturation humidity at wet bulb temperature
-    Wadiab, # adiabatic saturation humidity
-    φ, # relative humidity
-    h, # specific enthalpy
-    v, # specific volume
-    pw, # water vapor pressure
-    psat, # saturation pressure
-    psatwet, # saturation pressure at wet bulb temperature
-    ρ # density
-    ) = psychro(
-        Tdew=22 + 273.15, # dew temperature in K
-        φ=0.29, # relative humidity
-        fig=true # show plot
-    )
+       Tdry, # dry bulb temperature
+       Twet, # wet bulb temperature
+       Tdew, # dew point temperature
+       Tadiab, # adiabatic saturation temperature
+       W, # humidity
+       Wsat, # saturation humidity
+       Wsatwet, # saturation humidity at wet bulb temperature
+       Wadiab, # adiabatic saturation humidity
+       φ, # relative humidity
+       h, # specific enthalpy
+       v, # specific volume
+       pw, # water vapor pressure
+       psat, # saturation pressure
+       psatwet, # saturation pressure at wet bulb temperature
+       ρ # density
+       ) = psychro(
+            Tdew=22 + 273.15, # dew temperature in K
+            φ=0.29, # relative humidity
+            fig=true # show plot
+       )
 (317.15279820081713, 300.8025826546708, 295.15, 300.630749639427, 0.016655314288630218, 0.061457273968514865, 0.023613488375643806, 0.023368577952998033, 0.29, 87284.91363240786, 0.922516435950326, 2642.6540709980095, 9111.99526553911, 3706.305087370888, 1.1095883482240327)
 ```
 
@@ -136,10 +136,10 @@ answer in a schematic psychrometric chart.
 
 ```
 julia> psychro(
-    h=79.5e3, # specific enthalpy in kJ/kg of dry air
-    φ=0.29, # relative humidity
-    fig=true # show plot
-    )
+       h=79.5e3, # specific enthalpy in kJ/kg of dry air
+       φ=0.29, # relative humidity
+       fig=true # show plot
+       )
 (314.6900899183988, 299.0647531581762, 293.0906074284516, 298.8996068362218, 0.014626377884402915, 0.05339873380700505, 0.02124089445906455, 0.021027116024617758, 0.29, 79500.0, 0.9124449266965944, 2328.125, 8011.663442102799, 3346.2077598495816, 1.1192356542069382)
 ```
 

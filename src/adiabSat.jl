@@ -30,9 +30,9 @@ answer in a schematic psychrometric chart.
 
 ```
 julia> adiabSat(
-    82.4e3, # specific enthalpy in J/kg of dry air
-    fig=true # show plot
-    )
+       82.4e3, # specific enthalpy in J/kg of dry air
+       fig=true # show plot
+       )
 (299.55987637598975, 0.021893719698029654)
 ```
 """
