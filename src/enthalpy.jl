@@ -1,5 +1,4 @@
 @doc raw"""
-
 ```
 enthalpy( # specific enthalpy in kJ/kg of dry air
     Tdry::Number, # dry bulb temperature in K

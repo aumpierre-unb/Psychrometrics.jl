@@ -1,5 +1,4 @@
 @doc raw"""
-
 ```
 newtonraphson(
     f::Function,

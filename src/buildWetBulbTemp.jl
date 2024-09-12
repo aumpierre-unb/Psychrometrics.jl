@@ -1,5 +1,4 @@
 @doc raw"""
-
 ```
 buildWetBulbTemp(
     Twet::Number

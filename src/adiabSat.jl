@@ -1,5 +1,4 @@
 @doc raw"""
-
 ```
 adiabSat( # adiabatic saturation temperature in K
     h::Number; # specific enthalpy in J/kg of dry air

@@ -1,5 +1,4 @@
 @doc raw"""
-
 ```
 dewTemp( # dew point temperature in K
     pw::Number # water vapor pressure in Pa

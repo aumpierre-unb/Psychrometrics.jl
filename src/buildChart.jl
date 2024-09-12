@@ -1,5 +1,4 @@
 @doc raw"""
-
 ```
 buildChart()
 ```

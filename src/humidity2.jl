@@ -1,5 +1,4 @@
 @doc raw"""
-
 ```
 humidity2(
     Wsatwet::Number,

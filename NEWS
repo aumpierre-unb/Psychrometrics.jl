@@ -1,6 +1,6 @@
 ### TODO
 
-### Psychrometrics 0.1.6-alpha (2024-09-06)
+### Psychrometrics 0.1.6-alpha (2024-09-11)
 * Psychrometric chart extended from 0.03 kg/kg to 0.04 kg/kg (35 °C-wet-bulb-isotherm visible, up to 60 °C)
 * doPlot function available to plot schematic psychrometric chart
 * Minor changes in docstrings
