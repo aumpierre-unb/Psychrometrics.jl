@@ -183,7 +183,7 @@ function doPlot()
         :left,
         :black
     ))
-    path = pathof(InternalFluidFlow)
+    path = pathof(Psychrometrics)
     path = path[1:length(path)-length("src/Psychrometrics.jl")]
     file = string(path, "julia-logo-color.png")
     plot!(inset=bbox(
