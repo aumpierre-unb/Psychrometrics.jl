@@ -150,9 +150,9 @@ humidAir = psychro( # all results ordered in one tuple
     φ=0.29, # relative humidity
     fig=true # show plot
     )
-humidAir.φ
-humidAir.Tdry
-humidAir.Twet
+humidAir.φ # relative humidity
+humidAir.Tdry # dry bulb temperature
+humidAir.Twet # wet bulb temperature
 ```
 
 Compute the dry bulb temperature,

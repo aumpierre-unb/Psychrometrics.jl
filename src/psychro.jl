@@ -90,13 +90,13 @@ julia> humidAir = psychro( # all results ordered in one tuple
        )
 (317.15279820081713, 300.8025826546708, 295.15, 300.630749639427, 0.016655314288630218, 0.061457273968514865, 0.023613488375643806, 0.023368577952998033, 0.29, 87284.91363240786, 0.922516435950326, 2642.6540709980095, 9111.99526553911, 3706.305087370888, 1.1095883482240327)
 
-julia> humidAir.φ
+julia> humidAir.φ # relative humidity
 0.29
 
-julia> humidAir.Tdry
+julia> humidAir.Tdry # dry bulb temperature
 317.15279820081713
 
-julia> humidAir.Twet
+julia> humidAir.Twet # wet bulb temperature
 300.8025826546708
 ```
 
