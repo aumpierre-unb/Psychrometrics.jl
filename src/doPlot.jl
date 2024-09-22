@@ -15,7 +15,8 @@ See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume` and
 
 Examples
 ==========
-Build a schematic psychrometric chart and
+Build a schematic psychrometric chart
+with transparent background and
 save figure as psychrometricChart_transparent.svg.
 ```
 julia> doPlot(

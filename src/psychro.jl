@@ -83,12 +83,21 @@ the dew point temperature is 22 °C and
 the relative humidity is 29 %.
 
 ```
-julia> psychro( # all results ordered in one tuple
+julia> humidAir = psychro( # all results ordered in one tuple
        Tdew=22 + 273.15, # dew temperature in K
        φ=0.29, # relative humidity
        fig=true # show plot
        )
 (317.15279820081713, 300.8025826546708, 295.15, 300.630749639427, 0.016655314288630218, 0.061457273968514865, 0.023613488375643806, 0.023368577952998033, 0.29, 87284.91363240786, 0.922516435950326, 2642.6540709980095, 9111.99526553911, 3706.305087370888, 1.1095883482240327)
+
+julia> humidAir.φ
+0.29
+
+julia> humidAir.Tdry
+317.15279820081713
+
+julia> humidAir.Twet
+300.8025826546708
 ```
 
 Compute the dry bulb temperature,

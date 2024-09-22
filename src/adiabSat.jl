@@ -28,7 +28,7 @@ plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
 ```
-julia> adiabSat(
+julia> Tadiab, Wadiab = adiabSat(
        82.4e3, # specific enthalpy in J/kg of dry air
        fig=true # show plot
        )

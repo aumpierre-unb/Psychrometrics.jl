@@ -150,6 +150,9 @@ humidAir = psychro( # all results ordered in one tuple
     φ=0.29, # relative humidity
     fig=true # show plot
     )
+humidAir.φ
+humidAir.Tdry
+humidAir.Twet
 ```
 
 Compute the dry bulb temperature,
@@ -393,7 +396,7 @@ of the solution.
 **Syntax:**
 
 ```julia
-adiabSat( # adiabatic saturation temperature in K
+Tadiab, Wadiab = adiabSat( # adiabatic saturation temperature in K
     h::Number; # specific enthalpy in J/kg of dry air
     fig::Bool=false # show plot
     )
@@ -455,7 +458,8 @@ doPlot(;
 
 **Examples:**
 
-Build a schematic psychrometric chart and
+Build a schematic psychrometric chart
+with transparent background and
 save figure as psychrometricChart_transparent.svg.
 
 ```julia
