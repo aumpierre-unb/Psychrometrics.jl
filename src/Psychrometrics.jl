@@ -1,5 +1,5 @@
 @doc raw"""
-`Psychrometrics` provides a set of functions to compute 
+`Psychrometrics` provides a set of functions to compute
 the various variables related to water vapor humid air.
 
 Author: Alexandre Umpierre `aumpierre@gmail.com`
