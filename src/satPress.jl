@@ -7,8 +7,7 @@ satPress( # saturation pressure in Pa
 
 `satPress` computes
 the saturation pressure psat (in pa)
-of humid air given
-the dry bulb temperature Tdry (in K).
+of humid air given the dry bulb temperature Tdry (in K).
 
 `satPress` is a main function of
 the `Psychrometrics` package for Julia.
@@ -30,25 +29,26 @@ julia> satPress( # saturation pressure in Pa
 function satPress(
     Tdry::Number
 )
-    c = loadConstants()
+    coeff = loadCoeffs()
     if -100 <= Tdry - 273.15 && Tdry - 273.15 < 0
-        k = c[1] / Tdry +
-            c[2] +
-            c[3] * Tdry +
-            c[4] * Tdry^2 +
-            c[5] * Tdry^3 +
-            c[6] * Tdry^4 +
-            c[7] * log(Tdry)
+        k = coeff[1] / Tdry +
+            coeff[2] +
+            coeff[3] * Tdry +
+            coeff[4] * Tdry^2 +
+            coeff[5] * Tdry^3 +
+            coeff[6] * Tdry^4 +
+            coeff[7] * log(Tdry)
     elseif 0 <= Tdry - 273.15 && Tdry - 273.15 <= 200
-        k = c[8] / Tdry +
-            c[9] +
-            c[10] * Tdry +
-            c[11] * Tdry^2 +
-            c[12] * Tdry^3 +
-            c[13] * log(Tdry)
+        k = coeff[8] / Tdry +
+            coeff[9] +
+            coeff[10] * Tdry +
+            coeff[11] * Tdry^2 +
+            coeff[12] * Tdry^3 +
+            coeff[13] * log(Tdry)
     else
-        error(
-            "Temperature must be in the range from 173.15 K to 473.15 K"
+        printstyled(
+            "Temperature must be in the range from 173.15 K to 473.15 K.\n",
+            color=:red
         )
     end
     exp(k)

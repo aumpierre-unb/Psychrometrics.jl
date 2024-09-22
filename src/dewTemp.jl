@@ -31,11 +31,11 @@ julia> dewTemp( # dew temperature in K
 function dewTemp(
     pw::Number
 )
-    c = loadConstants()
+    coeff = loadCoeffs()
     alpha = log(pw / 1000)
-    c[14] +
-    c[15] * alpha +
-    c[16] * alpha^2 +
-    c[17] * alpha^3 +
-    c[18] * (pw / 1000)^0.1984 + 273.15
+    coeff[14] +
+    coeff[15] * alpha +
+    coeff[16] * alpha^2 +
+    coeff[17] * alpha^3 +
+    coeff[18] * (pw / 1000)^0.1984 + 273.15
 end

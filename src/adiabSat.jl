@@ -37,7 +37,8 @@ julia> adiabSat(
 """
 function adiabSat(
     h::Number;
-    fig::Bool=false
+    fig::Bool=false,
+    back::Symbol=:white
 )
     foo(Tadiab) = h - enthalpy(Tadiab, humidity(satPress(Tadiab)))
     Tadiab = newtonraphson(foo, 273.15, 1e-5)
@@ -49,7 +50,7 @@ function adiabSat(
         tb, wb = buildWetBulbTemp(Tadiab)
         te, we = buildEnthalpy(h)
         th, wh = buildHumidity(1)
-        doPlot()
+        doPlot(back=back)
         plot!(tv, wv,
             seriestype=:line,
             linestyle=:dash,

@@ -1,56 +1,61 @@
 @doc raw"""
 ```
-(
-    Tdry, # dry bulb temperature
-    Twet, # wet bulb temperature
-    Tdew, # dew point temperature
-    Tadiab, # adiabatic saturation temperature
-    W, # humidity
-    Wsat, # saturation humidity
-    Wsatwet, # saturation humidity at wet bulb temperature
-    Wadiab, # adiabatic saturation humidity
-    φ, # relative humidity
-    h, # specific enthalpy
-    v, # specific volume
-    pw, # water vapor pressure
-    psat, # saturation pressure
-    psatwet, # saturation pressure at wet bulb temperature
-    ρ # density
-    ) = psychro(;
-        Tdry::Number=NaN, # dry bulb temperature
-        Twet::Number=NaN,  # wet bulb temperature
-        Tdew::Number=NaN, # dew bulb temperature
-        W::Number=NaN, # absolute humidity
-        φ::Number=NaN, # relative humidity
-        h::Number=NaN, # specific enthalpy
-        v::Number=NaN, # specific volume
-        fig::Bool=false # show/ommit chart
-        )
+psychro(;
+    Tdry::Number=NaN, # dry bulb temperature
+    Twet::Number=NaN,  # wet bulb temperature
+    Tdew::Number=NaN, # dew bulb temperature
+    W::Number=NaN, # absolute humidity
+    φ::Number=NaN, # relative humidity
+    h::Number=NaN, # specific enthalpy
+    v::Number=NaN, # specific volume
+    fig::Bool=false, # show/ommit chart
+    back::Symbol=:white # plot background color
+    )::HumidAir
 ```
 
 `psychro` computes
-the dry bulb temperature Tdry (in K),
-the wet bulb temperature Twet (in K),
-the dew point temperature Tdew (in K),
-the adiabatic saturation temperature Tadiab (in K),
-the humidit W (in kg/kg of dry air),
-the saturation humidity Wsat (in kg/kg of dry air),
-the saturation humidity at the wet bulb temperature Wsatwet (in kg/kg of dry air),
-the adiabatic saturation humidity Wadiab (in kg/kg of dry air),
-the specific enthalpy h (in J/kg of dry air),
-the specific volume v (in cu. m/kg of dry air),
-the the relative humidity φ,
-the water vapor pressure pw (in Pa),
-the water saturation pressure psat (in Pa),
-the saturation pressure at the wet bulb temperature psatwet (in Pa) and
-the density ρ (in kg/cu. m) given
-any two parameters,
-except the combination of water vapor pressure pw and
-dew point temperature Tdew, which are not independent.
 
-If fig = true is given, a schematic psychrometric chart
-is plotted as a graphical representation
-of the solution.
+- the dry bulb temperature,
+- the wet bulb temperature,
+- the dew point temperature,
+- the adiabatic saturation temperature,
+- the humidity,
+- the saturation humidity,
+- the saturation humidity at wet bulb temperature,
+- the adiabatic saturation humidity,
+- the relative humidity,
+- the specific enthalpy,
+- the specific volume,
+- the density,
+- the water vapor pressure,
+- the saturation pressure and
+- the saturation pressure at wet bulb temperature.
+
+given any two of the following parameters:
+
+- the dry bulb temperature,
+- the wet bulb temperature,
+- the dew point temperature,
+- the humidity,
+- the specific enthalpy,
+- the specific volume and
+- the relative humidity,
+
+except for the combination of humidity and dew point temperature,
+    which are not mutually independent.
+
+If a different number of parameters is given,
+execution will be aborted.
+
+If fig = true is given
+a schematic psychrometric chart is plotted
+as a graphical representation of the solution.
+
+By default,
+`psychro` plots a schematic psychrometric chart
+with the solution (fig = true)
+with white background (back = :white).
+If fig = false is given, plot is omitted.
 
 `psychro` is a main function of
 the `Psychrometrics` package for Julia.
@@ -67,13 +72,13 @@ the humidity,
 the saturation humidity,
 the saturation humidity at wet bulb temperature,
 the adiabatic saturation humidity,
+the relative humidity,
 the specific enthalpy,
 the specific volume,
-the relative humidity,
+the density,
 the water vapor pressure,
 the saturation pressure,
-the saturation pressure at wet bulb temperature and
-the density given
+the saturation pressure at wet bulb temperature given
 the dew point temperature is 22 °C and
 the relative humidity is 29 %.
 
@@ -86,48 +91,21 @@ julia> psychro( # all results ordered in one tuple
 (317.15279820081713, 300.8025826546708, 295.15, 300.630749639427, 0.016655314288630218, 0.061457273968514865, 0.023613488375643806, 0.023368577952998033, 0.29, 87284.91363240786, 0.922516435950326, 2642.6540709980095, 9111.99526553911, 3706.305087370888, 1.1095883482240327)
 ```
 
-or, assigning values to variables:
-
-```
-julia> (
-       Tdry, # dry bulb temperature
-       Twet, # wet bulb temperature
-       Tdew, # dew point temperature
-       Tadiab, # adiabatic saturation temperature
-       W, # humidity
-       Wsat, # saturation humidity
-       Wsatwet, # saturation humidity at wet bulb temperature
-       Wadiab, # adiabatic saturation humidity
-       φ, # relative humidity
-       h, # specific enthalpy
-       v, # specific volume
-       pw, # water vapor pressure
-       psat, # saturation pressure
-       psatwet, # saturation pressure at wet bulb temperature
-       ρ # density
-       ) = psychro(
-            Tdew=22 + 273.15, # dew temperature in K
-            φ=0.29, # relative humidity
-            fig=true # show plot
-       )
-(317.15279820081713, 300.8025826546708, 295.15, 300.630749639427, 0.016655314288630218, 0.061457273968514865, 0.023613488375643806, 0.023368577952998033, 0.29, 87284.91363240786, 0.922516435950326, 2642.6540709980095, 9111.99526553911, 3706.305087370888, 1.1095883482240327)
-```
-
 Compute the dry bulb temperature,
-he wet bulb temperature,
+the wet bulb temperature,
 the dew point temperature,
 the adiabatic saturation temperature,
 the humidity,
 the saturation humidity,
 the saturation humidity at wet bulb temperature,
 the adiabatic saturation humidity,
+the relative humidity,
 the specific enthalpy,
 the specific volume,
-the relative humidity,
+the density,
 the water vapor pressure,
 the saturation pressure,
-the saturation pressure at wet bulb temperature and
-the density given
+the saturation pressure at wet bulb temperature given
 the specific enthalpy is 79.5 kJ/kg and
 the relative humidity is 29 # and
 plot a graphical representation of the
@@ -240,7 +218,8 @@ function psychro(;
     φ::Number=NaN,
     h::Number=NaN,
     v::Number=NaN,
-    fig::Bool=false
+    fig::Bool=false,
+    back::Symbol=:white
 )
     foo1(pw) = W - humidity(pw)
     foo2(Twet) = W - humidity2(
@@ -260,7 +239,10 @@ function psychro(;
     foo12(psat) = psat - satPress(Tdry)
     a = isnan.([Tdry, Twet, Tdew, W, h, v, φ]) .!= 0
     if sum(a) != 5
-        error("psychro requires two and only two parameters.")
+        printstyled(
+            "psychro requires two and only two parameters.\n",
+            color=:red
+        )
     end
     if a == [0, 0, 1, 1, 1, 1, 1]
         psat = satPress(Tdry)
@@ -445,11 +427,12 @@ function psychro(;
         ξ = W / 1e3
         pw = newtonraphson(foo1, 1e3, ξ)
         tdew = dewTemp(pw)
-        error(string(
-            "Dew point temperature and humidity are not independent variables. For ", W,
-            " kg/kg humidity, one has ", tdew,
-            " K dew point temperature, and for ", Tdew,
-            " K dew point temperature, one has ", w, " kg/kg humidity."))
+        printstyled(string(
+                "Dew point temperature and humidity are not independent variables. ", W,
+                " kg/kg humidity corresponds to ", tdew,
+                " K dew point temperature, and ", Tdew,
+                " K dew point temperature corresponds to ", w, " kg/kg humidity.\n"
+            ), color=:red)
     elseif a == [1, 1, 0, 1, 0, 1, 1]
         ξ = Tdew / 1e3
         pw = newtonraphson(foo8, 1e3, ξ)
@@ -633,7 +616,7 @@ function psychro(;
         tb, wb = buildWetBulbTemp(Twet)
         te, we = buildEnthalpy(h)
         th, wh = buildHumidity(φ)
-        doPlot()
+        doPlot(back=back)
         plot!(
             tv, wv,
             seriestype=:line,
@@ -722,5 +705,12 @@ function psychro(;
         )
         display(plot!())
     end
-    Tdry, Twet, Tdew, Tadiab, W, Wsat, Wsatwet, Wadiab, φ, h, v, pw, psat, psatwet, ρ
+
+    HumidAir(
+        Tdry, Twet, Tdew, Tadiab,
+        W, Wsat, Wsatwet, Wadiab,
+        φ,
+        h, v, ρ,
+        pw, psat, psatwet
+    )
 end

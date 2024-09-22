@@ -34,6 +34,19 @@ julia> humidity( # humidity in kg/kg of dry air
        )
 0.006199302267630201
 ```
+
+Compute the humidity of humid air
+at atmospheric pressure given
+water vapor pressure is 1 kPa
+at 10 atm total pressure.
+
+```
+julia> humidity( # humidity in kg/kg of dry air
+       1e3, # water vapor pressure in Pa
+       101325e1 # total pressure in Pa
+       )
+0.0006144183749073845
+```
 """
 function humidity(
     pw::Number,

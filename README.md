@@ -51,7 +51,7 @@ For citation of the last released version of Psychrometrics, please check CITATI
 
 ## The Psychrometrics Module for Julia
 
-Psychrometrics provides a set of functions to compute the various variables related to water vapor humid air, providing the following functions:
+`Psychrometrics` provides a set of functions to compute the various variables related to water vapor humid air, providing the following functions:
 
 - **psychro**
 - **humidity**
@@ -60,10 +60,11 @@ Psychrometrics provides a set of functions to compute the various variables rela
 - **volume**
 - **adiabSat**
 - **dewTemp**
+- **doPlot**
 
 ### **psychro**
 
-psychro computes
+`psychro` computes
 
 - the dry bulb temperature,
 - the wet bulb temperature,
@@ -73,13 +74,13 @@ psychro computes
 - the saturation humidity,
 - the saturation humidity at wet bulb temperature,
 - the adiabatic saturation humidity,
+- the relative humidity,
 - the specific enthalpy,
 - the specific volume,
-- the relative humidity,
+- the density,
 - the water vapor pressure,
-- the saturation pressure, the saturation
-- pressure at wet bulb temperature and
-- the density
+- the saturation pressure and
+- the saturation pressure at wet bulb temperature.
 
 given any two of the following parameters:
 
@@ -88,86 +89,88 @@ given any two of the following parameters:
 - the dew point temperature,
 - the humidity,
 - the specific enthalpy,
-- the specific volume or
+- the specific volume and
 - the relative humidity,
 
-except for the combination of humidity and dew point temperature, which are not mutually independent. If a different number of parameters is given, execution will be aborted. If fig = true is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
+except for the combination of humidity and dew point temperature,
+which are not mutually independent.
 
-By default, stages plots a schematic diagram of the solution, fig = true.
+If a different number of parameters is given,
+execution will be aborted.
 
-If fig = false is given, no plot is shown.
+If fig = true is given
+a schematic psychrometric chart is plotted
+as a graphical representation of the solution.
+
+By default,
+`psychro` plots a schematic psychrometric chart
+with the solution (fig = true)
+with white background (back = :white).
+If fig = false is given, plot is omitted.
 
 **Syntax:**
 
 ```julia
-(
-    Tdry, # dry bulb temperature
-    Twet, # wet bulb temperature
-    Tdew, # dew point temperature
-    Tadiab, # adiabatic saturation temperature
-    W, # humidity
-    Wsat, # saturation humidity
-    Wsatwet, # saturation humidity at wet bulb temperature
-    Wadiab, # adiabatic saturation humidity
-    φ, # relative humidity
-    h, # specific enthalpy
-    v, # specific volume
-    pw, # water vapor pressure
-    psat, # saturation pressure
-    psatwet, # saturation pressure at wet bulb temperature
-    ρ # density
-    ) = psychro(;
-        Tdry::Number=NaN, # dry bulb temperature
-        Twet::Number=NaN,  # wet bulb temperature
-        Tdew::Number=NaN, # dew bulb temperature
-        W::Number=NaN, # absolute humidity
-        φ::Number=NaN, # relative humidity
-        h::Number=NaN, # specific enthalpy
-        v::Number=NaN, # specific volume
-        fig::Bool=false # show/ommit chart
-        )
+psychro(;
+    Tdry::Number=NaN, # dry bulb temperature
+    Twet::Number=NaN,  # wet bulb temperature
+    Tdew::Number=NaN, # dew bulb temperature
+    W::Number=NaN, # absolute humidity
+    φ::Number=NaN, # relative humidity
+    h::Number=NaN, # specific enthalpy
+    v::Number=NaN, # specific volume
+    fig::Bool=false, # show/ommit chart
+    back::Symbol=:white # plot background color
+    )::HumidAir
 ```
 
 **Examples:**
 
-Compute the dry bulb temperature, the wet bulb temperature, the adiabatic saturation temperature, the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the dew point temperature is 22 °C and the relative humidity is 29 %.
+Compute the dry bulb temperature,
+the wet bulb temperature,
+the dew point temperature,
+the adiabatic saturation temperature,
+the humidity,
+the saturation humidity,
+the saturation humidity at wet bulb temperature,
+the adiabatic saturation humidity,
+the relative humidity,
+the specific enthalpy,
+the specific volume,
+the density,
+the water vapor pressure,
+the saturation pressure,
+the saturation pressure at wet bulb temperature given
+the dew point temperature is 22 °C and
+the relative humidity is 29 %.
 
 ```julia
-psychro( # all results ordered in one tuple
+humidAir = psychro( # all results ordered in one tuple
     Tdew=22 + 273.15, # dew temperature in K
     φ=0.29, # relative humidity
     fig=true # show plot
     )
 ```
 
-or, assigning values to variables:
-
-```julia
-(
-    Tdry, # dry bulb temperature
-    Twet, # wet bulb temperature
-    Tdew, # dew point temperature
-    Tadiab, # adiabatic saturation temperature
-    W, # humidity
-    Wsat, # saturation humidity
-    Wsatwet, # saturation humidity at wet bulb temperature
-    Wadiab, # adiabatic saturation humidity
-    φ, # relative humidity
-    h, # specific enthalpy
-    v, # specific volume
-    pw, # water vapor pressure
-    psat, # saturation pressure
-    psatwet, # saturation pressure at wet bulb temperature
-    ρ # density
-    ) = psychro(
-        Tdew=22 + 273.15, # dew temperature in K
-        φ=0.29, # relative humidity
-        fig=true # show plot
-        )
-```
-
-Compute the dry bulb temperature, the wet bulb temperature,
-the dew point temperature, adiabatic saturation temperature, the dew point temperature the humidity, the saturation humidity, the saturation humidity at wet bulb temperature, the adiabatic saturation humidity, the specific enthalpy, the specific volume, the relative humidity, the water vapor pressure, the saturation pressure, the saturation pressure at wet bulb temperature and the density given the specific enthalpy is 79.5 kJ/kg of dry air and the relative humidity is 29 % and plot a graphical representation of the answer in a schematic psychrometric chart.
+Compute the dry bulb temperature,
+the wet bulb temperature,
+the dew point temperature,
+the adiabatic saturation temperature,
+the humidity,
+the saturation humidity,
+the saturation humidity at wet bulb temperature,
+the adiabatic saturation humidity,
+the relative humidity,
+the specific enthalpy,
+the specific volume,
+the density,
+the water vapor pressure,
+the saturation pressure,
+the saturation pressure at wet bulb temperature given
+the specific enthalpy is 79.5 kJ/kg and
+the relative humidity is 29 # and
+plot a graphical representation of the
+answer in a schematic psychrometric chart.
 
 ```julia
 psychro(
@@ -177,7 +180,13 @@ psychro(
     )
 ```
 
-8.5 cubic meters of humid air at dry bulb temperature of 293 K and wet bulb temperature of 288 K is subjected to two cycles of heating to 323 K followed by adiabatic saturation. Compute the energy and water vapor demands. Assume the amount of dry air is constant.
+8.5 cubic meters of humid air at
+dry bulb temperature of 293 K and
+wet bulb temperature of 288 K
+is subjected to two cycles of
+heating to 323 and adiabatic saturation.
+Compute the energy and water vapor demands.
+Assume the amount of dry air is constant.
 
 ```julia
 # The volume of humid air is
@@ -234,8 +243,15 @@ sleep(3)
 
 ### **humidity**
 
-humidity computes
-the humidity of humid air in given the water vapor pressure and the total pressure. By default, total pressure is assumed to be the atmospheric pressure at sea level.
+`humidity` computes
+the humidity W (in kg/kg of dry air) 
+of humid air given
+the water vapor pressure pw (in Pa) and
+the total pressure p (in Pa).
+
+By default, total pressure is assumed
+to be the atmospheric pressure
+at sea level, p = 101325.
 
 **Syntax:**
 
@@ -248,7 +264,10 @@ humidity( # humidity in kg/kg of dry air
 
 **Examples:**
 
-Compute the humidity of humid air at atmospheric pressure given water vapor pressure is 1 kPa at 1 atm total pressure.
+Compute the humidity of humid air
+at atmospheric pressure given
+water vapor pressure is 1 kPa
+at 1 atm total pressure.
 
 ```julia
 humidity( # humidity in kg/kg of dry air
@@ -256,9 +275,23 @@ humidity( # humidity in kg/kg of dry air
     )
 ```
 
+Compute the humidity of humid air
+at atmospheric pressure given
+water vapor pressure is 1 kPa
+at 10 atm total pressure.
+
+```julia
+humidity( # humidity in kg/kg of dry air
+    1e3, # water vapor pressure in Pa
+    101325e1 # total pressure in Pa
+    )
+```
+
 ### **satPress**
 
-satPress computes the saturation pressure of humid air given the dry bulb temperature.
+`satPress` computes
+the saturation pressure psat (in pa)
+of humid air given the dry bulb temperature Tdry (in K).
 
 **Syntax:**
 
@@ -270,7 +303,8 @@ satPress( # saturation pressure in Pa
 
 **Examples:**
 
-Compute the saturation pressure given the dry bulb temperature is 25 °C.
+Compute the saturation pressure given
+the dry bulb temperature is 25 °C.
 
 ```julia
 satPress( # saturation pressure in Pa
@@ -280,7 +314,11 @@ satPress( # saturation pressure in Pa
 
 ### **enthalpy**
 
-enthalpy computes the specific enthalpy of humid air given the dry bulb temperature and the humidity.
+`enthalpy` computes
+the specific enthalpy h (in J/kg of dry air)
+of humid air given
+the dry bulb temperature Tdry (in K) and
+the humidity W (in kg/kg of dry air).
 
 **Syntax:**
 
@@ -293,7 +331,9 @@ enthalpy( # specific enthalpy in kJ/kg of dry air
 
 **Examples:**
 
-Compute the specific enthalpy given the dry bulb temperature is 25 °C and the humidity is 7 g/kg of dry air.
+Compute the specific enthalpy given
+the dry bulb temperature is 25 °C and
+the humidity is 7 g/kg of dry air.
 
 ```julia
 enthalpy( # specific enthalpy in J/kg of dry air
@@ -304,7 +344,16 @@ enthalpy( # specific enthalpy in J/kg of dry air
 
 ### **volume**
 
-volume computes computes the specific volume of humid air given  the dry bulb temperature, the humidity in and the total pressure. By default, total pressure is assumed to be the atmospheric pressure at sea level.
+`volume` computes
+the specific volume v (in cu. m/kg of dry air)
+of humid air given
+the dry bulb temperature Tdry (in K),
+the humidity W (in kg/kg of dry air) and
+the total pressure p (in Pa).
+
+By default, total pressure is assumed
+to be the atmospheric pressure
+at sea level, p = 101325.
 
 **Syntax:**
 
@@ -318,7 +367,10 @@ volume( # specific enthalpy in J/kg of dry air
 
 **Examples:**
 
-Compute the specific volume given the dry bulb temperature is 25 °C and the humidity is 7 g/kg of dry air at 1 atm total pressure.
+Compute the specific volume given
+the dry bulb temperature is 25 °C and
+the humidity is 7 g/kg of dry air
+at 1 atm total pressure.
 
 ```julia
 volume( # specific volume in cu. m/kg of dry air
@@ -329,7 +381,14 @@ volume( # specific volume in cu. m/kg of dry air
 
 ### **adiabSat**
 
-adiabSat computes the the adiabatic saturation temperature and the adiabatic saturation humidity given the specific enthalpy. If fig = true is given, a schematic psychrometric chart is plotted as a graphical representation of the solution.
+`adiabSat` computes
+the adiabatic saturation temperature Tadiab (in K) and
+the adiabatic saturation humidity Wadiab (in Kg/kg of dry air) given
+the specific enthalpy h (in J/kg of dry air).
+
+If fig = true is given, a schematic psychrometric chart
+is plotted as a graphical representation
+of the solution.
 
 **Syntax:**
 
@@ -342,7 +401,10 @@ adiabSat( # adiabatic saturation temperature in K
 
 **Examples:**
 
-Compute the the adiabatic saturation temperature and the adiabatic saturation humidity given the specific enthalpy is 82.4 kJ/kg of dry air and plot a graphical representation of the answer in a schematic psychrometric chart.
+Compute the adiabatic saturation temperature given
+the specific enthalpy is 82.4 kJ/kg of dry air and
+plot a graphical representation of the
+answer in a schematic psychrometric chart.
 
 ```julia
 adiabSat(
@@ -353,7 +415,10 @@ adiabSat(
 
 ### **dewTemp**
 
-dewTemp computes the dew point temperature of humid air given the water vapor pressure.
+`dewTemp` computes
+the dew point temperature Tdew (in K)
+of humid air given
+the water vapor pressure pw (in Pa).
 
 **Syntax:**
 
@@ -365,7 +430,9 @@ dewTemp( # dew point temperature in K
 
 **Examples:**
 
-Compute the dew temperature of humid air given the water vapor pressure is 1 kPa.
+Compute the dew temperature
+of humid air given
+the water vapor pressure is 1 kPa.
 
 ```julia
 dewTemp( # dew temperature in K
@@ -373,13 +440,45 @@ dewTemp( # dew temperature in K
     )
 ```
 
+### **doPlot**
+
+`doPlot` plots
+a schematic psychrometric chart.
+
+**Syntax:**
+
+```julia
+doPlot(;
+    back::Symbol=:white # plot background color
+    )
+```
+
+**Examples:**
+
+Build a schematic psychrometric chart and
+save figure as psychrometricChart_transparent.svg.
+
+```julia
+doPlot(
+    back=:transparent # plot background transparent
+    )
+using Plots
+savefig("psychrometricChart_transparent.svg")
+```
+
 ### Reference
 
-The theory and the adjusted equations used in this package were taken from the first chapter of the *2017 ASHRAE Handbook Fundamentals Systems - International Metric System*, published by the American Society of Heating, Refrigerating and Air-Conditioning Engineers.
+The theory and the adjusted equations used in this package
+were taken from the first chapter of the
+*2017 ASHRAE Handbook Fundamentals Systems - International Metric System*,
+published by the
+American Society of Heating, Refrigerating and Air-Conditioning Engineers.
 
 ### Acknowledgements
 
-The author of Psychrometrics package acknowledges Professor Brent Stephens, Ph.D. from the Illinois Institute of Technology for kindly suggesting the source reference for equations used in this package.
+The author of Psychrometrics package acknowledges
+Professor Brent Stephens, Ph.D. from the Illinois Institute of Technology
+for kindly suggesting the source reference for equations used in this package.
 
 ### See Also
 

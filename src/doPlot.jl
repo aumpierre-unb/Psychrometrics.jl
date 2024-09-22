@@ -1,6 +1,8 @@
 @doc raw"""
 ```
-doPlot()
+doPlot(;
+    back::Symbol=:white # plot background color
+    )
 ```
 
 `doPlot` plots
@@ -13,14 +15,21 @@ See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume` and
 
 Examples
 ==========
-Build the psychrometric chart.
-
+Build a schematic psychrometric chart and
+save figure as psychrometricChart_transparent.svg.
 ```
-julia> doPlot()
+julia> doPlot(
+       back=:transparent # plot background transparent
+       )
+julia> using Plots
+julia> savefig("psychrometricChart_transparent.svg")
 ```
 """
-function doPlot()
+function doPlot(;
+    back::Symbol=:white
+)
     uv, uT, ue, uh, uH = plotData()
+
     plot(
         xlabel="Dry Bulb Temperature (K)",
         ylabel="Humidity (kg vapor / kg dry air)",
@@ -72,6 +81,7 @@ function doPlot()
             color=:gray
         )
     end
+
     fontSize = 8
     annotate!(285, 0.004, text(
         "20 kJ/kg",
@@ -183,6 +193,7 @@ function doPlot()
         :left,
         :black
     ))
+
     path = pathof(Psychrometrics)
     path = path[1:length(path)-length("src/Psychrometrics.jl")]
     file = string(path, "julia-logo-color.png")
@@ -198,4 +209,8 @@ function doPlot()
         axis=false,
         grid=false
     )
+
+    display(plot!(
+        background_color=back
+    ))
 end

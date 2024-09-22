@@ -1,6 +1,6 @@
 @doc raw"""
 ```
-loadConstants()
+loadCoeffs()
 ```
 
 `constants` provides the parameters
@@ -9,7 +9,7 @@ for `satPress` and `dewTemp`.
 `constants` is part of
 the `Psychrometrics` package for Julia.
 """
-function loadConstants()
+function loadCoeffs()
     [
         -5.6745359e3
         6.3925247
