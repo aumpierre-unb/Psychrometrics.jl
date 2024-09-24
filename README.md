@@ -195,53 +195,56 @@ Assume the amount of dry air is constant.
 # The volume of humid air is
 V = 8.5;
 # The initial condition is
-Tdry1 = 293;
-Twet1 = 288;
-(
-    Tdry1, Twet1, Tdew1, Tadiab1,
-    W1, Wsat1, Wsatwet1, Wadiab1,
-    φ1,
-    h1, v1,
-    pw1, psat1, psatwet1,
-    ρ1
-    ) = psychro(Tdry=Tdry1, Twet=Twet1, fig=true)
+state1 = psychro(
+    Tdry=293,
+    Twet=288,
+    fig=true
+    )
 sleep(3)
 # The thermodynamic state after the first heating is
-Tdry2 = 323;
-W2 = W1;
-(
-    Tdry2, Twet2, Tdew2, Tadiab2,
-    W2, Wsat2, Wsatwet2, Wadiab2,
-    φ2,
-    h2, v2,
-    pw2, psat2, psatwet2,
-    ρ2
-    ) = psychro(Tdry=Tdry2, W=W2, fig=true)
+state2 = psychro(
+    Tdry=323,
+    W=state1.W,
+    fig=true
+    )
 sleep(3)
 # The thermodynamic state the after first adiabatic saturation is
-h3 = h2;
-Tdry3, W3 = adiabSat(h3, fig=true)
+begin
+    local Tdry, W = adiabSat(
+        state2.h,
+        fig=true
+        )
+    state3 = psychro(
+        Tdry=Tdry,
+        W=W,
+        fig=true
+        )
+end
 sleep(3)
 # The thermodynamic state after the second heating is
-Tdry4 = 323;
-W4 = W3;
-(
-    Tdry4, Twet4, Tdew4, Tadiab4,
-    W4, Wsat4, Wsatwet4, Wadiab4,
-    φ4,
-    h4, v4,
-    pw4, psat4, psatwet4,
-    ρ4
-    ) = psychro(Tdry=Tdry4, W=W4, fig=true)
+state4 = psychro(
+    Tdry=323,
+    W=state3.W,
+    fig=true
+    )
 sleep(3)
 # The thermodynamic state the after second adiabatic saturation is
-h5 = h4;
-Tdry5, W5 = adiabSat(h5, fig=true)
+begin
+    local Tdry, W = adiabSat(
+        state4.h,
+        fig=true
+        )
+    state5 = psychro(
+        Tdry=Tdry,
+        W=W,
+        fig=true
+        )
+end
 sleep(3)
 # The energy demand is
-(h5 - h1) * (V / v1)
+(state5.h - state1.h) * (V / state1.v)
 # The water vapor demand is
-(W5 - W1) * (V / v1)
+(state5.W - state1.W) * (V / state1.v)
 ```
 
 ### **humidity**

@@ -18,7 +18,7 @@ using Test
 
 export psychro, dewTemp, humidity, satPress, enthalpy, volume, adiabSat, doPlot
 
-struct HumidAir
+mutable struct HumidAir
     Tdry::Float64
     Twet::Float64
     Tdew::Float64
