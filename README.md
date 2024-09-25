@@ -192,24 +192,19 @@ Compute the energy and water vapor demands.
 Assume the amount of dry air is constant.
 
 ```julia
-# The volume of humid air is
-V = 8.5;
-# The initial condition is
-state1 = psychro(
+state1 = psychro( # initial condition
     Tdry=293,
     Twet=288,
     fig=true
     )
 sleep(3)
-# The thermodynamic state after the first heating is
-state2 = psychro(
+state2 = psychro( # thermodynamic state after the firstheating is
     Tdry=323,
     W=state1.W,
     fig=true
     )
 sleep(3)
-# The thermodynamic state the after first adiabatic saturation is
-begin
+begin # thermodynamic state the after first adiabatic saturation
     local Tdry, W = adiabSat(
         state2.h,
         fig=true
@@ -221,15 +216,13 @@ begin
         )
 end
 sleep(3)
-# The thermodynamic state after the second heating is
-state4 = psychro(
+state4 = psychro( # thermodynamic state after the second heating
     Tdry=323,
     W=state3.W,
     fig=true
     )
 sleep(3)
-# The thermodynamic state the after second adiabatic saturation is
-begin
+begin # thermodynamic state the after second adiabatic saturation
     local Tdry, W = adiabSat(
         state4.h,
         fig=true
@@ -241,10 +234,14 @@ begin
         )
 end
 sleep(3)
-# The energy demand is
-(state5.h - state1.h) * (V / state1.v)
-# The water vapor demand is
-(state5.W - state1.W) * (V / state1.v)
+begin # energy demand
+    local V = 8.5 # initial volume of humid air is
+    (state5.h - state1.h) * (V / state1.v)
+end
+begin # water vapor demand
+    local V = 8.5 # initial volume of humid air is
+    (state5.W - state1.W) * (V / state1.v)
+end
 ```
 
 ### **humidity**

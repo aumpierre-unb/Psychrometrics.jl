@@ -138,52 +138,40 @@ Compute the energy and water vapor demands.
 Assume the amount of dry air is constant.
 
 ```
-julia> # The volume of humid air is
-
-julia> V = 8.5;
-
-julia> # The initial condition is
-
-julia> state1 = psychro(
-       Tdry=293,
-       Twet=288,
-       fig=true
+julia> state1 = psychro( # initial condition                                                
+       Tdry=293,                                                                        
+       Twet=288,                                                                        
+       fig=true                                                                         
        )
 Psychrometrics.HumidAir(293.0, 288.0, 284.73340702292325, 287.95353928811767, 0.008471990193790406, 0.014555881964716163, 0.010543295541226867, 0.010511219217115368, 0.5876493911331336, 41470.34182461476, 0.8413412236714394, 1.2011099267565002, 1361.6779922241783, 2317.1605599701647, 1689.0421976910375)
 
 julia> sleep(3)
 
-julia> # The thermodynamic state after the first heating is
-
-julia> state2 = psychro(
-       Tdry=323,
-       W=state1.W,
-       fig=true
+julia> state2 = psychro( # thermodynamic state after the firstheating is                    
+       Tdry=323,                                                                        
+       W=state1.W,                                                                      
+       fig=true                                                                         
        )
 Psychrometrics.HumidAir(323.0, 297.4011154378235, 284.7479028128452, 297.12988496415, 0.008471990193790406, 0.08559799901829143, 0.01917477528758612, 0.018855776964890787, 0.11118949765710232, 72123.07887742827, 0.9274853762657848, 1.0988580535802717, 1362.9852468262975, 12258.21930619394, 3030.4541848567173)
 
 julia> sleep(3)
 
-julia> # The thermodynamic state the after first adiabatic saturation is
-
-julia> begin
-       local Tdry, W = adiabSat(
-       state2.h,
-       fig=true 
-       )
-       state3 = psychro(
-       Tdry=Tdry,
-       W=W,
-       fig=true
-       )
+julia> begin # thermodynamic state the after first adiabatic saturation                     
+       local Tdry, W = adiabSat(                                                        
+       state2.h,                                                                    
+       fig=true                                                                     
+       )                                                                            
+       state3 = psychro(                                                                
+       Tdry=Tdry,                                                                   
+       W=W,                                                                         
+       fig=true                                                                     
+       )                                                                            
        end
-Psychrometrics.HumidAir(297.12988496415, 297.1317471703389, 297.1317471703389, 297.12988496415, 0.018855776964890787, 0.018855776964890787, 0.018857950636541637, 0.018855776964890787, 1.0000054408275143, 72123.07887742839, 0.8672528746049574, 1.1748106930180449, 2981.538201393855, 2981.521979447035, 2981.855570966872)     
+Psychrometrics.HumidAir(297.12988496415, 297.1317471703389, 297.1317471703389, 297.12988496415, 0.018855776964890787, 0.018855776964890787, 0.018857950636541637, 0.018855776964890787, 1.0000054408275143, 72123.07887742839, 0.8672528746049574, 1.1748106930180449, 2981.538201393855, 2981.521979447035, 2981.855570966872)
 
 julia> sleep(3)
 
-julia> # The thermodynamic state after the second heating is
-
-julia> state4 = psychro(
+julia> state4 = psychro( # thermodynamic state after the second heating
        Tdry=323,
        W=state3.W,
        fig=true
@@ -192,31 +180,31 @@ Psychrometrics.HumidAir(323.0, 303.22460387674636, 297.1317471703389, 303.020253
 
 julia> sleep(3)
 
-julia> # The thermodynamic state the after second adiabatic saturation is
-
-julia> begin
-       local Tdry, W = adiabSat(
-       state4.h,
-       fig=true
-       )
-       state5 = psychro(
-       Tdry=Tdry,
-       W=W,
-       fig=true
-       )
+julia> begin # thermodynamic state the after second adiabatic saturation                    
+       local Tdry, W = adiabSat(                                                        
+       state4.h,                                                                
+       fig=true                                                                     
+       )                                                                            
+       state5 = psychro(                                                                
+       Tdry=Tdry,                                                                   
+       W=W,                                                                         
+       fig=true                                                                     
+       )                                                                            
        end
 Psychrometrics.HumidAir(303.02025334356324, 303.0202580354416, 303.00586796833204, 303.02025334380045, 0.026991850646677036, 0.026991850646677036, 0.02699185823948025, 0.02699185064706085, 1.0000275933540679, 99055.72468663573, 0.8956746499701631, 1.1466126213058407, 4214.623858195949, 4214.507565796464, 4214.508702025436)
 
 julia> sleep(3)
 
-julia> # The energy demand is
-
-julia> (state5.h - state1.h) * (V / state1.v)
+julia> begin # energy demand                                                                
+       local V = 8.5 # initial volume of humid air is                                   
+       (state5.h - state1.h) * (V / state1.v)                                           
+       end
 581780.3057256688
 
-julia> # The water vapor demand is
-
-julia> (state5.W - state1.W) * (V / state1.v)
+julia> begin # water vapor demand                                                           
+       local V = 8.5 # initial volume of humid air is                                   
+       (state5.W - state1.W) * (V / state1.v)                                           
+       end
 0.1871046008688284
 ```
 """
