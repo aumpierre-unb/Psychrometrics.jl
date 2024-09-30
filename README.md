@@ -171,7 +171,7 @@ the water vapor pressure,
 the saturation pressure,
 the saturation pressure at wet bulb temperature given
 the specific enthalpy is 79.5 kJ/kg and
-the relative humidity is 29 # and
+the relative humidity is 0.29 # and
 plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
@@ -179,7 +179,9 @@ answer in a schematic psychrometric chart.
 psychro(
     h=79.5e3, # specific enthalpy in kJ/kg of dry air
     φ=0.29, # relative humidity
-    fig=true # show plot
+    fig=true, # show plot
+    back=:transparent, # plot background transparent
+    unit=:°C # temperature in °C
     )
 ```
 
