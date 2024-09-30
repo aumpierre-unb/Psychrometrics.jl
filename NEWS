@@ -1,5 +1,8 @@
 ### TODO
 
+### Psychrometrics 1.1.1 (2024-09-30)
+* Minor changes on documentation
+
 ### Psychrometrics 1.1.0 (2024-09-30)
 * Psychrometric charts plot now accept user option Celsius degrees and Kelvin
 * adiabSat and psychro functions' outputs now accept user option Celsius degrees and Kelvin

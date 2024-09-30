@@ -1,7 +1,7 @@
 name = "Psychrometrics"
 uuid = "89d1cb86-bf84-46ce-bdfb-ab7f830013b1"
 authors = ["Alexandre Umpierre (aumpierre@gmail.com)"]
-version = "1.1.0"
+version = "1.1.1"
 
 [deps]
 Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"

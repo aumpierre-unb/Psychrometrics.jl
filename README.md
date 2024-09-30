@@ -120,7 +120,8 @@ psychro(;
     h::Number=NaN, # specific enthalpy
     v::Number=NaN, # specific volume
     fig::Bool=false, # show/ommit chart
-    back::Symbol=:white # plot background color
+    back::Symbol=:white, # plot background color
+    unit::Symbol=:K # units for temperature (:K or :°C)
     )::HumidAir
 ```
 
@@ -398,9 +399,11 @@ of the solution.
 **Syntax:**
 
 ```julia
-Tadiab, Wadiab = adiabSat( # adiabatic saturation temperature in K
+adiabSat( # adiabatic saturation temperature in K
     h::Number; # specific enthalpy in J/kg of dry air
-    fig::Bool=false # show plot
+    fig::Bool=false, # show/ommit chart
+    back::Symbol=:white, # plot background color
+    unit::Symbol=:K # units for temperature (:K or :°C)
     )
 ```
 

@@ -9,7 +9,8 @@ psychro(;
     h::Number=NaN, # specific enthalpy
     v::Number=NaN, # specific volume
     fig::Bool=false, # show/ommit chart
-    back::Symbol=:white # plot background color
+    back::Symbol=:white, # plot background color
+    unit::Symbol=:K # units for temperature (:K or :°C)
     )::HumidAir
 ```
 
