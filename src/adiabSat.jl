@@ -38,8 +38,11 @@ julia> Tadiab, Wadiab = adiabSat(
 function adiabSat(
     h::Number;
     fig::Bool=false,
-    back::Symbol=:white
+    back::Symbol=:white,
+    unit::Symbol=:K
 )
+    k = unit == :°C ? 1 : 0
+
     foo(Tadiab) = h - enthalpy(Tadiab, humidity(satPress(Tadiab)))
     Tadiab = newtonraphson(foo, 273.15, 1e-5)
     padiab = satPress(Tadiab)
@@ -50,35 +53,50 @@ function adiabSat(
         tb, wb = buildWetBulbTemp(Tadiab)
         te, we = buildEnthalpy(h)
         th, wh = buildHumidity(1)
-        doPlot(back=back)
-        plot!(tv, wv,
+        doPlot(
+            back=back,
+            unit=unit
+        )
+        plot!(
+            tv .- k .* 273.15, wv,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
-            color=:green)
-        plot!(tb, wb,
+            color=:green
+        )
+        plot!(
+            tb .- k .* 273.15, wb,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
-            color=:blue)
-        plot!(te, we,
+            color=:blue
+        )
+        plot!(
+            te .- k .* 273.15, we,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
-            color=:red)
-        plot!(th, wh,
+            color=:red
+        )
+        plot!(
+            th .- k .* 273.15, wh,
             seriestype=:line,
             linewidth=:2,
-            color=:black)
-        plot!([Tadiab], [Wadiab],
+            color=:black
+        )
+        plot!(
+            [Tadiab] .- k .* 273.15, [Wadiab],
             seriestype=:scatter,
             markersize=:5,
             markerstrokecolor=:red,
-            color=:red)
-        display(plot!([Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
+            color=:red
+        )
+        display(plot!(
+            [Tadiab, Tadiab, 60 + 273.15] .- k .* 273.15, [0, Wadiab, Wadiab],
             seriestype=:line,
             linestyle=:dash,
-            color=:red))
+            color=:red
+        ))
     end
-    Tadiab, Wadiab
+    Tadiab - k * 273.15, Wadiab
 end

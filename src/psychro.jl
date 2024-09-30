@@ -118,13 +118,17 @@ the saturation pressure at wet bulb temperature given
 the specific enthalpy is 79.5 kJ/kg and
 the relative humidity is 29 # and
 plot a graphical representation of the
-answer in a schematic psychrometric chart.
+answer in a schematic psychrometric chart
+with temperature in °C
+with transparent background.
 
 ```
 julia> psychro(
        h=79.5e3, # specific enthalpy in kJ/kg of dry air
        φ=0.29, # relative humidity
-       fig=true # show plot
+       fig=true, # show plot
+       back=:transparent, # plot background transparent
+       unit=:°C # temperature in °C
        )
 (314.6900899183988, 299.0647531581762, 293.0906074284516, 298.8996068362218, 0.014626377884402915, 0.05339873380700505, 0.02124089445906455, 0.021027116024617758, 0.29, 79500.0, 0.9124449266965944, 2328.125, 8011.663442102799, 3346.2077598495816, 1.1192356542069382)
 ```
@@ -217,8 +221,11 @@ function psychro(;
     h::Number=NaN,
     v::Number=NaN,
     fig::Bool=false,
-    back::Symbol=:white
+    back::Symbol=:white,
+    unit::Symbol=:K
 )
+    k = unit == :°C ? 1 : 0
+
     foo1(pw) = W - humidity(pw)
     foo2(Twet) = W - humidity2(
         humidity(satPress(Twet)), Tdry, Twet
@@ -614,89 +621,92 @@ function psychro(;
         tb, wb = buildWetBulbTemp(Twet)
         te, we = buildEnthalpy(h)
         th, wh = buildHumidity(φ)
-        doPlot(back=back)
+        doPlot(
+            back=back,
+            unit=unit
+        )
         plot!(
-            tv, wv,
+            tv .- k .* 273.15, wv,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
             color=:green
         )
         plot!(
-            tb, wb,
+            tb .- k .* 273.15, wb,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
             color=:blue
         )
         plot!(
-            te, we,
+            te .- k .* 273.15, we,
             seriestype=:line,
             linestyle=:dash,
             linewidth=:2,
             color=:red
         )
-        plot!(th, wh,
+        plot!(th .- k .* 273.15, wh,
             seriestype=:line,
             linewidth=:2,
             color=:black)
         if φ != 1
             plot!(
-                [Tdry], [W],
+                [Tdry] .- k .* 273.15, [W],
                 seriestype=:scatter,
                 markersize=:5,
                 markerstrokecolor=:green,
                 color=:green
             )
             plot!(
-                [Twet], [Wsatwet],
+                [Twet] .- k .* 273.15, [Wsatwet],
                 seriestype=:scatter,
                 markersize=:5,
                 markerstrokecolor=:blue,
                 color=:blue
             )
             plot!(
-                [Tdry], [Wsat],
+                [Tdry] .- k .* 273.15, [Wsat],
                 seriestype=:scatter,
                 markersize=:5,
                 markerstrokecolor=:black,
                 color=:black
             )
             plot!(
-                [Tdew], [W],
+                [Tdew] .- k .* 273.15, [W],
                 seriestype=:scatter,
                 markersize=:5,
                 markerstrokecolor=:black,
                 color=:black
             )
             plot!(
-                [Tdew, Tdew, 60 + 273.15], [0, W, W],
+                [Tdew, Tdew, 60 + 273.15] .- k .* 273.15, [0, W, W],
                 seriestype=:line,
                 linestyle=:dash,
                 color=:black
             )
             plot!(
-                [Tdry, Tdry, 60 + 273.15], [0, Wsat, Wsat],
+                [Tdry, Tdry, 60 + 273.15] .- k .* 273.15, [0, Wsat, Wsat],
                 seriestype=:line,
                 linestyle=:dash,
                 color=:black
             )
             plot!(
-                [Twet, Twet, 60 + 273.15], [0, Wsatwet, Wsatwet],
+                [Twet, Twet, 60 + 273.15] .- k .* 273.15, [0, Wsatwet, Wsatwet],
                 seriestype=:line,
                 linestyle=:dash,
                 color=:blue
             )
         end
         plot!(
-            [Tadiab], [Wadiab],
+            [Tadiab] .- k .* 273.15, [Wadiab],
             seriestype=:scatter,
             markersize=:5,
             markerstrokecolor=:red,
             color=:red
         )
         plot!(
-            [Tadiab, Tadiab, 60 + 273.15], [0, Wadiab, Wadiab],
+            [Tadiab, Tadiab, 60 + 273.15] .- k .* 273.15, [0, Wadiab, Wadiab],
             seriestype=:line,
             linestyle=:dash,
             color=:red
@@ -705,7 +715,7 @@ function psychro(;
     end
 
     HumidAir(
-        Tdry, Twet, Tdew, Tadiab,
+        Tdry - k * 273.15, Twet - k * 273.15, Tdew - k * 273.15, Tadiab - k * 273.15,
         W, Wsat, Wsatwet, Wadiab,
         φ,
         h, v, ρ,

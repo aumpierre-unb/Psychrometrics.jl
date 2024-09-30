@@ -452,19 +452,22 @@ a schematic psychrometric chart.
 
 ```julia
 doPlot(;
-    back::Symbol=:white # plot background color
+    back::Symbol=:white,
+    unit::Symbol=:°C
     )
 ```
 
 **Examples:**
 
 Build a schematic psychrometric chart
+with temperature in °C
 with transparent background and
 save figure as psychrometricChart_transparent.svg.
 
 ```julia
 doPlot(
-    back=:transparent # plot background transparent
+    back=:transparent, # plot background transparent
+    unit=:°C # temperature in °C
     )
 using Plots
 savefig("psychrometricChart_transparent.svg")

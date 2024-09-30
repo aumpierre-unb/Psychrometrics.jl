@@ -1,5 +1,9 @@
 ### TODO
 
+### Psychrometrics 1.1.0 (2024-09-30)
+* Psychrometric charts plot now accept user option Celsius degrees and Kelvin
+* adiabSat and psychro functions' outputs now accept user option Celsius degrees and Kelvin
+
 ### Psychrometrics 1.0.0 (2024-09-25)
 * Psychrometric chart extended from 0.03 kg/kg to 0.04 kg/kg (35 °C-wet-bulb-isotherm visible, up to 60 °C)
 * doPlot function available to plot schematic psychrometric chart
