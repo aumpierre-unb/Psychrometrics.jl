@@ -7,13 +7,13 @@
 
 ## Installing and Loading Psychrometrics
 
-Psychrometrics can be installed and loaded either
+`Psychrometrics` can be installed and loaded either
 from the JuliaHub repository (last released version) or from the
 [maintainer's repository](https://github.com/aumpierre-unb/Psychrometrics.jl).
 
 ### Last Released Version
 
-The last version of Psychrometrics can be installed from JuliaHub repository:
+The last version of `Psychrometrics` can be installed from JuliaHub repository:
 
 ```julia
 using Pkg
@@ -21,7 +21,7 @@ Pkg.add("Psychrometrics")
 using Psychrometrics
 ```
 
-If Psychrometrics is already installed, it can be updated:
+If `Psychrometrics` is already installed, it can be updated:
 
 ```julia
 using Pkg
@@ -40,7 +40,7 @@ Pkg.add(path="https://github.com/aumpierre-unb/Psychrometrics.jl")
 using Psychrometrics
 ```
 
-## Citation of Psychrometrics
+## Citation of `Psychrometrics`
 
 You can cite all versions (both released and pre-released), by using
 [10.5281/zenodo.7493474](https://doi.org/10.5281/zenodo.7493474).
