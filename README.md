@@ -245,27 +245,17 @@ begin # water vapor demand
     local V = 8.5 # initial volume of humid air is
     (state5.W - state1.W) * (V / state1.v)
 end
-using DataFramesMeta
-display(DataFrame(
-    Name=[
-        name for name in fieldnames(Psychrometrics.HumidAir)
-        ],
-    state1=[
-        getfield(state1, field) for field in 1:nfields(state1)
-        ],
-    state2=[
-        getfield(state1, field) for field in 1:nfields(state2)
-        ],
-    state3=[
-        getfield(state1, field) for field in 1:nfields(state3)
-        ],
-    state4=[
-        getfield(state1, field) for field in 1:nfields(state4)
-        ],
-    state5=[
-        getfield(state1, field) for field in 1:nfields(state5)
+using PrettyTables
+begin
+    local table = [name for name in fieldnames(Psychrometrics.HumidAir)]
+    for i in (state1, state2, state3, state4, state5)
+        table = [table [getfield(i, field) for field in 1:nfields(i)]]
+    end
+    local header = [
+        "Parameter", "State 1", "State 2", "State 3", "State 4", "State 5"
         ]
-    ))
+    pretty_table(table, header=header)
+end
 ```
 
 ### **humidity**
