@@ -245,8 +245,8 @@ begin # water vapor demand
     local V = 8.5 # initial volume of humid air is
     (state5.W - state1.W) * (V / state1.v)
 end
-using PrettyTables
-begin
+try # PrettyTables is not included in Psychrometrics!
+    using PrettyTables
     local table = [name for name in fieldnames(Psychrometrics.HumidAir)]
     for i in (state1, state2, state3, state4, state5)
         table = [table [getfield(i, field) for field in 1:nfields(i)]]
@@ -255,6 +255,7 @@ begin
         "Parameter", "State 1", "State 2", "State 3", "State 4", "State 5"
         ]
     pretty_table(table, header=header)
+    catch
 end
 ```
 

@@ -212,9 +212,10 @@ julia> begin # water vapor demands
        end
 0.1871046008688284
 
-julia> using PrettyTables
+julia> 
 
-julia> begin
+julia> try # PrettyTables is not included in Psychrometrics!
+       using PrettyTables
        local table = [name for name in fieldnames(Psychrometrics.HumidAir)]
        for i in (state1, state2, state3, state4, state5)
        table = [table [getfield(i, field) for field in 1:nfields(i)]]
@@ -223,6 +224,7 @@ julia> begin
        "Parameter", "State 1", "State 2", "State 3", "State 4", "State 5"
        ]
        pretty_table(table, header=header)
+       catch
        end
 ```
 """
