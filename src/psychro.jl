@@ -212,6 +212,8 @@ julia> begin # water vapor demands
        end
 0.1871046008688284
 
+julia> using PrettyTables
+
 julia> begin
        local table = [name for name in fieldnames(Psychrometrics.HumidAir)]
        for i in (state1, state2, state3, state4, state5)

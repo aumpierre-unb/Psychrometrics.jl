@@ -245,6 +245,7 @@ begin # water vapor demand
     local V = 8.5 # initial volume of humid air is
     (state5.W - state1.W) * (V / state1.v)
 end
+using PrettyTables
 begin
     local table = [name for name in fieldnames(Psychrometrics.HumidAir)]
     for i in (state1, state2, state3, state4, state5)
