@@ -245,6 +245,27 @@ begin # water vapor demand
     local V = 8.5 # initial volume of humid air is
     (state5.W - state1.W) * (V / state1.v)
 end
+using DataFramesMeta
+display(DataFrame(
+    Name=[
+        name for name in fieldnames(Psychrometrics.HumidAir)
+        ],
+    state1=[
+        getfield(state1, field) for field in 1:nfields(state1)
+        ],
+    state2=[
+        getfield(state1, field) for field in 1:nfields(state2)
+        ],
+    state3=[
+        getfield(state1, field) for field in 1:nfields(state3)
+        ],
+    state4=[
+        getfield(state1, field) for field in 1:nfields(state4)
+        ],
+    state5=[
+        getfield(state1, field) for field in 1:nfields(state5)
+        ]
+    ))
 ```
 
 ### **humidity**

@@ -27,12 +27,16 @@ Examples
 Compute the adiabatic saturation temperature given
 the specific enthalpy is 82.4 kJ/kg of dry air and
 plot a graphical representation of the
-answer in a schematic psychrometric chart.
+answer in a schematic psychrometric chart
+with temperature in °C
+with transparent background.
 
 ```
 julia> Tadiab, Wadiab = adiabSat(
        82.4e3, # specific enthalpy in J/kg of dry air
-       fig=true # show plot
+       fig=true, # show plot
+       back=:transparent, # plot background transparent
+       unit=:°C # temperature in °C
        )
 (299.55987637598975, 0.021893719698029654)
 ```
