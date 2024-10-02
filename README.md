@@ -254,6 +254,9 @@ try # PrettyTables is not included in Psychrometrics!
     local header = [
         "Parameter", "State 1", "State 2", "State 3", "State 4", "State 5"
         ]
+    print(
+        "\nSummary of process states:\n"
+    )
     pretty_table(table, header=header)
     catch
 end
