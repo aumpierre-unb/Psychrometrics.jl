@@ -193,7 +193,7 @@ function doPlot(;
         :left,
         :black))
     annotate!(275 - k * 273.15, 36.6e-3, text(
-        "https://github.com/aumpierre-unb/Psychrometrics.jl",
+        "https://github.com/.../Psychrometrics.jl",
         "TamilMN-Bold",
         fontSize - 2,
         :center,
