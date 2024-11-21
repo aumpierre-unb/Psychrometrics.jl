@@ -8,7 +8,7 @@ psychro(;
     φ::Number=NaN, # relative humidity
     h::Number=NaN, # specific enthalpy
     v::Number=NaN, # specific volume
-    fig::Bool=false, # show/ommit chart
+    fig::Bool=false, # show/omit chart
     back::Symbol=:white, # plot background color
     unit::Symbol=:K # units for temperature (:K or :°C)
     )::HumidAir
