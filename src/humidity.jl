@@ -37,6 +37,27 @@ julia> humidity( # humidity in kg/kg of dry air
 
 Compute the humidity of humid air
 at atmospheric pressure given
+dry bulb temperature is 305 K and
+relative humidiy is 50 %
+at 1 atm total pressure.
+
+```
+julia> state = psychro(
+       Tdry=305., # dry bulb temperature
+       φ=0.50 # relative humidity
+       );
+julia> state.W # absolute humidity calculated by psychro
+0.014825989559787502
+julia> pw = state.φ * state.psat # water vapor pressure, by definition
+2359.158028201002
+julia> W = humidity(pw)
+0.014825989559787502
+julia> W = 0.621945 * pw / (101325 - pw) # absolute humidity, by definition
+0.014825989559787502
+```
+
+Compute the humidity of humid air
+at atmospheric pressure given
 water vapor pressure is 1 kPa
 at 10 atm total pressure.
 
