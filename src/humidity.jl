@@ -39,7 +39,7 @@ Compute the humidity of humid air
 at atmospheric pressure given
 dry bulb temperature is 305 K and
 relative humidiy is 50 %
-at 1 atm total pressure.
+at 101325 Pa total pressure.
 
 ```
 julia> state = psychro(
