@@ -15,6 +15,7 @@ module Psychrometrics
 using Plots
 using Images
 using Test
+using Roots
 
 export psychro, dewTemp, humidity, satPress, enthalpy, volume, adiabSat, doPlot
 

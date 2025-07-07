@@ -16,14 +16,26 @@ using the method of Newton-Raphson.
 the `Psychrometrics` package for Julia.
 
 """
+# function newtonraphson(
+#     f::Function,
+#     x::Number,
+#     ξ::Number
+# )
+#     # ni = 0
+#     while abs(f(x)) > ξ
+#         a = (f(x + 1e-7) - f(x)) / 1e-7
+#         # a = (f(x + 1e-2) - f(x)) / 1e-2
+#         x = x - f(x) / a
+#         # ni += 1
+#     end
+#     # @show "Number of iterations: $ni"
+#     x
+# end
+
 function newtonraphson(
     f::Function,
     x::Number,
     ξ::Number
 )
-    while abs(f(x)) > ξ
-        a = (f(x + 1e-7) - f(x)) / 1e-7
-        x = x - f(x) / a
-    end
-    x
+    find_zero(f, x)
 end
