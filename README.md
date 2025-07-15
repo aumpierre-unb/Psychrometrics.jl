@@ -321,7 +321,7 @@ at 10 atm total pressure.
 ```julia
 humidity( # humidity in kg/kg of dry air
     1e3, # water vapor pressure in Pa
-    101325e1 # total pressure in Pa
+    101325 # total pressure in Pa
     )
 ```
 

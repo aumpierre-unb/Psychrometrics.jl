@@ -345,7 +345,6 @@ function psychro(;
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         pw = φ * psat
-        φ = pw / psat
         Tdew = dewTemp(pw)
         W = humidity(pw)
         ξ = W / 1e3

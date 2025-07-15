@@ -26,30 +26,41 @@ julia> satPress( # saturation pressure in Pa
 3169.2164701436277
 ```
 """
-function satPress(
-    Tdry::Number
-)
-    coeff = loadCoeffs()
-    if -100 <= Tdry - 273.15 && Tdry - 273.15 < 0
-        k = coeff[1] / Tdry +
-            coeff[2] +
-            coeff[3] * Tdry +
-            coeff[4] * Tdry^2 +
-            coeff[5] * Tdry^3 +
-            coeff[6] * Tdry^4 +
-            coeff[7] * log(Tdry)
-    elseif 0 <= Tdry - 273.15 && Tdry - 273.15 <= 200
-        k = coeff[8] / Tdry +
-            coeff[9] +
-            coeff[10] * Tdry +
-            coeff[11] * Tdry^2 +
-            coeff[12] * Tdry^3 +
-            coeff[13] * log(Tdry)
+
+export k_minusC, k_plusC
+
+function k_minusC(T::Number)
+    k = COEFF[1] / T +
+        COEFF[2] +
+        COEFF[3] * T +
+        COEFF[4] * T^2 +
+        COEFF[5] * T^3 +
+        COEFF[6] * T^4 +
+        COEFF[7] * log(T)
+    return k    
+end
+
+function k_plusC(T::Number)
+    k = COEFF[8] / T +
+        COEFF[9] +
+        COEFF[10] * T +
+        COEFF[11] * T^2 +
+        COEFF[12] * T^3 +
+        COEFF[13] * log(T)
+    return k
+end
+
+function k_func(T::Number)
+    if T <= 0
+        return NaN # NaN gives an error when iteration runs off.
+    elseif T <= 273.15
+        return k_minusC(T)
     else
-        printstyled(
-            "Temperature must be in the range from 173.15 K to 473.15 K.\n",
-            color=:red
-        )
+        return k_plusC(T)
     end
+end
+
+function satPress(T::Number)
+    k = k_func(T)
     exp(k)
 end

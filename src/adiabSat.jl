@@ -48,7 +48,6 @@ function adiabSat(
     unit::Symbol=:K
 )
     k = unit == :°C ? 1 : 0
-
     foo(Tadiab) = h - enthalpy(Tadiab, humidity(satPress(Tadiab)))
     Tadiab = newtonraphson(foo, 273.15, 1e-5)
     padiab = satPress(Tadiab)
