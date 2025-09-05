@@ -61,7 +61,7 @@ If fig = false is given, plot is omitted.
 `psychro` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat` and `doPlot`.
+See also: `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume`, `adiabSat` and `buildBasicChart`.
 
 Examples
 ==========
@@ -194,7 +194,7 @@ julia> begin # thermodynamic state the after second adiabatic saturation
        Tdry=Tdry,
        W=W,
        fig=true
-       )    
+       )
        end
 Psychrometrics.HumidAir(303.02025334356324, 303.0202580354416, 303.00586796833204, 303.02025334380045, 0.026991850646677036, 0.026991850646677036, 0.02699185823948025, 0.02699185064706085, 1.0000275933540679, 99055.72468663573, 0.8956746499701631, 1.1466126213058407, 4214.623858195949, 4214.507565796464, 4214.508702025436)
 
@@ -216,17 +216,17 @@ julia>
 
 julia> try # PrettyTables is not included in Psychrometrics!
        using PrettyTables
-       local table = [name for name in fieldnames(Psychrometrics.HumidAir)]
+       local mytable = [name for name in fieldnames(Psychrometrics.HumidAir)]
        for i in (state1, state2, state3, state4, state5)
-       table = [table [getfield(i, field) for field in 1:nfields(i)]]
+       mytable = [mytable [getfield(i, field) for field in 1:nfields(i)]]
        end
-       local header = [
+       local myheader = [
        "Parameter", "State 1", "State 2", "State 3", "State 4", "State 5"
        ]
        print(
        "\nSummary of process states:\n"
        )
-       pretty_table(table, header=header)
+       pretty_table(mytable, column_labels=myheader)
        catch
        end
 ```
@@ -243,200 +243,184 @@ function psychro(;
     back::Symbol=:white,
     unit::Symbol=:K
 )
-    k = unit == :°C ? 1 : 0
+    tempInKelvin = unit == :°C ? 1 : 0
 
-    foo1(pw) = W - humidity(pw)
-    foo2(Twet) = W - humidity2(
-        humidity(satPress(Twet)), Tdry, Twet
-    )
-    foo3(Tdry) = W - humidity2(
-        humidity(satPress(Twet)), Tdry, Twet
-    )
-    foo4(W) = h - enthalpy(Tdry, W)
-    foo5(Tdry) = h - enthalpy(Tdry, W)
-    foo6(W) = v - volume(Tdry, W)
-    foo7(Tdry) = v - volume(Tdry, W)
-    foo8(pw) = Tdew - dewTemp(pw)
-    foo9(Tdry) = W - humidity2(Wsatwet, Tdry, Twet)
-    foo10(Tdry) = φ - pw / satPress(Tdry)
-    foo11(Tdry) = W - humidity(φ * satPress(Tdry))
-    foo12(psat) = psat - satPress(Tdry)
-    a = isnan.([Tdry, Twet, Tdew, W, h, v, φ]) .!= 0
-    if sum(a) != 5
+    psychrParam = [Tdry, Twet, Tdew, W, h, v, φ]
+    myVars = isnan.(psychrParam) .!= 0
+    if sum(myVars) != length(psychrParam) - 2
         printstyled(
             "psychro requires two and only two parameters.\n",
             color=:red
         )
     end
-    if a == [0, 0, 1, 1, 1, 1, 1]
+
+    if !isnan(Tdry) && !isnan(Twet)
         psat = satPress(Tdry)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         Wsat = humidity(psat)
-        W = humidity2(Wsatwet, Tdry, Twet)
+        W = humiditySatWet(Wsatwet, Tdry, Twet)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, psat, ξ)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, psat, rtol=1e-8)
         Tdew = dewTemp(pw)
         φ = pw / psat
         ρ = (1 + Wsatwet) / v
-    elseif a == [0, 1, 0, 1, 1, 1, 1]
-        ξ = Tdew / 1e3
-        pw = newtonraphson(foo8, 1e3, ξ)
+    elseif !isnan(Tdry) && !isnan(Tdew)
+        foo = pw -> Tdew - dewTemp(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         W = humidity(pw)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         φ = pw / psat
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [0, 1, 1, 0, 1, 1, 1]
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, 1e3, ξ)
+    elseif !isnan(Tdry) && !isnan(W)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         Tdew = dewTemp(pw)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         φ = pw / psat
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [0, 1, 1, 1, 0, 1, 1]
-        ξ = h / 1e3
-        W = newtonraphson(foo4, 1e-2, ξ)
+    elseif !isnan(Tdry) && !isnan(h)
+        foo = W -> h - enthalpy(Tdry, W)
+        W = find_zero(foo, 1e-2, rtol=1e-8)
         v = volume(Tdry, W)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, psat, ξ)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, psat, rtol=1e-8)
         W = humidity(pw)
         φ = pw / psat
         Tdew = dewTemp(pw)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [0, 1, 1, 1, 1, 0, 1]
-        ξ = v / 1e3
-        W = newtonraphson(foo6, 1e-2, ξ)
+    elseif !isnan(Tdry) && !isnan(v)
+        foo = W -> v - volume(Tdry, W)
+        W = find_zero(foo, 1e-2, rtol=1e-8)
         h = enthalpy(Tdry, W)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, psat, ξ)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, psat, rtol=1e-8)
         W = humidity(pw)
         φ = pw / psat
         Tdew = dewTemp(pw)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [0, 1, 1, 1, 1, 1, 0]
+    elseif !isnan(Tdry) && !isnan(φ)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         pw = φ * psat
         φ = pw / psat
         Tdew = dewTemp(pw)
         W = humidity(pw)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdry, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdry, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 0, 0, 1, 1, 1, 1]
+    elseif !isnan(Twet) && !isnan(Tdew)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
-        ξ = Tdew / 1e3
-        pw = newtonraphson(foo8, 1e3, ξ)
+        foo = pw -> Tdew - dewTemp(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         W = humidity(pw)
-        ξ = W / 1e3
-        Tdry = newtonraphson(foo9, Twet, ξ)
+        foo = Tdry -> W - humiditySatWet(Wsatwet, Tdry, Twet)
+        Tdry = find_zero(foo, Twet, rtol=1e-8)
         psat = satPress(Tdry)
         φ = pw / psat
         Wsat = humidity(psat)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 0, 1, 0, 1, 1, 1]
+    elseif !isnan(Twet) && !isnan(W)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, psatwet, ξ)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, psatwet, rtol=1e-8)
         Tdew = dewTemp(pw)
-        ξ = W / 1e3
-        Tdry = newtonraphson(foo3, Twet, ξ)
+        foo = Tdry -> W - humidity(Tdry, Twet)
+        Tdry = find_zero(foo, Twet, rtol=1e-8)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         φ = pw / psat
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 0, 1, 1, 0, 1, 1]
+    elseif !isnan(Twet) && !isnan(h)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         Tdry = Twet
-        ξ = h / 1e3
-        W = newtonraphson(foo4, Wsatwet, ξ)
-        while W < humidity2(Wsatwet, Tdry, Twet)
+        foo = W -> h - enthalpy(Tdry, W)
+        W = find_zero(foo, Wsatwet, rtol=1e-8)
+        while W < humiditySatWet(Wsatwet, Tdry, Twet)
             Tdry = Tdry + 5e-3
-            ξ = h / 1e3
-            W = newtonraphson(foo4, Wsatwet, ξ)
+            W = find_zero(foo, Wsatwet, rtol=1e-8)
         end
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         v = volume(Tdry, W)
         ρ = (1 + Wsatwet) / v
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, psat, ξ)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, psat, rtol=1e-8)
         Tdew = dewTemp(pw)
         φ = pw / psat
-    elseif a == [1, 0, 1, 1, 1, 0, 1]
+    elseif !isnan(Twet) && !isnan(v)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         Tdry = Twet
-        ξ = v / 1e3
-        W = newtonraphson(foo6, Wsatwet, ξ)
-        while W > humidity2(Wsatwet, Tdry, Twet)
+        foo = W -> v - volume(Tdry, W)
+        W = find_zero(foo, Wsatwet, rtol=1e-8)
+        while W > humiditySatWet(Wsatwet, Tdry, Twet)
             Tdry = Tdry + 5e-3
-            ξ = v / 1e3
-            W = newtonraphson(foo6, Wsatwet, ξ)
+            W = find_zero(foo, Wsatwet, rtol=1e-8)
         end
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         h = enthalpy(Tdry, W)
         ρ = (1 + Wsatwet) / v
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, psat, ξ)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, psat, rtol=1e-8)
         Tdew = dewTemp(pw)
         φ = pw / psat
-    elseif a == [1, 0, 1, 1, 1, 1, 0]
+    elseif !isnan(Twet) && !isnan(φ)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         Tdry = Twet
         psat = satPress(Tdry)
         Wsat = humidity(psat)
-        W = humidity2(Wsatwet, Tdry, Twet)
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, psat, ξ)
+        W = humiditySatWet(Wsatwet, Tdry, Twet)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, psat, rtol=1e-8)
         while pw / psat > φ
             Tdry = Tdry + 5e-3
             psat = satPress(Tdry)
             Wsat = humidity(psat)
-            W = humidity2(Wsatwet, Tdry, Twet)
-            ξ = W / 1e3
-            pw = newtonraphson(foo1, psat, ξ)
+            W = humiditySatWet(Wsatwet, Tdry, Twet)
+            foo = pw -> W - humidity(pw)
+            pw = find_zero(foo, psat, rtol=1e-8)
         end
         Tdew = dewTemp(pw)
         Wsat = humidity(psat)
@@ -444,12 +428,12 @@ function psychro(;
         v = volume(Tdry, W)
         ρ = (1 + Wsatwet) / v
         φ = pw / psat
-    elseif a == [1, 1, 0, 0, 1, 1, 1]
-        ξ = Tdew / 1e3
-        pw = newtonraphson(foo8, 1e3, ξ)
+    elseif !isnan(Tdew) && !isnan(W)
+        foo = pw -> Tdew - dewTemp(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         w = humidity(pw)
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, 1e3, ξ)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         tdew = dewTemp(pw)
         printstyled(string(
                 "Dew point temperature and humidity are not independent variables. ", W,
@@ -457,100 +441,100 @@ function psychro(;
                 " K dew point temperature, and ", Tdew,
                 " K dew point temperature corresponds to ", w, " kg/kg humidity.\n"
             ), color=:red)
-    elseif a == [1, 1, 0, 1, 0, 1, 1]
-        ξ = Tdew / 1e3
-        pw = newtonraphson(foo8, 1e3, ξ)
+    elseif !isnan(Tdew) && !isnan(h)
+        foo = pw -> Tdew - dewTemp(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         W = humidity(pw)
-        ξ = h / 1e3
-        Tdry = newtonraphson(foo5, Tdew, ξ)
+        foo = Tdry -> h - enthalpy(Tdry, W)
+        Tdry = find_zero(foo, Tdew, rtol=1e-8)
         psat = satPress(Tdry)
         φ = pw / psat
         v = volume(Tdry, W)
         Wsat = humidity(psat)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 1, 0, 1, 1, 0, 1]
-        ξ = Tdew / 1e3
-        pw = newtonraphson(foo8, 1e3, ξ)
+    elseif !isnan(Tdew) && !isnan(v)
+        foo = pw -> Tdew - dewTemp(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         W = humidity(pw)
-        ξ = v / 1e3
-        Tdry = newtonraphson(foo7, Tdew, ξ)
+        foo = Tdry -> v - volume(Tdry, W)
+        Tdry = find_zero(foo, Tdew, rtol=1e-8)
         psat = satPress(Tdry)
         φ = pw / psat
         h = enthalpy(Tdry, W)
         Wsat = humidity(psat)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdry, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdry, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 1, 0, 1, 1, 1, 0]
-        ξ = Tdew / 1e3
-        pw = newtonraphson(foo8, 1e3, ξ)
-        ξ = φ / 1e3
-        Tdry = newtonraphson(foo10, Tdew, ξ)
+    elseif !isnan(Tdew) && !isnan(φ)
+        foo = pw -> Tdew - dewTemp(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
+        foo = Tdry -> φ - pw / satPress(Tdry)
+        Tdry = find_zero(foo, Tdew, rtol=1e-8)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         W = humidity(pw)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 1, 1, 0, 0, 1, 1]
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, 1e3, ξ)
+    elseif !isnan(W) && !isnan(h)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         Tdew = dewTemp(pw)
-        ξ = h / 1e3
-        Tdry = newtonraphson(foo5, Tdew, ξ)
+        foo = Tdry -> h - enthalpy(Tdry, W)
+        Tdry = find_zero(foo, Tdew, rtol=1e-8)
         v = volume(Tdry, W)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         φ = pw / psat
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 1, 1, 0, 1, 0, 1]
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, 1e3, ξ)
+    elseif !isnan(W) && !isnan(v)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         Tdew = dewTemp(pw)
-        ξ = v / 1e3
-        Tdry = newtonraphson(foo7, Tdew, ξ)
+        foo = Tdry -> v - volume(Tdry, W)
+        Tdry = find_zero(foo, Tdew, rtol=1e-8)
         h = enthalpy(Tdry, W)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         φ = pw / psat
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdry, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdry, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 1, 1, 0, 1, 1, 0]
-        ξ = W / 1e3
-        Tdry = newtonraphson(foo11, 50 + 273.15, ξ)
+    elseif !isnan(W) && !isnan(φ)
+        foo = Tdry -> W - humidity(φ * satPress(Tdry))
+        Tdry = find_zero(foo, 50 + 273.15, rtol=1e-8)
         psat = satPress(Tdry)
         pw = φ * psat
         Wsat = humidity(psat)
         h = enthalpy(Tdry, W)
         v = volume(Tdry, W)
         Tdew = dewTemp(pw)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 1, 1, 1, 0, 0, 1]
+    elseif !isnan(h) && !isnan(v)
         W = 1e-2
         dW = W
-        ξ = v / 1e3
-        Tdry = newtonraphson(foo6, 50 + 273.15, ξ)
+        foo = W -> v - volume(Tdry, W)
+        Tdry = find_zero(foo, 50 + 273.15, rtol=1e-8)
         while abs(h - enthalpy(Tdry, W)) > h / 1e3
             if h > enthalpy(Tdry, W)
                 W = W + dW
@@ -558,186 +542,124 @@ function psychro(;
                 W = W - dW
                 dW = dW / 2
             end
-            Tdry = newtonraphson(foo7, 50 + 273.15, ξ)
+            foo = Tdry -> v - volume(Tdry, W)
+            Tdry = find_zero(foo, 50 + 273.15, rtol=1e-8)
         end
-        ξ = W / 1e3
-        pw = newtonraphson(foo1, 1e3, ξ)
+        foo = pw -> W - humidity(pw)
+        pw = find_zero(foo, 1e3, rtol=1e-8)
         Tdew = dewTemp(pw)
         psat = satPress(Tdry)
         Wsat = humidity(psat)
         φ = pw / psat
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdry, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdry, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 1, 1, 1, 0, 1, 0]
-        function foo(pw, h, φ)
+    elseif !isnan(h) && !isnan(φ)
+        bar = (pw, h, φ) -> begin
             W = humidity(pw)
-            ξ = h / 1e3
-            Tdry = newtonraphson(foo5, 50 + 273.15, ξ)
-            ξ = satPress(Tdry) / 1e3
-            psat = newtonraphson(foo12, pw, ξ)
+            foo = Tdry -> h - enthalpy(Tdry, W)
+            Tdry = find_zero(foo, 50 + 273.15, rtol=1e-8)
+            foo = psat -> psat - satPress(Tdry)
+            psat = find_zero(foo, pw, rtol=1e-8)
             y = pw / psat - φ
             y, Tdry, psat
         end
         pw = 0
+        y, Tdry, psat = bar(pw, h, φ)
         dp = 1e3
-        y, Tdry, psat = foo(pw, h, φ)
         while abs(y) > 1e-3
             if y < 0
-                pw = pw + dp
+                pw += dp
             else
-                pw = pw - dp
-                dp = dp / 2
+                pw -= dp
+                dp /= 2
             end
-            y, Tdry, psat = foo(pw, h, φ)
+            y, Tdry, psat = bar(pw, h, φ)
         end
         W = humidity(pw)
         Tdew = dewTemp(pw)
         Wsat = humidity(psat)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         v = volume(Tdry, W)
         ρ = (1 + Wsatwet) / v
-    elseif a == [1, 1, 1, 1, 1, 0, 0]
-        function bar(pw, v, φ)
+    elseif !isnan(v) && !isnan(φ)
+        bar = (pw, v, φ) -> begin
             W = humidity(pw)
-            ξ = v / 1e3
-            Tdry = newtonraphson(foo7, 50 + 273.15, ξ)
-            ξ = satPress(Tdry) / 1e3
-            psat = newtonraphson(foo12, pw, ξ)
+            foo = Tdry -> v - volume(Tdry, W)
+            Tdry = find_zero(foo, 50 + 273.15, rtol=1e-8)
+            foo = psat -> psat - satPress(Tdry)
+            psat = find_zero(foo, pw, rtol=1e-8)
             y = pw / psat - φ
             y, Tdry, psat
         end
         pw = 0
-        dp = 1e3
         y, Tdry, psat = bar(pw, v, φ)
+        dp = 1e3
         while abs(y) > 1e-3
             if y < 0
-                pw = pw + dp
+                pw += dp
             else
-                pw = pw - dp
-                dp = dp / 2
+                pw -= dp
+                dp /= 2
             end
             y, Tdry, psat = bar(pw, v, φ)
         end
         W = humidity(pw)
         Tdew = dewTemp(pw)
         Wsat = humidity(psat)
-        ξ = W / 1e3
-        Twet = newtonraphson(foo2, Tdew, ξ)
+        foo = Twet -> W - humidity(Tdry, Twet)
+        Twet = find_zero(foo, Tdew, rtol=1e-8)
         psatwet = satPress(Twet)
         Wsatwet = humidity(psatwet)
         ρ = (1 + Wsatwet) / v
         h = enthalpy(Tdry, W)
     end
+
     Tadiab, Wadiab = adiabSat(h)
-    if fig
-        tv, wv = buildVolume(v)
-        tb, wb = buildWetBulbTemp(Twet)
-        te, we = buildEnthalpy(h)
-        th, wh = buildHumidity(φ)
-        doPlot(
-            back=back,
-            unit=unit
-        )
-        plot!(
-            tv .- k .* 273.15, wv,
-            seriestype=:line,
-            linestyle=:dash,
-            linewidth=:2,
-            color=:green
-        )
-        plot!(
-            tb .- k .* 273.15, wb,
-            seriestype=:line,
-            linestyle=:dash,
-            linewidth=:2,
-            color=:blue
-        )
-        plot!(
-            te .- k .* 273.15, we,
-            seriestype=:line,
-            linestyle=:dash,
-            linewidth=:2,
-            color=:red
-        )
-        plot!(th .- k .* 273.15, wh,
-            seriestype=:line,
-            linewidth=:2,
-            color=:black)
-        if φ != 1
-            plot!(
-                [Tdry] .- k .* 273.15, [W],
-                seriestype=:scatter,
-                markersize=:5,
-                markerstrokecolor=:green,
-                color=:green
-            )
-            plot!(
-                [Twet] .- k .* 273.15, [Wsatwet],
-                seriestype=:scatter,
-                markersize=:5,
-                markerstrokecolor=:blue,
-                color=:blue
-            )
-            plot!(
-                [Tdry] .- k .* 273.15, [Wsat],
-                seriestype=:scatter,
-                markersize=:5,
-                markerstrokecolor=:black,
-                color=:black
-            )
-            plot!(
-                [Tdew] .- k .* 273.15, [W],
-                seriestype=:scatter,
-                markersize=:5,
-                markerstrokecolor=:black,
-                color=:black
-            )
-            plot!(
-                [Tdew, Tdew, 60 + 273.15] .- k .* 273.15, [0, W, W],
-                seriestype=:line,
-                linestyle=:dash,
-                color=:black
-            )
-            plot!(
-                [Tdry, Tdry, 60 + 273.15] .- k .* 273.15, [0, Wsat, Wsat],
-                seriestype=:line,
-                linestyle=:dash,
-                color=:black
-            )
-            plot!(
-                [Twet, Twet, 60 + 273.15] .- k .* 273.15, [0, Wsatwet, Wsatwet],
-                seriestype=:line,
-                linestyle=:dash,
-                color=:blue
-            )
-        end
-        plot!(
-            [Tadiab] .- k .* 273.15, [Wadiab],
-            seriestype=:scatter,
-            markersize=:5,
-            markerstrokecolor=:red,
-            color=:red
-        )
-        plot!(
-            [Tadiab, Tadiab, 60 + 273.15] .- k .* 273.15, [0, Wadiab, Wadiab],
-            seriestype=:line,
-            linestyle=:dash,
-            color=:red
-        )
-        display(plot!())
-    end
+
+    fig && doShowPlot(
+        HumidAir(
+            Tdry,
+            Twet,
+            Tdew,
+            Tadiab,
+            W,
+            Wsat,
+            Wsatwet,
+            Wadiab,
+            φ,
+            h,
+            v,
+            ρ,
+            pw,
+            psat,
+            psatwet
+        ),
+        back,
+        unit
+    )
 
     HumidAir(
-        Tdry - k * 273.15, Twet - k * 273.15, Tdew - k * 273.15, Tadiab - k * 273.15,
-        W, Wsat, Wsatwet, Wadiab,
+        Tdry - tempInKelvin * 273.15,
+        Twet - tempInKelvin * 273.15,
+        Tdew - tempInKelvin * 273.15,
+        Tadiab - tempInKelvin * 273.15,
+        W,
+        Wsat,
+        Wsatwet,
+        Wadiab,
         φ,
-        h, v, ρ,
-        pw, psat, psatwet
+        h,
+        v,
+        ρ,
+        pw,
+        psat,
+        psatwet
     )
+
 end

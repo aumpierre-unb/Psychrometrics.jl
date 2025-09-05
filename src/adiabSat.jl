@@ -20,7 +20,7 @@ of the solution.
 `adiabSat` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume` and `doPlot`.
+See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume` and `buildBasicChart`.
 
 Examples
 ==========
@@ -47,62 +47,35 @@ function adiabSat(
     back::Symbol=:white,
     unit::Symbol=:K
 )
-    k = unit == :°C ? 1 : 0
+    tempInKelvin = unit == :°C ? 1 : 0
 
-    foo(Tadiab) = h - enthalpy(Tadiab, humidity(satPress(Tadiab)))
-    Tadiab = newtonraphson(foo, 273.15, 1e-5)
+    foo = Tadiab -> h - enthalpy(Tadiab, humidity(satPress(Tadiab)))
+    Tadiab = find_zero(foo, 273.15, rtol=1e-8)
     padiab = satPress(Tadiab)
     Wadiab = humidity(padiab)
     v = volume(Tadiab, Wadiab)
-    if fig
-        tv, wv = buildVolume(v)
-        tb, wb = buildWetBulbTemp(Tadiab)
-        te, we = buildEnthalpy(h)
-        th, wh = buildHumidity(1)
-        doPlot(
-            back=back,
-            unit=unit
-        )
-        plot!(
-            tv .- k .* 273.15, wv,
-            seriestype=:line,
-            linestyle=:dash,
-            linewidth=:2,
-            color=:green
-        )
-        plot!(
-            tb .- k .* 273.15, wb,
-            seriestype=:line,
-            linestyle=:dash,
-            linewidth=:2,
-            color=:blue
-        )
-        plot!(
-            te .- k .* 273.15, we,
-            seriestype=:line,
-            linestyle=:dash,
-            linewidth=:2,
-            color=:red
-        )
-        plot!(
-            th .- k .* 273.15, wh,
-            seriestype=:line,
-            linewidth=:2,
-            color=:black
-        )
-        plot!(
-            [Tadiab] .- k .* 273.15, [Wadiab],
-            seriestype=:scatter,
-            markersize=:5,
-            markerstrokecolor=:red,
-            color=:red
-        )
-        display(plot!(
-            [Tadiab, Tadiab, 60 + 273.15] .- k .* 273.15, [0, Wadiab, Wadiab],
-            seriestype=:line,
-            linestyle=:dash,
-            color=:red
-        ))
-    end
-    Tadiab - k * 273.15, Wadiab
+
+    fig && doShowPlot(
+        HumidAir(
+            Tadiab,
+            Tadiab,
+            Tadiab,
+            Tadiab,
+            Wadiab,
+            Wadiab,
+            Wadiab,
+            Wadiab,
+            1,
+            h,
+            v,
+            padiab,
+            padiab,
+            padiab,
+            padiab
+        ),
+        back,
+        unit
+    )
+
+    Tadiab - tempInKelvin * 273.15, Wadiab
 end

@@ -15,7 +15,7 @@ the humidity W (in kg/kg of dry air).
 `enthalpy` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `volume`, `adiabSat` and `doPlot`.
+See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `volume`, `adiabSat` and `buildBasicChart`.
 
 Examples
 ==========

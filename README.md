@@ -60,7 +60,7 @@ For citation of the last released version of Psychrometrics, please check CITATI
 - **volume**
 - **adiabSat**
 - **dewTemp**
-- **doPlot**
+- **buildBasicChart**
 
 ### **psychro**
 
@@ -257,7 +257,7 @@ try # PrettyTables is not included in Psychrometrics!
     print(
         "\nSummary of process states:\n"
     )
-    pretty_table(table, header=header)
+    pretty_table(table, column_labels=header)
     catch
 end
 ```
@@ -315,14 +315,26 @@ W = 0.621945 * pw / (101325 - pw) # absolute humidity, by definition
 
 Compute the humidity of humid air
 at atmospheric pressure given
-water vapor pressure is 1 kPa
-at 10 atm total pressure.
+the water vapor pressure 1 kPa and
+the total pressure 101325 Pa.
 
 ```julia
 humidity( # humidity in kg/kg of dry air
-    1e3, # water vapor pressure in Pa
-    101325e1 # total pressure in Pa
-    )
+       1e3, # water vapor pressure in Pa
+       101325 # total pressure in Pa
+       )
+```
+
+Compute the humidity of humid air
+at atmospheric pressure given
+the dry bulb temperature 300 K and
+the wet bulb temperature 290 K.
+
+```julia
+humidity( # humidity in kg/kg of dry air
+       300, # dry bulb temperature in K
+       290 # wet bulb temperature in K
+       )
 ```
 
 ### **satPress**
@@ -480,15 +492,15 @@ dewTemp( # dew temperature in K
     )
 ```
 
-### **doPlot**
+### **buildBasicChart**
 
-`doPlot` plots
+`buildBasicChart` plots
 a schematic psychrometric chart.
 
 **Syntax:**
 
 ```julia
-doPlot(;
+buildBasicChart(;
     back::Symbol=:white,
     unit::Symbol=:°C
     )
@@ -502,12 +514,10 @@ with transparent background and
 save figure as psychrometricChart_transparent.svg.
 
 ```julia
-doPlot(
+buildBasicChart(
     back=:transparent, # plot background transparent
     unit=:°C # temperature in °C
     )
-using Plots
-savefig("psychrometricChart_transparent.svg")
 ```
 
 ### Reference
@@ -530,6 +540,6 @@ for kindly suggesting the source reference for equations used in this package.
 [PonchonSavarit.jl](https://github.com/aumpierre-unb/PonchonSavarit.jl),
 [InternalFluidFlow.jl](https://github.com/aumpierre-unb/InternalFluidFlow.jl).
 
-Copyright &copy; 2022 2023 2024 Alexandre Umpierre
+Copyright &copy; 2022 2023 2024 2025 Alexandre Umpierre
 
 email: <aumpierre@gmail.com>

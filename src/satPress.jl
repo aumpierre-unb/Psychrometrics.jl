@@ -12,7 +12,7 @@ of humid air given the dry bulb temperature Tdry (in K).
 `satPress` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `dewTemp`, `humidity`, `enthalpy`, `volume`, `adiabSat` and `doPlot`.
+See also: `psychro`, `dewTemp`, `humidity`, `enthalpy`, `volume`, `adiabSat` and `buildBasicChart`.
 
 Examples
 ==========
@@ -29,27 +29,27 @@ julia> satPress( # saturation pressure in Pa
 function satPress(
     Tdry::Number
 )
-    coeff = loadCoeffs()
-    if -100 <= Tdry - 273.15 && Tdry - 273.15 < 0
-        k = coeff[1] / Tdry +
-            coeff[2] +
-            coeff[3] * Tdry +
-            coeff[4] * Tdry^2 +
-            coeff[5] * Tdry^3 +
-            coeff[6] * Tdry^4 +
-            coeff[7] * log(Tdry)
-    elseif 0 <= Tdry - 273.15 && Tdry - 273.15 <= 200
-        k = coeff[8] / Tdry +
-            coeff[9] +
-            coeff[10] * Tdry +
-            coeff[11] * Tdry^2 +
-            coeff[12] * Tdry^3 +
-            coeff[13] * log(Tdry)
+    if (-100 <= Tdry - 273.15) && (Tdry - 273.15 < 0)
+        k = coeffs[1] / Tdry +
+            coeffs[2] +
+            coeffs[3] * Tdry +
+            coeffs[4] * Tdry^2 +
+            coeffs[5] * Tdry^3 +
+            coeffs[6] * Tdry^4 +
+            coeffs[7] * log(Tdry)
+        return exp(k)
+    elseif (0 <= Tdry - 273.15) && (Tdry - 273.15 <= 200)
+        k = coeffs[8] / Tdry +
+            coeffs[9] +
+            coeffs[10] * Tdry +
+            coeffs[11] * Tdry^2 +
+            coeffs[12] * Tdry^3 +
+            coeffs[13] * log(Tdry)
+        return exp(k)
     else
         printstyled(
             "Temperature must be in the range from 173.15 K to 473.15 K.\n",
             color=:red
         )
     end
-    exp(k)
 end

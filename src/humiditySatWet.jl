@@ -1,23 +1,23 @@
 @doc raw"""
 ```
-humidity2(
+humiditySatWet(
     Wsatwet::Number,
     Tdry::Number,
     Twet::Number
     )
 ```
 
-`humidity2` computes
+`humiditySatWet` computes
 the humidity W (in kg/kg of dry air)
 of humid air given
 the saturation humidity Wsatwet (in kg/kg of dry air) at wet bulb temperature,
 the dry bulb temperature (in K) and
 the wet bulb temperature (in K).
 
-`humidity2` is an internal function of
+`humiditySatWet` is an internal function of
 the `Psychrometrics` package for Julia.
 """
-function humidity2(
+function humiditySatWet(
     Wsatwet::Number,
     Tdry::Number,
     Twet::Number

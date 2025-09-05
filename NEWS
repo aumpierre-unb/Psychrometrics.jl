@@ -1,7 +1,13 @@
 ### TODO
 
-### Psychrometrics 1.1.2-alpha (2024-09-30)
-* Minor changes on documentation
+### Psychrometrics 2.0.0-alpha (2025-09-05)
+* Internal functions renamed
+* Nested functions replaced by anonymous functions
+* newtonraphson.jl replaced by Roots.find_zero.jl (thanks to Leo Weegels)
+* loadCoeffs.jl removed and experimental coefficients loaded with Psychrometrics.jl
+* Wiki page created at package repository
+* Additional labels to constant enthalpy, volume, relative humidity and wet bulb temperature guidelines
+* runtests.jl updated to test if dependencies are installed
 
 ### Psychrometrics 1.1.1 (2024-09-30)
 * Minor changes on documentation
@@ -12,7 +18,7 @@
 
 ### Psychrometrics 1.0.0 (2024-09-25)
 * Psychrometric chart extended from 0.03 kg/kg to 0.04 kg/kg (35 °C-wet-bulb-isotherm visible, up to 60 °C)
-* doPlot function available to plot schematic psychrometric chart
+* buildBasicChart function available to plot schematic psychrometric chart
 * Computed values now are presented as structure HumidAir
 * Minor changes in docstrings
 * Minor changes in psychro function
