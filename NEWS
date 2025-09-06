@@ -7,7 +7,6 @@
 * loadCoeffs.jl removed and experimental coefficients loaded with Psychrometrics.jl
 * Wiki page created at package repository
 * Additional labels to constant enthalpy, volume, relative humidity and wet bulb temperature guidelines
-* runtests.jl updated to test if dependencies are installed
 
 ### Psychrometrics 1.1.1 (2024-09-30)
 * Minor changes on documentation

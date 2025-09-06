@@ -12,10 +12,10 @@ See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume`, `a
 """
 module Psychrometrics
 
+using Roots
 using Plots
 using Images
 using Test
-using Roots
 
 mutable struct HumidAir
     Tdry::Number
