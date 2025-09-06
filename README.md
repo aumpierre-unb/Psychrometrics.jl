@@ -246,6 +246,8 @@ begin # water vapor demand
     (state5.W - state1.W) * (V / state1.v)
 end
 begin
+    using Plots
+    buildBasicChart()
     local T = [state.Tdry for state in [state1, state2, state3, state4, state5]]
     local W = [state.W for state in [state1, state2, state3, state4, state5]]
     plot!(T, W, seriestype=:path, linewidth=2, color=:red)

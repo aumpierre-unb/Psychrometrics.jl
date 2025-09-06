@@ -213,6 +213,8 @@ julia> begin # water vapor demands
 0.1871046008688284
 
 julia> begin
+       using Plots
+       buildBasicChart()
        local T = [state.Tdry for state in [state1, state2, state3, state4, state5]]
        local W = [state.W for state in [state1, state2, state3, state4, state5]]
        plot!(T, W, seriestype=:path, linewidth=2, color=:red)
