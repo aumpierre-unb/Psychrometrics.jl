@@ -245,6 +245,12 @@ begin # water vapor demand
     local V = 8.5 # initial volume of humid air is
     (state5.W - state1.W) * (V / state1.v)
 end
+begin
+    local T = [state.Tdry for state in [state1, state2, state3, state4, state5]]
+    local W = [state.W for state in [state1, state2, state3, state4, state5]]
+    plot!(T, W, seriestype=:path, linewidth=2, color=:red)
+    plot!(T, W, seriestype=:scatter, markersize=5, markerstrokecolor=:red, color=:red)
+end
 try # PrettyTables is not included in Psychrometrics!
     using PrettyTables
     local mytable = [name for name in fieldnames(Psychrometrics.HumidAir)]
