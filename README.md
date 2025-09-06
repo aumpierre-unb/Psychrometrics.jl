@@ -544,8 +544,8 @@ for kindly suggesting the source reference for equations used in this package.
 
 ### See Also
 
-[McCabeThiele.jl](https://github.com/aumpierre-unb/McCabeThiele.jl),
-[PonchonSavarit.jl](https://github.com/aumpierre-unb/PonchonSavarit.jl),
+<!-- [McCabeThiele.jl](https://github.com/aumpierre-unb/McCabeThiele.jl), -->
+<!-- [PonchonSavarit.jl](https://github.com/aumpierre-unb/PonchonSavarit.jl), -->
 [InternalFluidFlow.jl](https://github.com/aumpierre-unb/InternalFluidFlow.jl).
 
 Copyright &copy; 2022 2023 2024 2025 Alexandre Umpierre
