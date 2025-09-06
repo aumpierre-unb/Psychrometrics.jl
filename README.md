@@ -247,17 +247,17 @@ begin # water vapor demand
 end
 try # PrettyTables is not included in Psychrometrics!
     using PrettyTables
-    local table = [name for name in fieldnames(Psychrometrics.HumidAir)]
+    local mytable = [name for name in fieldnames(Psychrometrics.HumidAir)]
     for i in (state1, state2, state3, state4, state5)
-        table = [table [getfield(i, field) for field in 1:nfields(i)]]
+        mytable = [mytable [getfield(i, field) for field in 1:nfields(i)]]
     end
-    local header = [
+    local myheader = [
         "Parameter", "State 1", "State 2", "State 3", "State 4", "State 5"
         ]
     print(
         "\nSummary of process states:\n"
     )
-    pretty_table(table, column_labels=header)
+    pretty_table(mytable, column_labels=myheader)
     catch
 end
 ```
