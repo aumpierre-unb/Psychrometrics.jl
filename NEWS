@@ -4,7 +4,7 @@
 * Internal functions renamed
 * Nested functions replaced by anonymous functions
 * newtonraphson.jl replaced by Roots.find_zero.jl (thanks to Leo Weegels)
-* loadCoeffs.jl removed and experimental coefficients loaded with Psychrometrics.jl
+* loadCoeffs.jl removed and experimental coefficients loaded with Psychrometrics.jl (thanks to Leo Weegels)
 * Wiki page created at package repository
 * Additional labels to constant enthalpy, volume, relative humidity and wet bulb temperature guidelines
 

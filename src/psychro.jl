@@ -9,9 +9,9 @@ psychro(;
     h::Number=NaN, # specific enthalpy
     v::Number=NaN, # specific volume
     fig::Bool=false, # show/omit chart
-    back::Symbol=:white, # plot background color
-    unit::Symbol=:K # units for temperature (:K or :°C)
-    )::HumidAir
+    back::Symbol=:white, # plot background color (:white (default) or :transparent)
+    unit::Symbol=:K # units for temperature (:K (default) or :°C)
+    )
 ```
 
 `psychro` computes
@@ -43,7 +43,7 @@ given any two of the following parameters:
 - the relative humidity,
 
 except for the combination of humidity and dew point temperature,
-    which are not mutually independent.
+which are not mutually independent.
 
 If a different number of parameters is given,
 execution will be aborted.
@@ -52,11 +52,11 @@ If fig = true is given
 a schematic psychrometric chart is plotted
 as a graphical representation of the solution.
 
-By default,
-`psychro` plots a schematic psychrometric chart
-with the solution (fig = true)
-with white background (back = :white).
-If fig = false is given, plot is omitted.
+If back = :transparent is given
+plot background is set transparent (default is white).
+
+If unit = :°C is given
+temperature units in plot is set to °C (default is K).
 
 `psychro` is a main function of
 the `Psychrometrics` package for Julia.
@@ -215,8 +215,8 @@ julia> begin # water vapor demands
 julia> begin
        using Plots
        buildBasicChart()
-       local T = [state.Tdry for state in [state1, state2, state3, state4, state5]]
-       local W = [state.W for state in [state1, state2, state3, state4, state5]]
+       local T = [i.Tdry for i in (state1, state2, state3, state4, state5)]
+       local W = [i.W for i in (state1, state2, state3, state4, state5)]
        plot!(T, W, seriestype=:path, linewidth=2, color=:red)
        plot!(T, W, seriestype=:scatter, markersize=5, markerstrokecolor=:red, color=:red)
        end
