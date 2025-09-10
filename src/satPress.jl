@@ -6,8 +6,8 @@ satPress( # saturation pressure in Pa
 ```
 
 `satPress` computes
-the saturation pressure psat (in pa)
-of humid air given the dry bulb temperature Tdry (in K).
+the saturation pressure (in pa)
+of humid air given the dry bulb temperature (in K).
 
 `satPress` is a main function of
 the `Psychrometrics` package for Julia.

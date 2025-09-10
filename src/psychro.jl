@@ -48,15 +48,15 @@ which are not mutually independent.
 If a different number of parameters is given,
 execution will be aborted.
 
-If fig = true is given
+If `fig=true` is given
 a schematic psychrometric chart is plotted
 as a graphical representation of the solution.
 
-If back = :transparent is given
-plot background is set transparent (default is white).
+If `back=:transparent` is given
+plot background is set transparent (default is `back=:white`).
 
-If unit = :°C is given
-temperature units in plot is set to °C (default is K).
+If `unit=:°C` is given
+temperature units in plot is set to °C (default is `unit=:K`).
 
 `psychro` is a main function of
 the `Psychrometrics` package for Julia.
@@ -162,13 +162,8 @@ Psychrometrics.HumidAir(323.0, 297.4011154378235, 284.7479028128452, 297.1298849
 julia> sleep(3)
 
 julia> begin # thermodynamic state the after first adiabatic saturation
-       local Tdry, W = adiabSat(
+       state3 = adiabSat(
        state2.h,
-       fig=true
-       )
-       state3 = psychro(
-       Tdry=Tdry,
-       W=W,
        fig=true
        )
        end
@@ -186,13 +181,8 @@ Psychrometrics.HumidAir(323.0, 303.22460387674636, 297.1317471703389, 303.020253
 julia> sleep(3)
 
 julia> begin # thermodynamic state the after second adiabatic saturation
-       local Tdry, W = adiabSat(
+       state5 = adiabSat(
        state4.h,
-       fig=true
-       )    
-       state5 = psychro(
-       Tdry=Tdry,
-       W=W,
        fig=true
        )
        end
@@ -627,18 +617,18 @@ function psychro(;
         h = enthalpy(Tdry, W)
     end
 
-    Tadiab, Wadiab = adiabSat(h)
+    air = adiabSat(h)
 
     fig && doShowPlot(
         HumidAir(
             Tdry,
             Twet,
             Tdew,
-            Tadiab,
+            air.Tadiab,
             W,
             Wsat,
             Wsatwet,
-            Wadiab,
+            air.Wadiab,
             φ,
             h,
             v,
@@ -655,11 +645,11 @@ function psychro(;
         Tdry - tempInKelvin * 273.15,
         Twet - tempInKelvin * 273.15,
         Tdew - tempInKelvin * 273.15,
-        Tadiab - tempInKelvin * 273.15,
+        air.Tadiab - tempInKelvin * 273.15,
         W,
         Wsat,
         Wsatwet,
-        Wadiab,
+        air.Wadiab,
         φ,
         h,
         v,

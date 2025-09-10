@@ -1,3 +1,24 @@
+@doc raw"""
+```
+doShowPlot(
+    air::HumidAir,
+    back::Symbol,
+    unit::Symbol
+    )
+```
+
+`doShowPlot` plots
+a schematic psychrometric chart with
+highlighted guidelines for 
+the wet bulb temperature, 
+the specific enthalpy, 
+the specific volume and
+the relative humidity of 
+the given psychrometric parameters.
+
+`doShowPlot` is an internal function of
+the `Psychrometrics` package for Julia.
+"""
 function doShowPlot(
     air::HumidAir,
     back::Symbol,

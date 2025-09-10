@@ -9,6 +9,12 @@ buildBasicChart(;
 `buildBasicChart` plots
 a schematic psychrometric chart.
 
+If `back=:transparent` is given
+plot background is set transparent (default is `back=:white`).
+
+If `unit=:°C` is given
+temperature units in plot is set to °C (default is `unit=:K`).
+
 `buildBasicChart` is a main function of
 the `Psychrometrics` package for Julia.
 

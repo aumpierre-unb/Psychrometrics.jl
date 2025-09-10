@@ -7,14 +7,14 @@ humidity( # humidity in kg/kg of dry air
 ```
 
 `humidity` computes
-the humidity W (in kg/kg of dry air) 
+the humidity (in kg/kg of dry air) 
 of humid air given
-the water vapor pressure pw (in Pa) and
-the total pressure p (in Pa).
+the water vapor pressure (in Pa) and
+the total pressure (in Pa).
 
 By default, total pressure is assumed
 to be the atmospheric pressure
-at sea level, p = 101325.
+at sea level (101325 Pa).
 
 `humidity` computes
 the humidity W (in kg/kg of dry air)

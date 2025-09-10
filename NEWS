@@ -1,28 +1,31 @@
 ### TODO
 
-### Psychrometrics 2.0.0-alpha (2025-09-05)
+### Psychrometrics 2.0.0-alpha (2025-09-09)
 * Internal functions renamed
+* `doplot` function renamed to `buildBasicChart`
+* `adiabSat` function returns a `psychro`-like-output
+* `loadCoeffs.jl` file removed and experimental coefficients transferred to the main model file (thanks to Leo Weegels)
+* `newtonraphson` function replaced by `Roots.find_zero` (thanks to Leo Weegels)
 * Nested functions replaced by anonymous functions
-* newtonraphson.jl replaced by Roots.find_zero.jl (thanks to Leo Weegels)
-* loadCoeffs.jl removed and experimental coefficients loaded with Psychrometrics.jl (thanks to Leo Weegels)
 * Wiki page created at package repository
-* Additional labels to constant enthalpy, volume, relative humidity and wet bulb temperature guidelines
+* Additional labels for constant enthalpy, volume, relative humidity and wet bulb temperature guidelines in plots
+* Minor updates on functions docstrings and on `README.md`
 
 ### Psychrometrics 1.1.1 (2024-09-30)
 * Minor changes on documentation
 
 ### Psychrometrics 1.1.0 (2024-09-30)
 * Psychrometric charts plot now accept user option Celsius degrees and Kelvin
-* adiabSat and psychro functions' outputs now accept user option Celsius degrees and Kelvin
+* `adiabSat` and psychro functions' outputs now accept user option Celsius degrees and Kelvin
 
 ### Psychrometrics 1.0.0 (2024-09-25)
 * Psychrometric chart extended from 0.03 kg/kg to 0.04 kg/kg (35 °C-wet-bulb-isotherm visible, up to 60 °C)
-* buildBasicChart function available to plot schematic psychrometric chart
-* Computed values now are presented as structure HumidAir
+* `doplot` function available to plot schematic psychrometric chart
+* Computed values now are presented as structure `HumidAir`
 * Minor changes in docstrings
-* Minor changes in psychro function
-* Minor changes in README.md
-* Manifest.toml upgraded
+* Minor changes in `psychro` function
+* Minor changes in `README.md`
+* `Manifest.toml` upgraded
 
 ### Psychrometrics 0.1.5 (2024-05-20)
 * Annotations to the curves included on plots
@@ -37,7 +40,7 @@
 * Minor changes on functions' returns
 
 ### Psychrometrics 0.1.1 (2023-01-05)
-* Bug fixed on function adiabSat
+* Bug fixed on function `adiabSat`
 * Minor changes on documentation
 
 ### Psychrometrics 0.1.0 (2022-12-29)

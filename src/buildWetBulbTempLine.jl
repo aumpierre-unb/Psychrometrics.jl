@@ -7,7 +7,7 @@ buildWetBulbTempLine(
 
 `buildWetBulbTempLine` generates two column matrix of
 humidity and dry bulb temperature
-with given constant wet bulb temperature Twet (in K).
+with given constant wet bulb temperature (in K).
 
 By default, constant specific volume curves
 are ploted with with blue solid thin lines.

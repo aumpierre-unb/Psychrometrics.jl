@@ -54,11 +54,11 @@ For citation of the last released version of Psychrometrics, please check CITATI
 `Psychrometrics` provides a set of functions to compute the various variables related to water vapor humid air, providing the following functions:
 
 - **psychro**
+- **adiabSat**
 - **humidity**
 - **satPress**
 - **enthalpy**
 - **volume**
-- **adiabSat**
 - **dewTemp**
 - **buildBasicChart**
 
@@ -98,15 +98,15 @@ which are not mutually independent.
 If a different number of parameters is given,
 execution will be aborted.
 
-If fig = true is given
+If `fig=true` is given
 a schematic psychrometric chart is plotted
 as a graphical representation of the solution.
 
-If back = :transparent is given
-plot background is set transparent (default is white).
+If `back=:transparent` is given
+plot background is set transparent (default is `back=:white`).
 
-If unit = :°C is given
-temperature units in plot is set to °C (default is K).
+If `unit=:°C` is given
+temperature units in plot is set to °C (default is `unit=:K`).
 
 **Syntax:**
 
@@ -172,7 +172,7 @@ the water vapor pressure,
 the saturation pressure,
 the saturation pressure at wet bulb temperature given
 the specific enthalpy is 79.5 kJ/kg and
-the relative humidity is 0.29 # and
+the relative humidity is 0.29 and
 plot a graphical representation of the
 answer in a schematic psychrometric chart.
 
@@ -201,22 +201,17 @@ state1 = psychro( # initial condition
     fig=true
     )
 sleep(3)
-state2 = psychro( # thermodynamic state after the firstheating is
+state2 = psychro( # thermodynamic state after the first heating
     Tdry=323,
     W=state1.W,
     fig=true
     )
 sleep(3)
 begin # thermodynamic state the after first adiabatic saturation
-    local Tdry, W = adiabSat(
-        state2.h,
-        fig=true
-        )
-    state3 = psychro(
-        Tdry=Tdry,
-        W=W,
-        fig=true
-        )
+    state3 = adiabSat(
+    state2.h,
+    fig=true
+    )
 end
 sleep(3)
 state4 = psychro( # thermodynamic state after the second heating
@@ -226,22 +221,17 @@ state4 = psychro( # thermodynamic state after the second heating
     )
 sleep(3)
 begin # thermodynamic state the after second adiabatic saturation
-    local Tdry, W = adiabSat(
-        state4.h,
-        fig=true
-        )
-    state5 = psychro(
-        Tdry=Tdry,
-        W=W,
-        fig=true
-        )
+    state5 = adiabSat(
+    state4.h,
+    fig=true
+    )
 end
 sleep(3)
 begin # energy demand
     local V = 8.5 # initial volume of humid air is
     (state5.h - state1.h) * (V / state1.v)
 end
-begin # water vapor demand
+begin # water vapor demands
     local V = 8.5 # initial volume of humid air is
     (state5.W - state1.W) * (V / state1.v)
 end
@@ -264,23 +254,80 @@ try # PrettyTables is not included in Psychrometrics!
         ]
     print(
         "\nSummary of process states:\n"
-    )
+        )
     pretty_table(mytable, column_labels=myheader)
     catch
 end
 ```
 
+### **adiabSat**
+
+`adiabSat` computes
+
+- the dry bulb temperature,
+- the wet bulb temperature,
+- the dew point temperature,
+- the adiabatic saturation temperature,
+- the humidity,
+- the saturation humidity,
+- the saturation humidity at wet bulb temperature,
+- the adiabatic saturation humidity,
+- the relative humidity,
+- the specific enthalpy,
+- the specific volume,
+- the density,
+- the water vapor pressure,
+- the saturation pressure and
+- the saturation pressure at wet bulb temperature.
+
+given the specific enthalpy (in J/kg of dry air).
+
+If `fig=true` is given
+a schematic psychrometric chart is plotted
+as a graphical representation of the solution.
+
+If `back=:transparent` is given
+plot background is set transparent (default is `back=:white`).
+
+If `unit=:°C` is given
+temperature units in plot is set to °C (default is `unit=:K`).
+
+**Syntax:**
+
+```julia
+adiabSat( # adiabatic saturation temperature in K
+    h::Number; # specific enthalpy in J/kg of dry air
+    fig::Bool=false, # show/omit chart
+    back::Symbol=:white, # plot background color
+    unit::Symbol=:K # units for temperature (:K or :°C)
+    )
+```
+
+**Examples:**
+
+Compute the adiabatic saturation temperature given
+the specific enthalpy is 82.4 kJ/kg of dry air and
+plot a graphical representation of the
+answer in a schematic psychrometric chart.
+
+```julia
+adiabSat(
+    82.4e3, # specific enthalpy in J/kg of dry air
+    fig=true # show plot
+    )
+```
+
 ### **humidity**
 
 `humidity` computes
-the humidity W (in kg/kg of dry air) 
+the humidity (in kg/kg of dry air) 
 of humid air given
-the water vapor pressure pw (in Pa) and
-the total pressure p (in Pa).
+the water vapor pressure (in Pa) and
+the total pressure (in Pa).
 
 By default, total pressure is assumed
 to be the atmospheric pressure
-at sea level, p = 101325.
+at sea level (101325 Pa).
 
 **Syntax:**
 
@@ -348,8 +395,8 @@ humidity( # humidity in kg/kg of dry air
 ### **satPress**
 
 `satPress` computes
-the saturation pressure psat (in pa)
-of humid air given the dry bulb temperature Tdry (in K).
+the saturation pressure (in Pa)
+of humid air given the dry bulb temperature (in K).
 
 **Syntax:**
 
@@ -373,10 +420,10 @@ satPress( # saturation pressure in Pa
 ### **enthalpy**
 
 `enthalpy` computes
-the specific enthalpy h (in J/kg of dry air)
+the specific enthalpy (in J/kg of dry air)
 of humid air given
-the dry bulb temperature Tdry (in K) and
-the humidity W (in kg/kg of dry air).
+the dry bulb temperature (in K) and
+the humidity (in kg/kg of dry air).
 
 **Syntax:**
 
@@ -403,15 +450,15 @@ enthalpy( # specific enthalpy in J/kg of dry air
 ### **volume**
 
 `volume` computes
-the specific volume v (in cu. m/kg of dry air)
+the specific volume (in cu. m/kg of dry air)
 of humid air given
-the dry bulb temperature Tdry (in K),
-the humidity W (in kg/kg of dry air) and
+the dry bulb temperature (in K),
+the humidity (in kg/kg of dry air) and
 the total pressure p (in Pa).
 
 By default, total pressure is assumed
 to be the atmospheric pressure
-at sea level, p = 101325.
+at sea level (101325 Pa).
 
 **Syntax:**
 
@@ -437,48 +484,12 @@ volume( # specific volume in cu. m/kg of dry air
     )
 ```
 
-### **adiabSat**
-
-`adiabSat` computes
-the adiabatic saturation temperature Tadiab (in K) and
-the adiabatic saturation humidity Wadiab (in Kg/kg of dry air) given
-the specific enthalpy h (in J/kg of dry air).
-
-If fig = true is given, a schematic psychrometric chart
-is plotted as a graphical representation
-of the solution.
-
-**Syntax:**
-
-```julia
-adiabSat( # adiabatic saturation temperature in K
-    h::Number; # specific enthalpy in J/kg of dry air
-    fig::Bool=false, # show/omit chart
-    back::Symbol=:white, # plot background color
-    unit::Symbol=:K # units for temperature (:K or :°C)
-    )
-```
-
-**Examples:**
-
-Compute the adiabatic saturation temperature given
-the specific enthalpy is 82.4 kJ/kg of dry air and
-plot a graphical representation of the
-answer in a schematic psychrometric chart.
-
-```julia
-adiabSat(
-    82.4e3, # specific enthalpy in J/kg of dry air
-    fig=true # show plot
-    )
-```
-
 ### **dewTemp**
 
 `dewTemp` computes
-the dew point temperature Tdew (in K)
+the dew point temperature (in K)
 of humid air given
-the water vapor pressure pw (in Pa).
+the water vapor pressure (in Pa).
 
 **Syntax:**
 
@@ -505,12 +516,18 @@ dewTemp( # dew temperature in K
 `buildBasicChart` plots
 a schematic psychrometric chart.
 
+If `back=:transparent` is given
+plot background is set transparent (default is `back=:white`).
+
+If `unit=:°C` is given
+temperature units in plot is set to °C (default is `unit=:K`).
+
 **Syntax:**
 
 ```julia
 buildBasicChart(;
     back::Symbol=:white,
-    unit::Symbol=:°C
+    unit::Symbol=:K
     )
 ```
 
@@ -530,7 +547,7 @@ buildBasicChart(
 
 ### Reference
 
-The theory and the adjusted equations used in this package
+The theory and the adjusted equations used in `Psychrometrics.jl` package
 were taken from the first chapter of the
 *2017 ASHRAE Handbook Fundamentals Systems - International Metric System*,
 published by the
@@ -538,7 +555,7 @@ American Society of Heating, Refrigerating and Air-Conditioning Engineers.
 
 ### Acknowledgements
 
-The author of Psychrometrics package acknowledges
+The author of `Psychrometrics.jl` package acknowledges
 Professor Brent Stephens, Ph.D. from the Illinois Institute of Technology
 for kindly suggesting the source reference for equations used in this package.
 

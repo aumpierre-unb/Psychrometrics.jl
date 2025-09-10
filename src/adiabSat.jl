@@ -9,13 +9,34 @@ adiabSat( # adiabatic saturation temperature in K
 ```
 
 `adiabSat` computes
-the adiabatic saturation temperature Tadiab (in K) and
-the adiabatic saturation humidity Wadiab (in Kg/kg of dry air) given
-the specific enthalpy h (in J/kg of dry air).
 
-If fig = true is given, a schematic psychrometric chart
-is plotted as a graphical representation
-of the solution.
+- the dry bulb temperature,
+- the wet bulb temperature,
+- the dew point temperature,
+- the adiabatic saturation temperature,
+- the humidity,
+- the saturation humidity,
+- the saturation humidity at wet bulb temperature,
+- the adiabatic saturation humidity,
+- the relative humidity,
+- the specific enthalpy,
+- the specific volume,
+- the density,
+- the water vapor pressure,
+- the saturation pressure and
+- the saturation pressure at wet bulb temperature.
+
+given the specific enthalpy h (in J/kg of dry air).
+
+If `fig=true` is given
+a schematic psychrometric chart is plotted
+as a graphical representation of the solution.
+
+If `back=:transparent` is given
+plot background is set transparent (default is `back=:white`).
+
+If `unit=:°C` is given
+temperature units in plot is set to °C (default is `unit=:K`).
 
 `adiabSat` is a main function of
 the `Psychrometrics` package for Julia.
@@ -77,5 +98,24 @@ function adiabSat(
         unit
     )
 
-    Tadiab - tempInKelvin * 273.15, Wadiab
+    # Tadiab - tempInKelvin * 273.15, Wadiab
+
+    HumidAir(
+        Tadiab - tempInKelvin * 273.15,
+        Tadiab - tempInKelvin * 273.15,
+        Tadiab - tempInKelvin * 273.15,
+        Tadiab - tempInKelvin * 273.15,
+        Wadiab,
+        Wadiab,
+        Wadiab,
+        Wadiab,
+        1,
+        h,
+        v,
+        padiab,
+        padiab,
+        padiab,
+        padiab
+    )
+
 end

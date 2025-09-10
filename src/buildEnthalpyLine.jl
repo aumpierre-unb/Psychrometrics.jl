@@ -7,7 +7,7 @@ buildEnthalpyLine(
 
 `buildEnthalpyLine` generates a two column matrix of
 humidity and dry bulb temperature
-with given constant specific enthalpy h (in J/kg).
+with given constant specific enthalpy (in J/kg).
 
 By default, constant specific enthalpy curves
 are ploted with red dash-doted thin lines.

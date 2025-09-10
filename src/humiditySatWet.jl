@@ -8,9 +8,9 @@ humiditySatWet(
 ```
 
 `humiditySatWet` computes
-the humidity W (in kg/kg of dry air)
+the humidity (in kg/kg of dry air)
 of humid air given
-the saturation humidity Wsatwet (in kg/kg of dry air) at wet bulb temperature,
+the saturation humidity (in kg/kg of dry air) at wet bulb temperature,
 the dry bulb temperature (in K) and
 the wet bulb temperature (in K).
 

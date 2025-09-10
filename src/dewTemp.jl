@@ -6,9 +6,9 @@ dewTemp( # dew point temperature in K
 ```
 
 `dewTemp` computes
-the dew point temperature Tdew (in K)
+the dew point temperature (in K)
 of humid air given
-the water vapor pressure pw (in Pa).
+the water vapor pressure (in Pa).
 
 `dewTemp` is a main function of
 the `Psychrometrics` package for Julia.

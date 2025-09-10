@@ -8,15 +8,15 @@ volume( # specific enthalpy in J/kg of dry air
 ```
 
 `volume` computes
-the specific volume v (in cu. m/kg of dry air)
+the specific volume (in cu. m/kg of dry air)
 of humid air given
-the dry bulb temperature Tdry (in K),
-the humidity W (in kg/kg of dry air) and
+the dry bulb temperature (in K),
+the humidity (in kg/kg of dry air) and
 the total pressure p (in Pa).
 
 By default, total pressure is assumed
 to be the atmospheric pressure
-at sea level, p = 101325.
+at sea level (101325 Pa).
 
 `volume` is a main function of
 the `Psychrometrics` package for Julia.

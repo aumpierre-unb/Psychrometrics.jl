@@ -7,7 +7,7 @@ buildVolumeLine(
 
 `buildVolumeLine` generates a two column matrix of
 humidity and dry bulb temperature
-with given constant specific volume v (in cu. m/kg).
+with given constant specific volume (in cu. m/kg).
 
 By default, constant specific volume curves
 are ploted with with green dash-doted thin lines.

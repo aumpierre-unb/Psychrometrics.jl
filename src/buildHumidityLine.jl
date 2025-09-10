@@ -7,7 +7,7 @@ buildHumidityLine(
 
 `buildHumidityLine` generates a two column matrix of
 humidity and dry bulb temperature
-with given constant relative humidity φ.
+with given constant relative humidity.
 
 By default, constant relative humidity curves
 are ploted with black solid thin lines.
