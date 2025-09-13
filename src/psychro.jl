@@ -242,15 +242,6 @@ function psychro(;
     back::Symbol=:white,
     unit::Symbol=:K
 )
-    # tempInKelvin = unit == :°C ? 1 : 0
-
-    # tempInKelvin = 0
-    # if unit == :°C
-    #     tempInKelvin = 1
-    #     Tdry+=273.15
-    #     Twet+=273.15
-    #     Tdew+=273.15
-    # end
 
     psychrParam = [Tdry, Twet, Tdew, W, h, v, φ]
     myVars = isnan.(psychrParam) .!= 0

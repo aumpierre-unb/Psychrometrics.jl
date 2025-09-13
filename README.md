@@ -274,11 +274,7 @@ the specific enthalpy (in J/kg of dry air).
 
 ```julia
 adiabSat( # adiabatic saturation temperature in K
-    h::Number # specific enthalpy in J/kg of dry air
-    # h::Number; # specific enthalpy in J/kg of dry air
-    # fig::Bool=false, # show/omit chart
-    # back::Symbol=:white, # plot background color
-    # unit::Symbol=:K # units for temperature (:K or :°C)
+    h::Number
     )
 ```
 
