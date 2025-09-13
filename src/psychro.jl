@@ -56,6 +56,7 @@ If `back=:transparent` is given
 plot background is set transparent (default is `back=:white`).
 
 If `unit=:°C` is given
+both input and output temperatures are given in °C and
 temperature units in plot is set to °C (default is `unit=:K`).
 
 `psychro` is a main function of
@@ -240,7 +241,15 @@ function psychro(;
     back::Symbol=:white,
     unit::Symbol=:K
 )
-    tempInKelvin = unit == :°C ? 1 : 0
+    # tempInKelvin = unit == :°C ? 1 : 0
+
+    tempInKelvin = 0
+    if unit == :°C
+        tempInKelvin = 1
+        Tdry+=273.15
+        Twet+=273.15
+        Tdew+=273.15
+    end
 
     psychrParam = [Tdry, Twet, Tdew, W, h, v, φ]
     myVars = isnan.(psychrParam) .!= 0

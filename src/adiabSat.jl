@@ -26,7 +26,7 @@ adiabSat( # adiabatic saturation temperature in K
 - the saturation pressure and
 - the saturation pressure at wet bulb temperature.
 
-given the specific enthalpy h (in J/kg of dry air).
+given the specific enthalpy (in J/kg of dry air).
 
 If `fig=true` is given
 a schematic psychrometric chart is plotted

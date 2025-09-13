@@ -106,6 +106,7 @@ If `back=:transparent` is given
 plot background is set transparent (default is `back=:white`).
 
 If `unit=:°C` is given
+both input and output temperatures are given in °C and
 temperature units in plot is set to °C (default is `unit=:K`).
 
 **Syntax:**
