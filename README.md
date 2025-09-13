@@ -209,8 +209,9 @@ state2 = psychro( # thermodynamic state after the first heating
     )
 sleep(3)
 begin # thermodynamic state the after first adiabatic saturation
-    state3 = adiabSat(
-    state2.h,
+    state3 = psychro(
+    h=state2.h,
+    φ=1,
     fig=true
     )
 end
@@ -222,8 +223,9 @@ state4 = psychro( # thermodynamic state after the second heating
     )
 sleep(3)
 begin # thermodynamic state the after second adiabatic saturation
-    state5 = adiabSat(
-    state4.h,
+    state5 = psychro(
+    h=state4.h,
+    φ=1,
     fig=true
     )
 end
@@ -264,43 +266,19 @@ end
 ### **adiabSat**
 
 `adiabSat` computes
-
-- the dry bulb temperature,
-- the wet bulb temperature,
-- the dew point temperature,
-- the adiabatic saturation temperature,
-- the humidity,
-- the saturation humidity,
-- the saturation humidity at wet bulb temperature,
-- the adiabatic saturation humidity,
-- the relative humidity,
-- the specific enthalpy,
-- the specific volume,
-- the density,
-- the water vapor pressure,
-- the saturation pressure and
-- the saturation pressure at wet bulb temperature.
-
-given the specific enthalpy (in J/kg of dry air).
-
-If `fig=true` is given
-a schematic psychrometric chart is plotted
-as a graphical representation of the solution.
-
-If `back=:transparent` is given
-plot background is set transparent (default is `back=:white`).
-
-If `unit=:°C` is given
-temperature units in plot is set to °C (default is `unit=:K`).
+the dry bulb temperature and
+the humidity given
+the specific enthalpy (in J/kg of dry air).
 
 **Syntax:**
 
 ```julia
 adiabSat( # adiabatic saturation temperature in K
-    h::Number; # specific enthalpy in J/kg of dry air
-    fig::Bool=false, # show/omit chart
-    back::Symbol=:white, # plot background color
-    unit::Symbol=:K # units for temperature (:K or :°C)
+    h::Number # specific enthalpy in J/kg of dry air
+    # h::Number; # specific enthalpy in J/kg of dry air
+    # fig::Bool=false, # show/omit chart
+    # back::Symbol=:white, # plot background color
+    # unit::Symbol=:K # units for temperature (:K or :°C)
     )
 ```
 
@@ -313,8 +291,7 @@ answer in a schematic psychrometric chart.
 
 ```julia
 adiabSat(
-    82.4e3, # specific enthalpy in J/kg of dry air
-    fig=true # show plot
+    82.4e3
     )
 ```
 

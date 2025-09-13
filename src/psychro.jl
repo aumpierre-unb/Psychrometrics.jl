@@ -56,7 +56,6 @@ If `back=:transparent` is given
 plot background is set transparent (default is `back=:white`).
 
 If `unit=:°C` is given
-both input and output temperatures are given in °C and
 temperature units in plot is set to °C (default is `unit=:K`).
 
 `psychro` is a main function of
@@ -86,7 +85,7 @@ the relative humidity is 29 %.
 
 ```
 julia> humidAir = psychro( # all results ordered in one tuple
-       Tdew=22 + 273.15, # dew temperature in K
+       Tdew=22+273.15, # dew temperature in K
        φ=0.29, # relative humidity
        fig=true # show plot
        )
@@ -163,8 +162,9 @@ Psychrometrics.HumidAir(323.0, 297.4011154378235, 284.7479028128452, 297.1298849
 julia> sleep(3)
 
 julia> begin # thermodynamic state the after first adiabatic saturation
-       state3 = adiabSat(
-       state2.h,
+       state3 = psychro(
+       h=state2.h,
+       φ=1,
        fig=true
        )
        end
@@ -182,8 +182,9 @@ Psychrometrics.HumidAir(323.0, 303.22460387674636, 297.1317471703389, 303.020253
 julia> sleep(3)
 
 julia> begin # thermodynamic state the after second adiabatic saturation
-       state5 = adiabSat(
-       state4.h,
+       state5 = psychro(
+       h=state4.h,
+       φ=1,
        fig=true
        )
        end
@@ -243,13 +244,13 @@ function psychro(;
 )
     # tempInKelvin = unit == :°C ? 1 : 0
 
-    tempInKelvin = 0
-    if unit == :°C
-        tempInKelvin = 1
-        Tdry+=273.15
-        Twet+=273.15
-        Tdew+=273.15
-    end
+    # tempInKelvin = 0
+    # if unit == :°C
+    #     tempInKelvin = 1
+    #     Tdry+=273.15
+    #     Twet+=273.15
+    #     Tdew+=273.15
+    # end
 
     psychrParam = [Tdry, Twet, Tdew, W, h, v, φ]
     myVars = isnan.(psychrParam) .!= 0
@@ -626,39 +627,17 @@ function psychro(;
         h = enthalpy(Tdry, W)
     end
 
-    air = adiabSat(h)
+    Tadiab, Wadiab = adiabSat(h)
 
-    fig && doShowPlot(
-        HumidAir(
-            Tdry,
-            Twet,
-            Tdew,
-            air.Tadiab,
-            W,
-            Wsat,
-            Wsatwet,
-            air.Wadiab,
-            φ,
-            h,
-            v,
-            ρ,
-            pw,
-            psat,
-            psatwet
-        ),
-        back,
-        unit
-    )
-
-    HumidAir(
-        Tdry - tempInKelvin * 273.15,
-        Twet - tempInKelvin * 273.15,
-        Tdew - tempInKelvin * 273.15,
-        air.Tadiab - tempInKelvin * 273.15,
+    air = HumidAir(
+        Tdry,
+        Twet,
+        Tdew,
+        Tadiab,
         W,
         Wsat,
         Wsatwet,
-        air.Wadiab,
+        Wadiab,
         φ,
         h,
         v,
@@ -667,5 +646,13 @@ function psychro(;
         psat,
         psatwet
     )
+
+    fig && doShowPlot(
+        air,
+        back,
+        unit
+    )
+
+    air
 
 end
