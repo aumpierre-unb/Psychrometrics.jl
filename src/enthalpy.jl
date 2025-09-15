@@ -7,15 +7,15 @@ enthalpy( # specific enthalpy in kJ/kg of dry air
 ```
 
 `enthalpy` computes
-the specific enthalpy h (in J/kg of dry air)
+the specific enthalpy (in J/kg of dry air)
 of humid air given
-the dry bulb temperature Tdry (in K) and
-the humidity W (in kg/kg of dry air).
+the dry bulb temperature (in K) and
+the humidity (in kg/kg of dry air).
 
 `enthalpy` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `volume`, `adiabSat` and `doPlot`.
+See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `volume`, `adiabSat` and `buildBasicChart`.
 
 Examples
 ==========

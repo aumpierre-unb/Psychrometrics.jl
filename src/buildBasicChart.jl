@@ -1,15 +1,21 @@
 @doc raw"""
 ```
-doPlot(;
+buildBasicChart(;
     back::Symbol=:white, # plot background color
     unit::Symbol=:K # units for temperature (:K or :°C)
     )
 ```
 
-`doPlot` plots
+`buildBasicChart` plots
 a schematic psychrometric chart.
 
-`doPlot` is a main function of
+If `back=:transparent` is given
+plot background is set transparent (default is `back=:white`).
+
+If `unit=:°C` is given
+temperature units in plot is set to °C (default is `unit=:K`).
+
+`buildBasicChart` is a main function of
 the `Psychrometrics` package for Julia.
 
 See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume` and `adiabSat`.
@@ -21,15 +27,13 @@ with temperature in °C
 with transparent background and
 save figure as psychrometricChart_transparent.svg.
 ```
-julia> doPlot(
+julia> buildBasicChart(
        back=:transparent, # plot background transparent
        unit=:°C # temperature in °C
        )
-julia> using Plots
-julia> savefig("psychrometricChart_transparent.svg")
 ```
 """
-function doPlot(;
+function buildBasicChart(;
     back::Symbol=:white,
     unit::Symbol=:K
 )
@@ -90,6 +94,7 @@ function doPlot(;
     end
 
     fontSize = 8
+
     annotate!(285 .- k .* 273.15, 0.004, text(
         "20 kJ/kg",
         fontSize,
@@ -105,6 +110,46 @@ function doPlot(;
         :red,
         rotation=-28
     ))
+    annotate!(302 .- k .* 273.15, 0.013, text(
+        "60 kJ/kg",
+        fontSize,
+        :center,
+        :center,
+        :red,
+        rotation=-28
+    ))
+    annotate!(304.5 .- k .* 273.15, 0.016, text(
+        "70 kJ/kg",
+        fontSize,
+        :center,
+        :center,
+        :red,
+        rotation=-28
+    ))
+    annotate!(310 .- k .* 273.15, 0.0215, text(
+        "90 kJ/kg",
+        fontSize,
+        :center,
+        :center,
+        :red,
+        rotation=-28
+    ))
+    annotate!(312.5 .- k .* 273.15, 0.0244, text(
+        "100 kJ/kg",
+        fontSize,
+        :center,
+        :center,
+        :red,
+        rotation=-28
+    ))
+    annotate!(318 .- k .* 273.15, 0.0337, text(
+        "130 kJ/kg",
+        fontSize,
+        :center,
+        :center,
+        :red,
+        rotation=-28
+    ))
     annotate!(293.8 .- k .* 273.15, 0.008, text(
         "0.84 cu.m/kg",
         fontSize,
@@ -113,7 +158,7 @@ function doPlot(;
         :green,
         rotation=-69
     ))
-    annotate!(299.8 .- k .* 273.15, 0.01, text(
+    annotate!(300.7 .- k .* 273.15, 0.008, text(
         "0.86 cu.m/kg",
         fontSize,
         :center,
@@ -121,8 +166,80 @@ function doPlot(;
         :green,
         rotation=-69
     ))
+    annotate!(307.7 .- k .* 273.15, 0.008, text(
+        "0.88 cu.m/kg",
+        fontSize,
+        :center,
+        :center,
+        :green,
+        rotation=-69
+    ))
+    annotate!(314.8 .- k .* 273.15, 0.008, text(
+        "0.90 cu.m/kg",
+        fontSize,
+        :center,
+        :center,
+        :green,
+        rotation=-69
+    ))
+    annotate!(321 .- k .* 273.15, 0.0095, text(
+        "0.92 cu.m/kg",
+        fontSize,
+        :center,
+        :center,
+        :green,
+        rotation=-69
+    ))
+    annotate!(325.3 .- k .* 273.1, 0.015, text(
+        "0.94 cu.m/kg",
+        fontSize,
+        :center,
+        :center,
+        :green,
+        rotation=-69
+    ))
+    annotate!(329 .- k .* 273.15, 0.021, text(
+        "0.96 cu.m/kg",
+        fontSize,
+        :center,
+        :center,
+        :green,
+        rotation=-69
+    ))
+    annotate!(285 .- k .* 273.15, 0.002, text(
+        unit == :°C ? "5 °C" : "278.15 K",
+        fontSize,
+        :center,
+        :center,
+        :blue,
+        rotation=-29
+    ))
+    annotate!(295 .- k .* 273.15, 0.002, text(
+        unit == :°C ? "10 °C" : "283.15 K",
+        fontSize,
+        :center,
+        :center,
+        :blue,
+        rotation=-29
+    ))
+    annotate!(307.5 .- k .* 273.15, 0.002, text(
+        unit == :°C ? "15 °C" : "288.15 K",
+        fontSize,
+        :center,
+        :center,
+        :blue,
+        rotation=-29
+    ))
+    annotate!(319 .- k .* 273.15, 0.0033, text(
+        unit == :°C ? "20 °C" : "293.15 K",
+        fontSize,
+        :center,
+        :center,
+        :blue,
+        rotation=-29
+    ))
     annotate!(329.7 .- k .* 273.15, 0.0062, text(
-        unit == :°C ? "25 °C" : "289.15 K",
+        unit == :°C ? "25 °C" : "298.15 K",
         fontSize,
         :center,
         :center,
@@ -138,12 +255,28 @@ function doPlot(;
         rotation=-30
     ))
     annotate!(329.7 .- k .* 273.15, 0.0264, text(
-        unit == :°C ? "35 °C" : "319.15 K",
+        unit == :°C ? "35 °C" : "308.15 K",
         fontSize,
         :center,
         :center,
         :blue,
         rotation=-31
+    ))
+    annotate!(326.3 .- k .* 273.15, 0.0038, text(
+        "5 %",
+        fontSize,
+        :center,
+        :center,
+        :darkgray,
+        rotation=10
+    ))
+    annotate!(325.2 .- k .* 273.15, 0.0077, text(
+        "10 %",
+        fontSize,
+        :center,
+        :center,
+        :darkgray,
+        rotation=24
     ))
     annotate!(319.2 .- k .* 273.15, 0.0151, text(
         "25 %",
@@ -151,7 +284,7 @@ function doPlot(;
         :center,
         :center,
         :darkgray,
-        rotation=51
+        rotation=48
     ))
     annotate!(316.7 .- k .* 273.15, 0.016, text(
         "30 %",
@@ -159,7 +292,7 @@ function doPlot(;
         :center,
         :center,
         :darkgray,
-        rotation=54
+        rotation=50
     ))
     annotate!(312.9 .- k .* 273.15, 0.0174, text(
         "40 %",
@@ -167,7 +300,7 @@ function doPlot(;
         :center,
         :center,
         :gray,
-        rotation=57
+        rotation=54
     ))
     annotate!(307.7 .- k .* 273.15, 0.0197, text(
         "60 %",
@@ -176,6 +309,14 @@ function doPlot(;
         :center,
         :gray,
         rotation=59
+    ))
+    annotate!(304 .- k .* 273.15, 0.0213, text(
+        "80 %",
+        fontSize,
+        :center,
+        :center,
+        :gray,
+        rotation=60
     ))
     annotate!(275 - k * 273.15, 38.7e-3, text(
         "Psychrometric Chart",

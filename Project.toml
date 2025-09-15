@@ -1,17 +1,19 @@
 name = "Psychrometrics"
 uuid = "89d1cb86-bf84-46ce-bdfb-ab7f830013b1"
 authors = ["Alexandre Umpierre (aumpierre@gmail.com)"]
-version = "1.1.2-alpha"
+version = "2.0.0-alpha"
 
 [deps]
-Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
+Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
+Roots = "2.2"
+Plots = "1.40"
 Images = "0.26"
-Plots = "1"
-julia = "1"
+julia = "1.11"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

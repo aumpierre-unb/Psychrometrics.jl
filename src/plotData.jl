@@ -12,7 +12,7 @@ is built faster from raw data
 than from functions.
 
 The raw data in this file was generated
-by internal function `buildChart`.
+by internal function `buildBasicData`.
 
 Edition of this file is
 highly not advised.

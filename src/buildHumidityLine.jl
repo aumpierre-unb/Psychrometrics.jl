@@ -1,27 +1,26 @@
 @doc raw"""
 ```
-buildHumidity(
+buildHumidityLine(
     φ::Number
     )
 ```
 
-`buildHumidity` generates a two column matrix of
+`buildHumidityLine` generates a two column matrix of
 humidity and dry bulb temperature
-with given constant relative humidity φ.
+with given constant relative humidity.
 
 By default, constant relative humidity curves
 are ploted with black solid thin lines.
 
-`buildHumidity` is an internal function of
+`buildHumidityLine` is an internal function of
 the `Psychrometrics` package for Julia.
 """
-function buildHumidity(
+function buildHumidityLine(
     φ::Number
 )
     foo(T) = 0.04 - humidity(satPress(T) * φ)
     T1 = 273.15
-    ξ = 0.04 / 1e4
-    T2 = newtonraphson(foo, 60 + 273.15, ξ)
+    T2 = find_zero(foo, 60 + 273.15, rtol=1e-8)
     if T2 > 60 + 273.15
         T2 = 60 + 273.15
     end

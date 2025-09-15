@@ -9,18 +9,14 @@ adiabSat( # adiabatic saturation temperature in K
 ```
 
 `adiabSat` computes
-the adiabatic saturation temperature Tadiab (in K) and
-the adiabatic saturation humidity Wadiab (in Kg/kg of dry air) given
-the specific enthalpy h (in J/kg of dry air).
-
-If fig = true is given, a schematic psychrometric chart
-is plotted as a graphical representation
-of the solution.
+the dry bulb temperature and
+the humidity given
+the specific enthalpy (in J/kg of dry air).
 
 `adiabSat` is a main function of
 the `Psychrometrics` package for Julia.
 
-See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume` and `doPlot`.
+See also: `psychro`, `dewTemp`, `humidity`, `satPress`, `enthalpy`, `volume` and `buildBasicChart`.
 
 Examples
 ==========
@@ -33,76 +29,19 @@ with transparent background.
 
 ```
 julia> Tadiab, Wadiab = adiabSat(
-       82.4e3, # specific enthalpy in J/kg of dry air
-       fig=true, # show plot
-       back=:transparent, # plot background transparent
-       unit=:°C # temperature in °C
+       82.4e3 # specific enthalpy in J/kg of dry air
        )
 (299.55987637598975, 0.021893719698029654)
 ```
 """
 function adiabSat(
-    h::Number;
-    fig::Bool=false,
-    back::Symbol=:white,
-    unit::Symbol=:K
+    h::Number
 )
-    k = unit == :°C ? 1 : 0
-
-    foo(Tadiab) = h - enthalpy(Tadiab, humidity(satPress(Tadiab)))
-    Tadiab = newtonraphson(foo, 273.15, 1e-5)
+    foo = Tadiab -> h - enthalpy(Tadiab, humidity(satPress(Tadiab)))
+    Tadiab = find_zero(foo, 273.15, rtol=1e-8)
     padiab = satPress(Tadiab)
     Wadiab = humidity(padiab)
-    v = volume(Tadiab, Wadiab)
-    if fig
-        tv, wv = buildVolume(v)
-        tb, wb = buildWetBulbTemp(Tadiab)
-        te, we = buildEnthalpy(h)
-        th, wh = buildHumidity(1)
-        doPlot(
-            back=back,
-            unit=unit
-        )
-        plot!(
-            tv .- k .* 273.15, wv,
-            seriestype=:line,
-            linestyle=:dash,
-            linewidth=:2,
-            color=:green
-        )
-        plot!(
-            tb .- k .* 273.15, wb,
-            seriestype=:line,
-            linestyle=:dash,
-            linewidth=:2,
-            color=:blue
-        )
-        plot!(
-            te .- k .* 273.15, we,
-            seriestype=:line,
-            linestyle=:dash,
-            linewidth=:2,
-            color=:red
-        )
-        plot!(
-            th .- k .* 273.15, wh,
-            seriestype=:line,
-            linewidth=:2,
-            color=:black
-        )
-        plot!(
-            [Tadiab] .- k .* 273.15, [Wadiab],
-            seriestype=:scatter,
-            markersize=:5,
-            markerstrokecolor=:red,
-            color=:red
-        )
-        display(plot!(
-            [Tadiab, Tadiab, 60 + 273.15] .- k .* 273.15, [0, Wadiab, Wadiab],
-            seriestype=:line,
-            linestyle=:dash,
-            color=:red
-        ))
-    end
-    Tadiab - k * 273.15, Wadiab
+
+    Tadiab, Wadiab
+
 end
