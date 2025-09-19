@@ -7,13 +7,13 @@
 
 ## Installing and Loading Psychrometrics
 
-`Psychrometrics` can be installed and loaded either
+Psychrometrics can be installed and loaded either
 from the JuliaHub repository (last released version) or from the
 [maintainer's repository](https://github.com/aumpierre-unb/Psychrometrics.jl).
 
 ### Last Released Version
 
-The last version of `Psychrometrics` can be installed from JuliaHub repository:
+The last version of Psychrometrics can be installed from JuliaHub repository:
 
 ```julia
 using Pkg
@@ -21,7 +21,7 @@ Pkg.add("Psychrometrics")
 using Psychrometrics
 ```
 
-If `Psychrometrics` is already installed, it can be updated:
+If Psychrometrics is already installed, it can be updated:
 
 ```julia
 using Pkg
@@ -31,8 +31,7 @@ using Psychrometrics
 
 ### Pre-Release (Under Construction) Version
 
-The pre-release (under construction) version of Psychrometrics
-can be installed from the [maintainer's repository](https://github.com/aumpierre-unb/Psychrometrics.jl).
+The pre-release (under construction) version of Psychrometrics can be installed from the [maintainer's repository](https://github.com/aumpierre-unb/Psychrometrics.jl).
 
 ```julia
 using Pkg
@@ -40,7 +39,7 @@ Pkg.add(path="https://github.com/aumpierre-unb/Psychrometrics.jl")
 using Psychrometrics
 ```
 
-## Citation of `Psychrometrics`
+## Citation of Psychrometrics
 
 You can cite all versions (both released and pre-released), by using
 [10.5281/zenodo.7493474](https://doi.org/10.5281/zenodo.7493474).
@@ -51,7 +50,7 @@ For citation of the last released version of Psychrometrics, please check CITATI
 
 ## The Psychrometrics Module for Julia
 
-`Psychrometrics` provides a set of functions to compute the various variables related to water vapor humid air, providing the following functions:
+Psychrometrics provides a set of functions to compute the various variables related to water vapor humid air, providing the following functions:
 
 - **psychro**
 - **adiabSat**
@@ -529,7 +528,7 @@ American Society of Heating, Refrigerating and Air-Conditioning Engineers.
 
 ### Acknowledgements
 
-The author of `Psychrometrics.jl` package acknowledges
+The author of Psychrometrics package acknowledges
 Professor Brent Stephens, Ph.D. from the Illinois Institute of Technology
 for kindly suggesting the source reference for equations used in this package.
 
