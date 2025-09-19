@@ -531,7 +531,7 @@ function psychro(;
     elseif !isnan(h) && !isnan(v)
         W = 1e-2
         dW = W
-        foo = W -> v - volume(Tdry, W)
+        foo = Tdry -> v - volume(Tdry, W)
         Tdry = find_zero(foo, 50 + 273.15, rtol=1e-8)
         while abs(h - enthalpy(Tdry, W)) > h / 1e3
             if h > enthalpy(Tdry, W)
